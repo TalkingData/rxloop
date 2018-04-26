@@ -8,7 +8,9 @@ app.model({
     list: [],
   },
   reducers: {
-    add(state) {},
+    add(state) {
+      return state;
+    },
   },
   epics: {
     getList(action$) {
