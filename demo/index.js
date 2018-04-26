@@ -1,15 +1,25 @@
-# pipeR
-
-## 初始化
-```javascript
-import pipeR from 'pipe-r';
+import pipeR from '../';
 
 const app = pipeR();
-```
 
-## model 层定义
-```javascript
-const comment$ = app.model({
+app.model({
+  name: 'list',
+  state: {
+    list: [],
+  },
+  reducers: {
+    add(state) {},
+  },
+  epics: {
+    getList(action$) {
+      return action$.mapTo({
+        type: add,
+      });
+    },
+  },
+});
+
+app.model({
   name: 'comment',
   state: {
     record: 0,
@@ -43,11 +53,11 @@ const comment$ = app.model({
     },
   },
 });
-```
 
-## 事件派发
-```javascript
+app.comment$.subscribe((state) => {
+  console.log(state);
+});
+
 app.dispatch({
   type: 'comment/getSomeData',
 });
-```

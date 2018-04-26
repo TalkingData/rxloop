@@ -1,0 +1,19 @@
+{
+  "name": "piper",
+  "version": "0.1.0",
+  "description": "状态管理",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.tenddata.com:git/piper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "^6.0.0"
+  }
+}
