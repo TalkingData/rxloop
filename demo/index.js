@@ -28,17 +28,15 @@ app.model({
     current: 0,
   },
   reducers: {
-    // { type: 'add' }
-    add(state) {
-      const newCurrent = state.current + 1;
-      return { ...state,
-        record: newCurrent > state.record ? newCurrent : state.record,
-        current: newCurrent,
+    // { type: 'comment/add' }
+    add(state, action) {
+      // console.log('add');
+      // console.log(state);
+      // console.log(action);
+      return {
+        ...state,
+        record: action.value + state.record,
       };
-    },
-    // { type: 'minus' }
-    minus(state) {
-      return { ...state, current: state.current - 1};
     },
   },
   // { type: 'getSomeData' }
@@ -61,5 +59,18 @@ app.comment$.subscribe((state) => {
 });
 
 app.dispatch({
-  type: 'comment/getSomeData',
+  type: 'comment/add',
+  value: 1,
+});
+app.dispatch({
+  type: 'comment/add',
+  value: 1,
+});
+app.dispatch({
+  type: 'comment/add',
+  value: 1,
+});
+app.dispatch({
+  type: 'comment/add',
+  value: 1,
 });
