@@ -3,6 +3,7 @@
 ## 初始化
 ```javascript
 import pipeR from 'piper';
+import { mapTo } from 'rxjs/operators';
 
 const app = pipeR();
 ```
@@ -32,14 +33,18 @@ app.model({
   // { type: 'comment/getSomeData' }
   epics: {
     getSomeData(action$) {
-      return action$.mapTo({
-        type: add,
-      });
+      return action$.pipe(
+        mapTo({
+          type: 'comment/add',
+        }),
+      );
     },
     getList(action$) {
-      return action$.mapTo({
-        type: add,
-      });
+      return action$.pipe(
+        mapTo({
+          type: 'comment/add',
+        }),
+      );
     },
   },
 });
