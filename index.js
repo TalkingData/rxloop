@@ -16,24 +16,38 @@ export default function init() {
     this._state[name] = state;
     this._reducers[name] = reducers;
 
-    // 为 reducers 创建同步数据流
-    this._stream[name] = {};
-    Object.keys(reducers).forEach((type) => {
-      this._stream[name][`${type}$`] = stream(`${name}/${type}`);
-    });
-    
-    // 出口
+    // 数据流出口
     this[`${name}$`] = out$$.pipe(
       scan((nextState, reducer) => reducer(nextState), state),
       publishReplay(1),
       refCount(),
     );
 
-    // 叠加
+    this._stream[name] = {};
+
+    // 为 reducers 创建同步数据流
+    // Object.keys(reducers).forEach((type) => {
+    //   this._stream[name][`reducer_${type}$`] = stream(`${name}/${type}`);
+    // });
     Object.keys(reducers).forEach((type) => {
-      this._stream[name][`${type}$`].pipe(
+      this._stream[name][`reducer_${type}$`] = stream(`${name}/${type}`);
+      // 叠加
+      this._stream[name][`reducer_${type}$`].pipe(
         map(action => {
           return state => reducers[type](state, action);
+        }),
+      )
+      .subscribe(out$$);
+    });
+
+    // 为 epics 创建异步数据流
+    Object.keys(epics).forEach((type) => {
+      this._stream[name][`epic_${type}$`] = stream(`${name}/${type}`);
+      // 叠加
+      epics[type](this._stream[name][`epic_${type}$`]).pipe(
+        map(action => {
+          // 验证 action 规范
+          return state => reducers[action.type](state, action);
         }),
       )
       .subscribe(out$$);

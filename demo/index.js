@@ -1,3 +1,4 @@
+import { mapTo } from 'rxjs/operators';
 import pipeR from '../';
 
 const app = pipeR();
@@ -14,9 +15,11 @@ app.model({
   },
   epics: {
     getList(action$) {
-      return action$.mapTo({
-        type: add,
-      });
+      return action$.pipe(
+        mapTo({
+          type: 'add',
+        }),
+      );
     },
   },
 });
@@ -42,22 +45,30 @@ app.model({
   // { type: 'getSomeData' }
   epics: {
     getSomeData(action$) {
-      return action$.mapTo({
-        type: add,
-      });
+      return action$.pipe(
+        mapTo({
+          type: 'add',
+          value: 10,
+        }),
+      );
     },
     getList(action$) {
-      return action$.mapTo({
-        type: add,
-      });
+      return action$.pipe(
+        mapTo({
+          type: 'add',
+          value: 100,
+        })
+      );
     },
   },
 });
 
+// 订阅更新
 app.comment$.subscribe((state) => {
   console.log(state);
 });
 
+// 同步更新
 app.dispatch({
   type: 'comment/add',
   value: 1,
@@ -72,5 +83,16 @@ app.dispatch({
 });
 app.dispatch({
   type: 'comment/add',
+  value: 1,
+});
+
+// 异步更新
+app.dispatch({
+  type: 'comment/getSomeData',
+  value: 1,
+});
+
+app.dispatch({
+  type: 'comment/getList',
   value: 1,
 });

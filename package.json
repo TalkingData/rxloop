@@ -1,7 +1,7 @@
 {
   "name": "piper",
-  "version": "0.1.0",
-  "description": "状态管理",
+  "version": "0.2.0",
+  "description": "基于 RxJS 的状态管理工具",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
