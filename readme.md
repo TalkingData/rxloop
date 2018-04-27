@@ -2,21 +2,21 @@
 
 ## 初始化
 ```javascript
-import pipeR from 'pipe-r';
+import pipeR from 'piper';
 
 const app = pipeR();
 ```
 
 ## model 层定义
 ```javascript
-const comment$ = app.model({
+app.model({
   name: 'comment',
   state: {
     record: 0,
     current: 0,
   },
   reducers: {
-    // { type: 'add' }
+    // { type: 'comment/add' }
     add(state) {
       const newCurrent = state.current + 1;
       return { ...state,
@@ -29,7 +29,7 @@ const comment$ = app.model({
       return { ...state, current: state.current - 1};
     },
   },
-  // { type: 'getSomeData' }
+  // { type: 'comment/getSomeData' }
   epics: {
     getSomeData(action$) {
       return action$.mapTo({
