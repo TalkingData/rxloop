@@ -9,18 +9,52 @@ app.model({
     list: [],
   },
   reducers: {
-    add(state) {
-      return state;
+    add(state, action) {
+      return {
+        ...state,
+        list: [
+          ...state.list,
+          action.item,
+        ]
+      };
+    },
+    list(state, action) {
+      return {
+        ...state,
+        list: [
+          ...state.list,
+          ...action.list,
+        ]
+      };
     },
   },
   epics: {
     getList(action$) {
       return action$.pipe(
         mapTo({
-          type: 'add',
+          type: 'list',
+          list: [
+            { todo: '1' },
+            { todo: '2' }
+          ]
         }),
       );
     },
+  },
+});
+
+app.list$.subscribe((state) => {
+  console.log(state);
+});
+
+app.dispatch({
+  type: 'list/getList',
+});
+
+app.dispatch({
+  type: 'list/add',
+  item: {
+    todo: '内容项目'
   },
 });
 
@@ -67,6 +101,7 @@ app.model({
 app.comment$.subscribe((state) => {
   console.log(state);
 });
+
 
 // 同步更新
 app.dispatch({
