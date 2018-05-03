@@ -12,9 +12,12 @@ export default function init() {
   }
 
   function model({ name, state, reducers, epics }) {
-    const out$$ = new BehaviorSubject(state => state);
+    if (this._state[name]) {
+      throw Error('name 需要唯一');
+    }
     this._state[name] = state;
     this._reducers[name] = reducers;
+    const out$$ = new BehaviorSubject(state => state);
 
     // 数据流出口
     this[`${name}$`] = out$$.pipe(
@@ -26,9 +29,6 @@ export default function init() {
     this._stream[name] = {};
 
     // 为 reducers 创建同步数据流
-    // Object.keys(reducers).forEach((type) => {
-    //   this._stream[name][`reducer_${type}$`] = stream(`${name}/${type}`);
-    // });
     Object.keys(reducers).forEach((type) => {
       this._stream[name][`reducer_${type}$`] = stream(`${name}/${type}`);
       // 叠加
@@ -47,6 +47,12 @@ export default function init() {
       epics[type](this._stream[name][`epic_${type}$`]).pipe(
         map(action => {
           // 验证 action 规范
+          if (!action.type) {
+            throw Error('epics 需要返回标准的 Action');
+          }
+          if (!reducers[action.type]) {
+            throw Error(`不存在的 reducer ${action.type}`);
+          }
           return state => reducers[action.type](state, action);
         }),
       )

@@ -97,6 +97,14 @@ app.model({
   },
 });
 
+// name 需要唯一
+// app.model({
+//   name: 'list',
+//   state: {
+//     list: [],
+//   },
+// });
+
 // 订阅更新
 app.comment$.subscribe((state) => {
   console.log(state);
