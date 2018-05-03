@@ -11,7 +11,7 @@ export default function init() {
     );
   }
 
-  function model({ name, state, reducers, epics }) {
+  function model({ name, state = {}, reducers = {}, epics = {} }) {
     if (this._state[name]) {
       throw Error('name 需要唯一');
     }
