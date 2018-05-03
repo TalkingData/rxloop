@@ -1,5 +1,14 @@
 # pipeR
 
+> PipeR = Redux + redux-observable
+
+基于 RxJS V6 的状态管理容器，轻量级的 Redux + redux-observable。
+
+特性：
+1. 使用 RxJS 替换 Redux + redux-observable 架构
+2. 声明式，集中定义 model、reducers、epics
+3. 易于学习和使用
+
 ## 初始化
 ```javascript
 import pipeR from 'piper';
