@@ -59,6 +59,14 @@ app.model({
 });
 ```
 
+## 订阅数据流
+```javascript
+// 订阅更新
+app.comment$.subscribe((state) => {
+  console.log(state);
+});
+```
+
 ## 事件派发
 ```javascript
 app.dispatch({
@@ -71,4 +79,7 @@ app.dispatch({
 1. 同步数据流
 
 ### 0.2.0
-2. 异步数据流
+1. 异步数据流
+
+### 0.4.0
+1. 稳定性增强
