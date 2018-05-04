@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import pipeR from '../../../';
+import rxPipe from '../../../';
 import todo from './models';
 
-const app = pipeR();
+const app = rxPipe();
 app.model(todo);
 
 class App extends Component {

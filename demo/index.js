@@ -1,7 +1,7 @@
 import { mapTo } from 'rxjs/operators';
-import pipeR from '../';
+import rxPipe from '../';
 
-const app = pipeR();
+const app = rxPipe();
 
 app.model({
   name: 'list',

@@ -1,6 +1,6 @@
-# pipeR
+# rxPipe
 
-> PipeR = Redux + redux-observable
+> rxPipe = Redux + redux-observable
 
 基于 RxJS V6 的状态管理容器，轻量级的 Redux + redux-observable。
 
@@ -11,10 +11,10 @@
 
 ## 初始化
 ```javascript
-import pipeR from 'piper';
+import rxPipe from 'rxPipe';
 import { mapTo } from 'rxjs/operators';
 
-const app = pipeR();
+const app = rxPipe();
 ```
 
 ## model 层定义
@@ -44,14 +44,14 @@ app.model({
     getSomeData(action$) {
       return action$.pipe(
         mapTo({
-          type: 'comment/add',
+          type: 'add',
         }),
       );
     },
     getList(action$) {
       return action$.pipe(
         mapTo({
-          type: 'comment/add',
+          type: 'add',
         }),
       );
     },
