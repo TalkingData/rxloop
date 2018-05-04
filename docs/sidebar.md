@@ -3,3 +3,4 @@
  - [Installing a new DSS instance](introduction/new_instance.md)
 - [基本用法](basic.md)
  - [demo](basic/counter.md)
+- [基本用法](api.md)

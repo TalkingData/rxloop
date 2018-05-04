@@ -65,6 +65,17 @@ export default function init() {
     bus$.next(action);
   }
 
+  function getState(name) {
+    if (!name) {
+      throw Error('缺少模块名称');
+    }
+    let _state;
+    this[`${name}$`].subscribe(state => {
+      _state = state;
+    });
+    return _state;
+  }
+
   const app = {
     //{ name: {} }
     _state: {},
@@ -72,6 +83,7 @@ export default function init() {
     _reducers: {},
     model,
     dispatch,
+    getState,
   };
   return app;
 };

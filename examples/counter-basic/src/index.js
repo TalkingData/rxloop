@@ -26,21 +26,21 @@ document.getElementById('increment')
           app.dispatch({ type: 'counter/increment' })
         })
 
-      document.getElementById('decrement')
+document.getElementById('decrement')
         .addEventListener('click', function () {
           app.dispatch({ type: 'counter/decrement' })
         })
 
-      // document.getElementById('incrementIfOdd')
-      //   .addEventListener('click', function () {
-      //     if (store.getState() % 2 !== 0) {
-      //       app.dispatch({ type: 'counter/increment' })
-      //     }
-      //   })
+document.getElementById('incrementIfOdd')
+        .addEventListener('click', function () {
+          if (app.getState('counter') % 2 !== 0) {
+            app.dispatch({ type: 'counter/increment' })
+          }
+        })
 
-      // document.getElementById('incrementAsync')
-      //   .addEventListener('click', function () {
-      //     setTimeout(function () {
-      //       app.dispatch({ type: 'counter/increment' })
-      //     }, 1000)
-      //   })
+document.getElementById('incrementAsync')
+        .addEventListener('click', function () {
+          setTimeout(function () {
+            app.dispatch({ type: 'counter/increment' })
+          }, 1000)
+        })
