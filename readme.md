@@ -11,7 +11,7 @@
 
 ## 初始化
 ```javascript
-import rxPipe from 'rxPipe';
+import rxPipe from 'rxpipe';
 import { mapTo } from 'rxjs/operators';
 
 const app = rxPipe();
