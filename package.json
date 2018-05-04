@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.tenddata.com:git/rxpipe.git"
+    "url": "git@github.com:TalkingData/rxpipe.git"
   },
   "keywords": [],
   "author": "",
