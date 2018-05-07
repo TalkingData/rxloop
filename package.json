@@ -11,9 +11,19 @@
     "type": "git",
     "url": "git@github.com:TalkingData/rxloop.git"
   },
-  "keywords": ["rxjs"],
-  "author": "wxnet",
+  "keywords": [
+    "rxjs",
+    "model",
+    "react",
+    "vue",
+    "angular"
+  ],
+  "author": "wxnet <wxnet2013@gmail.com> (https://github.com/wxnet2013)",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TalkingData/rxloop/issues"
+  },
+  "homepage": "https://talkingdata.github.io/rxloop",
   "dependencies": {
     "rxjs": "^6.0.0"
   },
@@ -21,6 +31,11 @@
     "babel-core": "^6.26.2",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "rollup": "^0.58.2",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-uglify": "^3.0.0",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.15",
     "webpack-dev-server": "^3.1.3"
