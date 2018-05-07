@@ -1,4 +1,4 @@
-import rxLoop from '../../../';
+import rxLoop from 'rxloop';
 
 const counterModel = {
   name: 'counter',
