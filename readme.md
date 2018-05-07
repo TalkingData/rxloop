@@ -1,6 +1,6 @@
-# rxPipe
+# rxLoop
 
-> rxPipe = Redux + redux-observable
+> rxLoop = Redux + redux-observable
 
 基于 RxJS V6 的状态管理容器，轻量级的 Redux + redux-observable。
 
@@ -11,10 +11,10 @@
 
 ## 初始化
 ```javascript
-import rxPipe from 'rxpipe';
+import rxLoop from 'rxloop';
 import { mapTo } from 'rxjs/operators';
 
-const app = rxPipe();
+const app = rxLoop();
 ```
 
 ## model 层定义

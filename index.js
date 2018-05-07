@@ -3,7 +3,7 @@ import { filter, scan, map, publishReplay, refCount } from 'rxjs/operators';
 
 const bus$ = new Subject();
 
-export default function rxPipe() {
+export default function rxLoop() {
 
   function stream(type) {
     return bus$.pipe(

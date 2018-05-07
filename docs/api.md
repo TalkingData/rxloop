@@ -1,10 +1,10 @@
 # API
 
-## rxPipe
+## rxLoop
 创建应用
 ```javascript
-import rxPipe from 'rxpipe';
-const app = rxPipe();
+import rxLoop from 'rxloop';
+const app = rxLoop();
 ```
 
 ## app.model(model)

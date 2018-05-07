@@ -1,7 +1,7 @@
 import { mapTo } from 'rxjs/operators';
-import rxPipe from '../';
+import rxLoop from '../';
 
-const app = rxPipe();
+const app = rxLoop();
 
 app.model({
   name: 'list',

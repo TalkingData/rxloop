@@ -1,4 +1,4 @@
-import rxPipe from '../../../';
+import rxLoop from '../../../';
 
 const counterModel = {
   name: 'counter',
@@ -13,7 +13,7 @@ const counterModel = {
   },
 };
 
-const app = rxPipe();
+const app = rxLoop();
 app.model(counterModel);
 
 var valueEl = document.getElementById('value');
