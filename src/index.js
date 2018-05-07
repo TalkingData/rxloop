@@ -1,19 +1,16 @@
-import { Subject, BehaviorSubject } from 'rxjs';
-import { filter, scan, map, publishReplay, refCount } from 'rxjs/operators';
+import { Subject, BehaviorSubject } from "rxjs";
+import { filter, scan, map, publishReplay, refCount } from "rxjs/operators";
 
 const bus$ = new Subject();
 
 export default function rxLoop() {
-
   function stream(type) {
-    return bus$.pipe(
-      filter((e) => e.type.indexOf(type) > -1),
-    );
+    return bus$.pipe(filter(e => e.type.indexOf(type) > -1));
   }
 
   function model({ name, state = {}, reducers = {}, epics = {} }) {
     if (this._state[name]) {
-      throw Error('name 需要唯一');
+      throw Error("name 需要唯一");
     }
     this._state[name] = state;
     this._reducers[name] = reducers;
@@ -23,40 +20,42 @@ export default function rxLoop() {
     this[`${name}$`] = out$$.pipe(
       scan((nextState, reducer) => reducer(nextState), state),
       publishReplay(1),
-      refCount(),
+      refCount()
     );
 
     this._stream[name] = {};
 
     // 为 reducers 创建同步数据流
-    Object.keys(reducers).forEach((type) => {
+    Object.keys(reducers).forEach(type => {
       this._stream[name][`reducer_${type}$`] = stream(`${name}/${type}`);
       // 叠加
-      this._stream[name][`reducer_${type}$`].pipe(
-        map(action => {
-          return state => reducers[type](state, action);
-        }),
-      )
-      .subscribe(out$$);
+      this._stream[name][`reducer_${type}$`]
+        .pipe(
+          map(action => {
+            return state => reducers[type](state, action);
+          })
+        )
+        .subscribe(out$$);
     });
 
     // 为 epics 创建异步数据流
-    Object.keys(epics).forEach((type) => {
+    Object.keys(epics).forEach(type => {
       this._stream[name][`epic_${type}$`] = stream(`${name}/${type}`);
       // 叠加
-      epics[type](this._stream[name][`epic_${type}$`]).pipe(
-        map(action => {
-          // 验证 action 规范
-          if (!action.type) {
-            throw Error('epics 需要返回标准的 Action');
-          }
-          if (!reducers[action.type]) {
-            throw Error(`不存在的 reducer ${action.type}`);
-          }
-          return state => reducers[action.type](state, action);
-        }),
-      )
-      .subscribe(out$$);
+      epics[type](this._stream[name][`epic_${type}$`])
+        .pipe(
+          map(action => {
+            // 验证 action 规范
+            if (!action.type) {
+              throw Error("epics 需要返回标准的 Action");
+            }
+            if (!reducers[action.type]) {
+              throw Error(`不存在的 reducer ${action.type}`);
+            }
+            return state => reducers[action.type](state, action);
+          })
+        )
+        .subscribe(out$$);
     });
   }
 
@@ -67,7 +66,7 @@ export default function rxLoop() {
 
   function getState(name) {
     if (!name) {
-      throw Error('缺少模块名称');
+      throw Error("缺少模块名称");
     }
     let _state;
     this[`${name}$`].subscribe(state => {
@@ -83,7 +82,7 @@ export default function rxLoop() {
     _reducers: {},
     model,
     dispatch,
-    getState,
+    getState
   };
   return app;
-};
+}

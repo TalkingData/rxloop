@@ -1,6 +1,6 @@
 # rxLoop
 
-> rxLoop = Redux + redux-observable
+> rxloop = Redux + redux-observable
 
 基于 RxJS V6 的状态管理容器，轻量级的 Redux + redux-observable。
 
@@ -9,16 +9,13 @@
 2. 声明式，集中定义 model、reducers、epics
 3. 易于学习和使用
 
-## 初始化
+## Gist
 ```javascript
 import rxLoop from 'rxloop';
 import { mapTo } from 'rxjs/operators';
 
 const app = rxLoop();
-```
 
-## model 层定义
-```javascript
 app.model({
   name: 'comment',
   state: {
@@ -57,18 +54,12 @@ app.model({
     },
   },
 });
-```
 
-## 订阅数据流
-```javascript
 // 订阅更新
 app.comment$.subscribe((state) => {
   console.log(state);
 });
-```
 
-## 事件派发
-```javascript
 app.dispatch({
   type: 'comment/getSomeData',
 });
