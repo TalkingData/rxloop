@@ -11,16 +11,16 @@
     "type": "git",
     "url": "git@github.com:TalkingData/rxloop.git"
   },
-  "keywords": [],
+  "keywords": ["rxjs"],
   "author": "wxnet",
   "license": "MIT",
   "dependencies": {
-    "babel-core": "^6.26.2",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
     "rxjs": "^6.0.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.2",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.15",
     "webpack-dev-server": "^3.1.3"
