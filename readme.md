@@ -59,7 +59,7 @@ app.model({
 });
 ```
 
-## 订阅数据流
+## 订阅数据流
 ```javascript
 // 订阅更新
 app.comment$.subscribe((state) => {
