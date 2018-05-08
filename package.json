@@ -3,7 +3,7 @@
   "version": "0.5.1",
   "description": "基于 RxJS 的状态管理工具",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env BABEL_ENV=commonjs jest",
     "format": "prettier --write \"{src,test}/**/*.js\"",
     "clean": "rimraf lib dist es",
     "build:commonjs": "cross-env NODE_ENV=cjs rollup -c -o lib/rxloop.js",
@@ -35,12 +35,14 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.2",
+    "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "cross-env": "^5.1.4",
+    "jest": "^22.4.3",
     "prettier": "^1.12.1",
     "rimraf": "^2.6.2",
     "rollup": "^0.58.2",
