@@ -1,4 +1,5 @@
 import rxLoop from '../src/';
+import { mapTo } from "rxjs/operators";
 
 describe('index', () => {
   const app = rxLoop();
@@ -8,27 +9,54 @@ describe('index', () => {
       counter: 0,
     },
     reducers: {
-      increment(state) {
+      increment(state, action) {
         return {
           ...state,
           counter: state.counter + 1,
         };
       },
-      decrement(state) {
+      decrement(state, action) {
         return {
           ...state,
           counter: state.counter - 1,
         };
+      },
+      setCounter(state, action) {
+        return {
+          ...state,
+          counter: action.counter,
+        };
       }
     },
+    epics: {
+      getRemoteCount(action$) {
+        return action$.pipe(
+          mapTo({
+            type: 'setCounter',
+            counter: 100,
+          }),
+        );
+      },
+      isNotAction(action$) {
+        return action$.pipe(
+          mapTo({
+            counter: 100,
+          }),
+        );
+      }
+    }
   });
-
+  
   test('exposes the public API', () => {
     const apis = Object.keys(app);
 
     expect(apis).toContain('counter$');
     expect(apis).toContain('dispatch');
     expect(apis).toContain('getState');
+  });
+
+  test('throws if is pass an existed name', () => {
+    expect(() => app.model({ name: 'counter' })).toThrow()
   });
 
   test('throws if is not pass a name', () => {
@@ -65,6 +93,15 @@ describe('index', () => {
     });
     expect(app.getState('counter')).toEqual({
       counter: 1,
+    });
+  });
+
+  test('dispatch getRemoteCount: state is { counter: 100 }', () => {
+    app.dispatch({
+      type: 'counter/getRemoteCount',
+    });
+    expect(app.getState('counter')).toEqual({
+      counter: 100,
     });
   });
 });
