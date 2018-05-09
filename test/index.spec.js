@@ -46,11 +46,19 @@ describe('index', () => {
       }
     }
   });
+
+  app.model({
+    name: 'comment',
+    state: {
+      list: [],
+    },
+  });
   
   test('exposes the public API', () => {
     const apis = Object.keys(app);
 
     expect(apis).toContain('counter$');
+    expect(apis).toContain('comment$');
     expect(apis).toContain('dispatch');
     expect(apis).toContain('getState');
   });
@@ -63,9 +71,15 @@ describe('index', () => {
     expect(() => app.getState()).toThrow()
   });
 
-  test('default state is { counter: 0 }', () => {
+  test('default counter state is { counter: 0 }', () => {
     expect(app.getState('counter')).toEqual({
       counter: 0,
+    });
+  });
+
+  test('default comment state is { list: [] }', () => {
+    expect(app.getState('comment')).toEqual({
+      list: [],
     });
   });
 
