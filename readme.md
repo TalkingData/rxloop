@@ -1,13 +1,18 @@
 # rxLoop
 
-> rxloop = Redux + redux-observable
+> rxLoop = Redux + redux-observable
 
-基于 RxJS V6 的状态管理容器，轻量级的 Redux + redux-observable。
+基于 RxJS 的可预测状态容器，仅 100 行代码实现的超轻量级 Redux + redux-observable 架构。
 
-特性：
-1. 使用 RxJS 替换 Redux + redux-observable 架构
-2. 声明式，集中定义 model、reducers、epics
-3. 易于学习和使用
+## 特性
+1. 充分利用 RxJS 的强大特性，推送数据流、易组合等特性；
+2. 开发和维护效率的平衡：集中定义 model、reducers、epics，避免了在小文件之间的频繁切换修改。
+3. 易学易用：仅 app.model、app.dispatch、app.getState 等几个 api。
+
+## 安装
+```bash
+$ npm i rxloop --save
+```
 
 ## Gist
 ```javascript
@@ -17,63 +22,40 @@ import { mapTo } from 'rxjs/operators';
 const app = rxLoop();
 
 app.model({
-  name: 'comment',
-  state: {
-    record: 0,
-    current: 0,
-  },
+  name: 'counter',
+  state: 0,
   reducers: {
-    // { type: 'comment/add' }
-    add(state) {
-      const newCurrent = state.current + 1;
-      return { ...state,
-        record: newCurrent > state.record ? newCurrent : state.record,
-        current: newCurrent,
-      };
+    increment(state) {
+      return state + 1;
     },
-    // { type: 'minus' }
-    minus(state) {
-      return { ...state, current: state.current - 1};
-    },
-  },
-  // { type: 'comment/getSomeData' }
-  epics: {
-    getSomeData(action$) {
-      return action$.pipe(
-        mapTo({
-          type: 'add',
-        }),
-      );
-    },
-    getList(action$) {
-      return action$.pipe(
-        mapTo({
-          type: 'add',
-        }),
-      );
-    },
+    decrement(state) {
+      return state - 1;
+    }
   },
 });
 
-// 订阅更新
-app.comment$.subscribe((state) => {
+app.counter$.subscribe((state) => {
   console.log(state);
 });
 
 app.dispatch({
-  type: 'comment/getSomeData',
+  type: 'counter/increment',
+});
+
+app.dispatch({
+  type: 'counter/decrement',
 });
 ```
 
+## 实例
+
+[examples](https://github.com/TalkingData/rxloop/tree/master/examples)
+
 ## 更新记录
-### 0.1.0
-1. 同步数据流
 
-### 0.2.0
-1. 异步数据流
+[releases](https://github.com/TalkingData/rxloop/releases)
 
-### 0.4.0
-1. 稳定性增强
+## License
 
-### 0.5.0
-1. 新增 getState 方法，主动获取数据源
+MIT
+
