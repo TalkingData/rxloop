@@ -23,13 +23,21 @@ const app = rxLoop();
 
 app.model({
   name: 'counter',
-  state: 0,
+  state: {
+    counter: 0,
+  },
   reducers: {
     increment(state) {
-      return state + 1;
+      return {
+        ...state,
+        counter: state.counter + 1,
+      };
     },
     decrement(state) {
-      return state - 1;
+      return {
+        ...state,
+        counter: state.counter - 1,
+      };
     }
   },
 });

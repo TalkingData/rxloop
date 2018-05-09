@@ -4,6 +4,7 @@
   "description": "基于 RxJS 的状态管理工具",
   "scripts": {
     "test": "cross-env BABEL_ENV=commonjs jest",
+    "test:cov": "npm test -- --coverage",
     "format": "prettier --write \"{src,test}/**/*.js\"",
     "clean": "rimraf lib dist es",
     "build:commonjs": "cross-env NODE_ENV=cjs rollup -c -o lib/rxloop.js",

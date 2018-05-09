@@ -6,16 +6,65 @@ describe('index', () => {
     name: 'counter',
     state: {
       counter: 0,
-    }
+    },
+    reducers: {
+      increment(state) {
+        return {
+          ...state,
+          counter: state.counter + 1,
+        };
+      },
+      decrement(state) {
+        return {
+          ...state,
+          counter: state.counter - 1,
+        };
+      }
+    },
   });
 
-  test('create one stream', () => {
-    expect(app.counter$).not.toBeUndefined();
+  test('exposes the public API', () => {
+    const apis = Object.keys(app);
+
+    expect(apis).toContain('counter$');
+    expect(apis).toContain('dispatch');
+    expect(apis).toContain('getState');
   });
 
-  test('default counter is 0', () => {
-    const defaultModel = app.getState('counter');
-    expect(defaultModel).not.toBeUndefined();
-    expect(defaultModel.counter).toBe(0);
+  test('throws if is not pass a name', () => {
+    expect(() => app.getState()).toThrow()
+  });
+
+  test('default state is { counter: 0 }', () => {
+    expect(app.getState('counter')).toEqual({
+      counter: 0,
+    });
+  });
+
+  test('dispatch increment: state is { counter: 3 }', () => {
+    app.dispatch({
+      type: 'counter/increment',
+    });
+    app.dispatch({
+      type: 'counter/increment',
+    });
+    app.dispatch({
+      type: 'counter/increment',
+    });
+    expect(app.getState('counter')).toEqual({
+      counter: 3,
+    });
+  });
+
+  test('dispatch increment: state is { counter: 1 }', () => {
+    app.dispatch({
+      type: 'counter/decrement',
+    });
+    app.dispatch({
+      type: 'counter/decrement',
+    });
+    expect(app.getState('counter')).toEqual({
+      counter: 1,
+    });
   });
 });
