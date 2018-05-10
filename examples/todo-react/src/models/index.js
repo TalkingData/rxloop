@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { map, mapTo, switchMap } from 'rxjs/operators';
 import { remove } from 'lodash-es';
-import getList from '../../services/todos';
+import getList from '../services/todos';
 
 export default {
   name: 'todo',
