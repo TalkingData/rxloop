@@ -1,5 +1,7 @@
-import { mapTo } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, mapTo, switchMap } from 'rxjs/operators';
 import { remove } from 'lodash-es';
+import getList from '../../services/todos';
 
 export default {
   name: 'todo',
@@ -26,7 +28,7 @@ export default {
         list,
       };
     },
-    list(state, action) {
+    setTodoList(state, action) {
       return {
         ...state,
         list: [
@@ -37,19 +39,21 @@ export default {
     },
   },
   epics: {
-    getList(action$) {
+    // input is an action stream,
+    // the action is { type: 'todo/getTodoList' }
+    getTodoList(action$) {
       return action$.pipe(
-        mapTo(
-          {
-            type: 'list',
-            list: [
-              { id: 0, todo: 'list 0' },
-              { id: 1, todo: 'list 1' },
-              { id: 2, todo: 'list 2' },
-              { id: 3, todo: 'list 3' },
-            ],
-          }
-        )
+        switchMap(() => {
+          return Observable.fromPromise(getList());
+        }),
+        // need return an action, 
+        // like { action: 'setTodoList', payload: {} };
+        map((data) => {
+          return {
+            type: 'setTodoList',
+            list: data.result.list,
+          };
+        }),
       );
     }
   },

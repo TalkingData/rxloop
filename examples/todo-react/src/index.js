@@ -16,7 +16,7 @@ class App extends Component {
       this.setState(state);
     });
     app.dispatch({
-      type: 'todo/getList',
+      type: 'todo/getTodoList',
     });
   }
 
