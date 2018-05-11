@@ -1,6 +1,6 @@
 # 快速上手
 
-本篇会从安装 rxloop 开始，逐步深入到同步、异步、组合和订阅 model 的状态。
+本篇会从安装 rxloop 开始，逐步深入到同步、异步、组合和订阅 model 的状态。
 
 ## 安装
 ```bash
@@ -76,9 +76,9 @@ app.model({
 除 setList 之外，还可以添加更多的 reducer。 
 
 ## 创建 epics
-rxloop 将业务中所有的副作用，隔离在 epics 中，一个 epic 是一个纯函数，函数的第一个参数是一个输入流，在 epic 内部，可以使用 RxJS 的 pipe 串联、组合不同的异步逻辑。
+rxloop 将业务中所有的副作用，隔离在 epics 中，一个 epic 是一个纯函数，函数的第一个参数是一个输入流，在 epic 内部，可以使用 RxJS 的 pipe 串联、组合不同的异步逻辑。
 
-数据流最终 map 的数据，必须符合 action 的规范，关联到 不同的 reducer：
+数据流最终 map 的数据，必须符合 action 的规范，关联到不同的 reducer：
 
 ```javascript
 getTodos(action$) {
@@ -129,7 +129,7 @@ app.model({
 
 ## 订阅状态变更
 
-执行 `app.model` 方法会创建一个以model name 为名称的 RxJS 数据流，在业务代码里，可以订阅这些数据流，然后更新 View 的状态。
+执行 `app.model` 方法会创建一个以model name 为名称的 RxJS 数据流，在业务代码里，可以订阅这些数据流，然后更新 View 的状态。
 
 ```javascript
 app.todos$.subscribe((state) => {
