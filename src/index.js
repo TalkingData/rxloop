@@ -4,7 +4,7 @@ import { filter, scan, map, publishReplay, refCount } from "rxjs/operators";
 const bus$ = new Subject();
 
 export default function rxLoop() {
-  function stream(type) {
+  function createStream(type) {
     return bus$.pipe(filter(e => e.type.indexOf(type) > -1));
   }
 
@@ -27,7 +27,7 @@ export default function rxLoop() {
 
     // 为 reducers 创建同步数据流
     Object.keys(reducers).forEach(type => {
-      this._stream[name][`reducer_${type}$`] = stream(`${name}/${type}`);
+      this._stream[name][`reducer_${type}$`] = createStream(`${name}/${type}`);
       // 叠加
       this._stream[name][`reducer_${type}$`]
         .pipe(
@@ -40,7 +40,7 @@ export default function rxLoop() {
 
     // 为 epics 创建异步数据流
     Object.keys(epics).forEach(type => {
-      this._stream[name][`epic_${type}$`] = stream(`${name}/${type}`);
+      this._stream[name][`epic_${type}$`] = createStream(`${name}/${type}`);
       // 叠加
       epics[type](this._stream[name][`epic_${type}$`])
         .pipe(
@@ -75,6 +75,10 @@ export default function rxLoop() {
     return _state;
   }
 
+  function stream(modelName) {
+    return this[`${modelName}$`];
+  }
+
   const app = {
     //{ name: {} }
     _state: {},
@@ -82,7 +86,8 @@ export default function rxLoop() {
     _reducers: {},
     model,
     dispatch,
-    getState
+    getState,
+    stream,
   };
   return app;
 }
