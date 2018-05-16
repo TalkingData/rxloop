@@ -132,7 +132,7 @@ app.model({
 执行 `app.model` 方法会创建一个以model name 为名称的 RxJS 数据流，在业务代码里，可以订阅这些数据流，然后更新 View 的状态。
 
 ```javascript
-app.todos$.subscribe((state) => {
+app.stream('todos').subscribe((state) => {
   // ....
   // this.setState(state);
 });
@@ -141,7 +141,7 @@ app.todos$.subscribe((state) => {
 当然也可以通过 RxJS 的操作符，对这些数据流做进一步的操作，上面的代码创建了 `app.todo$` 和 `app.user$` 两个数据流，数据流的名字规则是model name 后面跟上 $。
 
 ```javascript
-const state$ = Observable.combineLatest(app.todo$, app.user$);
+const state$ = Observable.combineLatest(app.stream('todo'), app.stream('user'));
 state$.subscribe((state) => {
   // this.setState(state);
 });

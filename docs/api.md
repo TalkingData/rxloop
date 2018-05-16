@@ -32,6 +32,10 @@ app.getState('counter');
 ## subscribe
 订阅数据源
 ```javascript
+app.stream('counter').subscribe((state) => {});
+```
+或者
+```javascript
 app.counter$.subscribe((state) => {});
 ```
 

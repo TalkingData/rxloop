@@ -68,7 +68,7 @@ const counterModel = {
 const app = rxLoop();
 app.model(counterModel);
 
-app.counter$.subscribe((state) => {
+app.stream('counter').subscribe((state) => {
   // ele.innerHTML = state;
 });
 
