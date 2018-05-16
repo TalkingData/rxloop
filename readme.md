@@ -42,7 +42,7 @@ app.model({
   },
 });
 
-app.counter$.subscribe((state) => {
+app.stream('counter').subscribe((state) => {
   console.log(state);
 });
 
