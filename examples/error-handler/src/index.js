@@ -3,33 +3,53 @@ import { mergeMap, switchMap, map } from 'rxjs/operators';
 import rxLoop from '../../../src/';
 
 const api = async () => {
-  // throw new Error('Http Error');
-  return { a: 1 };
+  throw new Error('Http Error');
+  // return { code: 200, data: 1 };
 };
 
 const counterModel = {
   name: 'counter',
-  state: 0,
+  state: {
+    error: '',
+    counter: 0,
+  },
   reducers: {
     increment(state) {
-      return state + 1;
+      return {
+        ...state,
+        counter: state.counter + 1
+      };
     },
     decrement(state) {
-      return state - 1;
-    }
+      return {
+        ...state,
+        counter: state.counter + 1
+      };
+    },
+    handleError(state, action) {
+      return {
+        ...state,
+        error: action.error,
+      };
+    },
   },
   epics: {
     getData(action$) {
       return action$.pipe(
         mergeMap(() => {
           return Observable.fromPromise(
-            api().catch((v) => {
-              console.log(v);
-              return {};
+            api().catch((error) => {
+              return { error };
             }),
           );
         }),
         map((data) => {
+          if (data.error) {
+            return {
+              error: data.error,
+              type: 'handleError',
+            };
+          }
           return {
             data,
             type: 'increment',
