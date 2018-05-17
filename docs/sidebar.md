@@ -1,5 +1,4 @@
 - [介绍](index.md)
 - [起步](getting-started.md)
-- [基本用法](basic.md)
-- [基本用法](basic.md)
+- [错误处理](error-handler.md)
 - [API](api.md)
