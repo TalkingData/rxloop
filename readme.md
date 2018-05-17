@@ -1,27 +1,24 @@
 # rxLoop
 
-> rxLoop = Redux + redux-observable
+rxLoop = Redux + redux-observable.
 
-基于 RxJS 的可预测状态容器，仅 100 行代码实现的超轻量级 Redux + redux-observable 架构。
+Predictable state container for JavaScript apps based on RxJS， like Redux with redux-observable middleware.
 
-## 特性
-1. 充分利用 RxJS 的强大特性，推送数据流、易组合等特性；
-2. 开发和维护效率的平衡：集中定义 model、reducers、epics，避免了在小文件之间的频繁切换修改。
-3. 易学易用：仅 app.model、app.dispatch、app.getState 等几个 api。
+1. Using RxJS instead of Redux.
+2. Easy study, only four apis: app.model、app.dispatch、app.getState、app.stream.
 
-## 安装
+## Installation
 ```bash
-$ npm i rxloop --save
+$ npm i rxloop
 ```
 
-## Gist
+## Hello rxloop
 ```javascript
+import { Observable } from 'rxjs';
+import { mergeMap, map } from 'rxjs/operators';
 import rxLoop from 'rxloop';
-import { mapTo } from 'rxjs/operators';
 
-const app = rxLoop();
-
-app.model({
+const counterModel = {
   name: 'counter',
   state: {
     counter: 0,
@@ -30,40 +27,60 @@ app.model({
     increment(state) {
       return {
         ...state,
-        counter: state.counter + 1,
+        counter: state.counter + 1
       };
     },
-    decrement(state) {
-      return {
-        ...state,
-        counter: state.counter - 1,
-      };
-    }
   },
-});
+  epics: {
+    getData(action$) {
+      return action$.pipe(
+        mergeMap(() => {
+          return Observable.fromPromise(
+            // Promise
+            api().catch((error) => {
+              return { error };
+            }),
+          );
+        }),
+        map((data) => {
+          return {
+            type: 'increment',
+          };
+        }),
+      );
+    }
+  }
+};
+
+const app = rxLoop();
+app.model(counterModel);
 
 app.stream('counter').subscribe((state) => {
-  console.log(state);
+  // this.setState(state);
 });
 
+// sync update
 app.dispatch({
   type: 'counter/increment',
 });
 
+// async update
 app.dispatch({
-  type: 'counter/decrement',
+  type: 'counter/getData',
 });
 ```
 
-## 实例
+## Documentation
+
+[rxloop](https://talkingdata.github.io/rxloop/)
+
+## Examples
 
 [examples](https://github.com/TalkingData/rxloop/tree/master/examples)
 
-## 更新记录
+## Releases
 
 [releases](https://github.com/TalkingData/rxloop/releases)
 
 ## License
-
 MIT
-
