@@ -1,6 +1,6 @@
 {
   "name": "rxloop",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "基于 RxJS 的状态管理工具",
   "scripts": {
     "test": "cross-env BABEL_ENV=commonjs jest",

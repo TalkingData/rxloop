@@ -4955,6 +4955,12 @@ rxjs@^6.0.0:
   dependencies:
     tslib "^1.9.0"
 
+rxloop@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.npmjs.org/rxloop/-/rxloop-0.5.2.tgz#ea45c35080473b8077e4014fdd0b825655d0969e"
+  dependencies:
+    rxjs "^6.0.0"
+
 safe-buffer@5.1.1:
   version "5.1.1"
   resolved "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
