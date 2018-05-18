@@ -1,5 +1,6 @@
 import { Subject, BehaviorSubject } from "rxjs";
 import { filter, scan, map, publishReplay, refCount } from "rxjs/operators";
+import checkModel from './check-model';
 
 const bus$ = new Subject();
 
@@ -9,6 +10,7 @@ export default function rxLoop() {
   }
 
   function model({ name, state = {}, reducers = {}, epics = {} }) {
+    checkModel({ name, state, reducers, epics }, this._state);
     if (this._state[name]) {
       throw Error("name 需要唯一");
     }
