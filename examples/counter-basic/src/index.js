@@ -1,4 +1,4 @@
-import rxLoop from 'rxloop';
+import rxLoop from '../../../src';
 
 const counterModel = {
   name: 'counter',
@@ -15,6 +15,10 @@ const counterModel = {
 
 const app = rxLoop();
 app.model(counterModel);
+
+app.model({
+  name: 'counter',
+});
 
 var valueEl = document.getElementById('value');
 app.counter$.subscribe((state) => {
