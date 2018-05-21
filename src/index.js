@@ -1,5 +1,6 @@
 import { Subject, BehaviorSubject } from "rxjs";
 import { filter, scan, map, publishReplay, refCount } from "rxjs/operators";
+import invariant from 'invariant';
 import checkModel from './check-model';
 
 const bus$ = new Subject();
@@ -11,9 +12,6 @@ export default function rxLoop() {
 
   function model({ name, state = {}, reducers = {}, epics = {} }) {
     checkModel({ name, state, reducers, epics }, this._state);
-    if (this._state[name]) {
-      throw Error("name 需要唯一");
-    }
     this._state[name] = state;
     this._reducers[name] = reducers;
     const out$$ = new BehaviorSubject(state => state);
@@ -47,29 +45,31 @@ export default function rxLoop() {
       epics[type](this._stream[name][`epic_${type}$`])
         .pipe(
           map(action => {
-            // 验证 action 规范
-            if (!action.type) {
-              throw Error("epics 需要返回标准的 Action");
-            }
-            if (!reducers[action.type]) {
-              throw Error(`不存在的 reducer ${action.type}`);
-            }
-            return state => reducers[action.type](state, action);
-          })
+            const { type } = action;
+            invariant(
+              type,
+              '[action] action should be a plain Object with type',
+            );
+            invariant(
+              reducers[type],
+              `不存在的 reducer ${type}`,
+            );
+            return state => reducers[type](state, action);
+          }),
         )
         .subscribe(out$$);
     });
   }
 
   function dispatch(action) {
-    // const [ action, name, type ] = action.type.match(/(\w+)\/(\w+)/);
     bus$.next(action);
   }
 
   function getState(name) {
-    if (!name) {
-      throw Error("缺少模块名称");
-    }
+    invariant(
+      name,
+      `[app.getState] name should be passed`,
+    );
     let _state;
     this[`${name}$`].subscribe(state => {
       _state = state;
@@ -82,7 +82,6 @@ export default function rxLoop() {
   }
 
   const app = {
-    //{ name: {} }
     _state: {},
     _stream: {},
     _reducers: {},
