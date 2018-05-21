@@ -22,7 +22,7 @@ export default function checkModel(model, rootState) {
 
   // 并且唯一
   invariant(
-    rootState[name] !== (void 0),
+    rootState[name] === (void 0),
     `[app.model] name should be unique`,
   );
 }
