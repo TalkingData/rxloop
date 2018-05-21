@@ -3,6 +3,7 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
 import replace from 'rollup-plugin-replace'
 import uglify from 'rollup-plugin-uglify'
+import commonjs from 'rollup-plugin-commonjs'
 
 const env = process.env.NODE_ENV
 const config = {
@@ -26,6 +27,7 @@ if (env === 'development' || env === 'production') {
     nodeResolve({
       jsnext: true
     }),
+    commonjs(),
     babel({
       exclude: 'node_modules/**',
       plugins: ['external-helpers'],
