@@ -16,32 +16,37 @@ export default function rxLoop() {
     this._reducers[name] = reducers;
     const out$$ = new BehaviorSubject(state => state);
 
-    // 数据流出口
+    // 创建数据流出口
     this[`${name}$`] = out$$.pipe(
       scan((nextState, reducer) => reducer(nextState), state),
       publishReplay(1),
-      refCount()
+      refCount(),
     );
 
     this._stream[name] = {};
 
     // 为 reducers 创建同步数据流
     Object.keys(reducers).forEach(type => {
+      // 为每一个 reducer 创建一个数据流,
       this._stream[name][`reducer_${type}$`] = createStream(`${name}/${type}`);
-      // 叠加
+      
+      // 将数据流导入到 reducer 之中，进行同步状态数据计算
       this._stream[name][`reducer_${type}$`]
         .pipe(
           map(action => {
             return state => reducers[type](state, action);
-          })
+          }),
         )
+        // 将同步计算结果推送出去
         .subscribe(out$$);
     });
 
     // 为 epics 创建异步数据流
     Object.keys(epics).forEach(type => {
+      // 为每一个 epic 创建一个数据流,
       this._stream[name][`epic_${type}$`] = createStream(`${name}/${type}`);
-      // 叠加
+      
+      // 将数据流导入到 epic 之中，进行异步操作
       epics[type](this._stream[name][`epic_${type}$`])
         .pipe(
           map(action => {
@@ -57,11 +62,17 @@ export default function rxLoop() {
             return state => reducers[type](state, action);
           }),
         )
+        // 将异步计算结果推送出去
         .subscribe(out$$);
     });
   }
 
   function dispatch(action) {
+    const { type } = action;
+    invariant(
+      type,
+      '[action] action should be a plain Object with type',
+    );
     bus$.next(action);
   }
 
@@ -78,10 +89,19 @@ export default function rxLoop() {
   }
 
   function stream(modelName) {
-    return this[`${modelName}$`];
+    invariant(
+      modelName,
+      `[app.stream] modelName should be passed`,
+    );
+    const stream$ = this[`${modelName}$`];
+    invariant(
+      stream$,
+      `[app.stream] model must be registered`,
+    );
+    return stream$;
   }
 
-  const app = {
+  return {
     _state: {},
     _stream: {},
     _reducers: {},
@@ -90,5 +110,4 @@ export default function rxLoop() {
     getState,
     stream,
   };
-  return app;
 }
