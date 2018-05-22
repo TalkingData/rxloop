@@ -45,9 +45,10 @@ export default function rxLoop() {
     Object.keys(epics).forEach(type => {
       // 为每一个 epic 创建一个数据流,
       this._stream[name][`epic_${type}$`] = createStream(`${name}/${type}`);
+      this._stream[name][`epic_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
       
       // 将数据流导入到 epic 之中，进行异步操作
-      epics[type](this._stream[name][`epic_${type}$`])
+      epics[type](this._stream[name][`epic_${type}$`], this._stream[name][`epic_${type}_cancel$`])
         .pipe(
           map(action => {
             const { type } = action;
