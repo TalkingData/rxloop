@@ -3,7 +3,7 @@
 在复杂单页应用下，会经常频繁地切换路由，需要及时取消上一个界面未完成的请求。
 在 RxJS 中，一般用 `takeUntil` 操作符来终止数据流，我们在 epics 中加入 `takeUntil` 来取消这个请求。接下来我们通过一个简单的实例，演示下在 rxloop 中如何取消一个 epic。
 
-## 模拟慢请求
+## 模拟慢请求
 首先使用 Promise 来模拟一个慢请求，这个接口会在 5 秒后返回数据。
 ```javascript
 const apiSlow = async () => {
