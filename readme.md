@@ -6,6 +6,7 @@ Predictable state container for JavaScript apps based on RxJS， like Redux with
 
 1. Using RxJS instead of Redux.
 2. Easy study, only four apis: app.model、app.dispatch、app.getState、app.stream.
+3. Cancel async actions easyly.
 
 ## Installation
 ```bash

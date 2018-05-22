@@ -1,4 +1,5 @@
 - [介绍](index.md)
 - [起步](getting-started.md)
 - [错误处理](error-handler.md)
+- [请求取消](cancellation.md)
 - [API](api.md)

@@ -7,7 +7,9 @@ const bus$ = new Subject();
 
 export default function rxLoop() {
   function createStream(type) {
-    return bus$.pipe(filter(e => e.type.indexOf(type) > -1));
+    return bus$.pipe(
+      filter(e => e.type === type),
+    );
   }
 
   function model({ name, state = {}, reducers = {}, epics = {} }) {
