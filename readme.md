@@ -77,7 +77,8 @@ app.dispatch({
 
 ## Examples
 
-[examples](https://github.com/TalkingData/rxloop/tree/master/examples)
+1. [Examples](https://github.com/TalkingData/rxloop/tree/master/examples)
+2. [React todolist app with rxloop](https://github.com/TalkingData/rxloop-react-todos)
 
 ## Releases
 
