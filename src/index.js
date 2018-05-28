@@ -45,6 +45,12 @@ export default function rxLoop() {
 
     // 为 epics 创建异步数据流
     Object.keys(epics).forEach(type => {
+      // epics 中函数名称不能跟 reducers 里的函数同名
+      invariant(
+        !this._stream[name][`reducer_${type}$`],
+        `[epics] duplicated type ${type} in epics and reducers`,
+      );
+
       // 为每一个 epic 创建一个数据流,
       this._stream[name][`epic_${type}$`] = createStream(`${name}/${type}`);
       this._stream[name][`epic_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
@@ -56,11 +62,11 @@ export default function rxLoop() {
             const { type } = action;
             invariant(
               type,
-              '[action] action should be a plain Object with type',
+              '[epics] action should be a plain object with type',
             );
             invariant(
               reducers[type],
-              `不存在的 reducer ${type}`,
+              `[epics] undefined reducer ${type}`,
             );
             return state => reducers[type](state, action);
           }),
@@ -91,12 +97,12 @@ export default function rxLoop() {
     return _state;
   }
 
-  function stream(modelName) {
+  function stream(name) {
     invariant(
-      modelName,
-      `[app.stream] modelName should be passed`,
+      name,
+      `[app.stream] name should be passed`,
     );
-    const stream$ = this[`${modelName}$`];
+    const stream$ = this[`${name}$`];
     invariant(
       stream$,
       `[app.stream] model must be registered`,
