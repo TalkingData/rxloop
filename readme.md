@@ -15,7 +15,7 @@ $ npm i rxloop
 
 ## Hello rxloop
 ```javascript
-import { Observable } from 'rxjs';
+import { from } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
 import rxLoop from 'rxloop';
 
@@ -36,7 +36,7 @@ const counterModel = {
     getData(action$) {
       return action$.pipe(
         mergeMap(() => {
-          return Observable.fromPromise(
+          return from(
             // Promise
             api().catch((error) => {
               return { error };

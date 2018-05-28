@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { from } from 'rxjs';
 import { map, mapTo, switchMap } from 'rxjs/operators';
 import { remove } from 'lodash-es';
 import getList from '../services/todos';
@@ -44,7 +44,7 @@ export default {
     getTodoList(action$) {
       return action$.pipe(
         switchMap(() => {
-          return Observable.fromPromise(getList());
+          return from(getList());
         }),
         // need return an action, 
         // like { action: 'setTodoList', payload: {} };

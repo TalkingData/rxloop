@@ -22,7 +22,7 @@ const apiSlow = async () => {
     getData(action$, cancel$) {
       return action$.pipe(
         mergeMap(() => {
-          return Observable.fromPromise(
+          return from(
             apiSlow().catch((error) => {
               return { error };
             }),

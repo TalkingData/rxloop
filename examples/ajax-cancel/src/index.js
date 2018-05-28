@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { from } from 'rxjs';
 import { mergeMap, switchMap, map, takeUntil } from 'rxjs/operators';
 import rxLoop from '../../../src/';
 
@@ -39,7 +39,7 @@ const counterModel = {
     getData(action$, cancel$) {
       return action$.pipe(
         mergeMap(() => {
-          return Observable.fromPromise(
+          return from(
             apiSlow().catch((error) => {
               return { error };
             }),
