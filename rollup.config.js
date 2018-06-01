@@ -22,7 +22,7 @@ if (env === 'es' || env === 'cjs') {
 }
 
 if (env === 'development' || env === 'production') {
-  config.output = { format: 'umd', name: 'rxloop', indent: false }
+  config.output = { format: 'umd', name: 'rxloopCore', indent: false }
   config.plugins.push(
     nodeResolve({
       jsnext: true

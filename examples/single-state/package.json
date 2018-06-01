@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "rxjs": "^6.2.0",
-    "rxloop": "^0.6.0",
+    "@rxloop/core": "^0.6.1",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.1.2",
     "webpack-dev-server": "^3.1.4"

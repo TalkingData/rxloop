@@ -11,7 +11,7 @@ npm i rxloop -S
 除了 rxloop 之前，往往还需要引入 RxJS 的很多操作符。
 
 ```javascript
-import rxLoop from 'rxloop';
+import rxLoop from '@rxloop/core';
 import { Observable } from 'rxjs';
 import { switchMap, map, mapTo } from 'rxjs/operators';
 ```

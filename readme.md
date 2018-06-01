@@ -10,14 +10,14 @@ Predictable state container for JavaScript apps based on RxJS， like Redux with
 
 ## Installation
 ```bash
-$ npm i rxloop
+$ npm i @rxloop/core
 ```
 
 ## Hello rxloop
 ```javascript
 import { from } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
-import rxLoop from 'rxloop';
+import rxLoop from '@rxloop/core';
 
 const counterModel = {
   name: 'counter',

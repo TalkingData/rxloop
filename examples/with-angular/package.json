@@ -22,7 +22,7 @@
     "@angular/router": "^6.0.0",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
-    "rxloop": "^0.5.2",
+    "@rxloop/core": "^0.6.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

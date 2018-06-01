@@ -13,7 +13,7 @@ api().catch((error) => {
 ```javascript
 import { from } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
-import rxLoop from 'rxloop';
+import rxLoop from '@rxloop/core';
 
 const api = async () => {
   throw new Error('Http Error');

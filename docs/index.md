@@ -38,7 +38,7 @@ Redux 不引入任何中间件的情况下，仅能处理同步请求，要处�
 完整代码:
 
 ```javascript
-import rxLoop from 'rxloop';
+import rxLoop from '@rxloop/core';
 
 const counterModel = {
   name: 'counter',

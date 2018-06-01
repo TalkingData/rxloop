@@ -4,7 +4,7 @@
 创建一个应用
 
 ```javascript
-import rxLoop from 'rxloop';
+import rxLoop from '@rxloop/core';
 const app = rxLoop();
 ```
 

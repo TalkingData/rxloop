@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { Component } from '@angular/core';
-import rxloop from 'rxloop';
+import rxloop from '@rxloop/core';
 
 const app = rxloop();
 
