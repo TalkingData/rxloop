@@ -1,7 +1,7 @@
 {
-  "name": "rxloop",
+  "name": "@rxloop/core",
   "version": "0.6.1",
-  "description": "基于 RxJS 的状态管理工具",
+  "description": "Predictable state container for JavaScript apps based on RxJS， like Redux with redux-observable middleware.",
   "scripts": {
     "test": "cross-env BABEL_ENV=commonjs jest",
     "test:cov": "npm test -- --coverage",
@@ -33,6 +33,9 @@
   "dependencies": {
     "invariant": "^2.2.4",
     "rxjs": "^6.0.0"
+  },
+  "peerDependencies": {
+    "rxjs": "^6.0.0-0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
