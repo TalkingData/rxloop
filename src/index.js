@@ -110,12 +110,15 @@ export default function rxLoop() {
     return stream$;
   }
 
+  const next = dispatch;
+
   return {
     _state: {},
     _stream: {},
     _reducers: {},
     model,
     dispatch,
+    next,
     getState,
     stream,
   };

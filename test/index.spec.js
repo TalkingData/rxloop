@@ -1,4 +1,5 @@
 import rxLoop from '../src/';
+import { of } from 'rxjs';
 import { mapTo, catchError } from "rxjs/operators";
 
 const app = rxLoop();
@@ -133,8 +134,13 @@ describe('Basic usage', () => {
     app.dispatch({
       type: 'counter/increment',
     });
+    of(1).pipe(
+      mapTo({
+        type: 'counter/increment',
+      }),
+    ).subscribe(app);
     expect(app.getState('counter')).toEqual({
-      counter: 3,
+      counter: 4,
     });
   });
 
@@ -148,12 +154,12 @@ describe('Basic usage', () => {
       type: 'counter/decrement',
     });
     expect(app.getState('counter')).toEqual({
-      counter: 1,
+      counter: 2,
     });
     let _value;
     counter$.subscribe(value => (_value = value));
     expect(_value).toEqual({
-      counter: 1,
+      counter: 2,
     });
   });
 

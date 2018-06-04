@@ -15,7 +15,7 @@ $ npm i @rxloop/core
 
 ## Hello rxloop
 ```javascript
-import { from } from 'rxjs';
+import { from, of } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
 import rxLoop from '@rxloop/core';
 
@@ -68,6 +68,31 @@ app.dispatch({
 // async update
 app.dispatch({
   type: 'counter/getData',
+});
+```
+
+## Integration with rxjs
+```javascript
+// input data
+of(1)
+.pipe(
+  map((data) => {
+    return {
+      type: 'counter/increment',
+      data,
+    };
+  }),
+)
+.subscribe(app);
+
+// outputs
+app.counter$.pipe(
+  map(() => {
+    return {};
+  }),
+)
+.subscribe((data) => {
+  // this.setState(data);  
 });
 ```
 
