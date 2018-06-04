@@ -15,7 +15,7 @@ $ npm i @rxloop/core
 
 ## Hello rxloop
 ```javascript
-import { from, of } from 'rxjs';
+import { from, fromEvent } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
 import rxLoop from '@rxloop/core';
 
@@ -74,7 +74,7 @@ app.dispatch({
 ## Integration with rxjs
 ```javascript
 // input data
-of(1)
+fromEvent(button, 'click')
 .pipe(
   map((data) => {
     return {
