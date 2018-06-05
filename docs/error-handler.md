@@ -1,12 +1,6 @@
 # 错误处理
 
-在 epics 中，我们通过 RxJS 的 mergeMap 或 switchMap 处理异步请求，用 `from` 方法，将 Promise 转换为可订阅对象 Observable，在转换的过程中建议显示的处理 Promise 的异常:
-
-```javascript
-api().catch((error) => {
-  return { error };
-})
-```
+在 epics 中，我们通过 RxJS 的 mergeMap 或 switchMap 处理异步请求，用 `from` 方法，将 Promise 转换为可订阅对象 Observable
 
 完整的代码：
 
@@ -51,18 +45,10 @@ const counterModel = {
       return action$.pipe(
         mergeMap(() => {
           return from(
-            api().catch((error) => {
-              return { error };
-            }),
+            api(),
           );
         }),
         map((data) => {
-          if (data.error) {
-            return {
-              error: data.error,
-              type: 'handleError',
-            };
-          }
           return {
             data,
             type: 'increment',
@@ -76,9 +62,14 @@ const counterModel = {
 const app = rxLoop();
 app.model(counterModel);
 
-app.stream('counter').subscribe((state) => {
-  console.log(state);
-});
+app.stream('counter').subscribe(
+  (state) => {
+    console.log(state);
+  },
+  (err) => {
+    console.log(err);
+  },
+);
 
 app.dispatch({
   type: 'counter/getData',

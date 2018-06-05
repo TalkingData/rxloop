@@ -26,30 +26,16 @@ const counterModel = {
         counter: state.counter + 1
       };
     },
-    handleError(state, action) {
-      return {
-        ...state,
-        error: action.error,
-      };
-    },
   },
   epics: {
     getData(action$) {
       return action$.pipe(
         mergeMap(() => {
           return from(
-            api().catch((error) => {
-              return { error };
-            }),
+            api(),
           );
         }),
         map((data) => {
-          if (data.error) {
-            return {
-              error: data.error,
-              type: 'handleError',
-            };
-          }
           return {
             data,
             type: 'increment',
@@ -62,21 +48,55 @@ const counterModel = {
 
 const app = rxLoop();
 app.model(counterModel);
-
-app.stream('counter').subscribe((state) => {
-  console.log(state);
+app.model({
+  name: 'test',
+  state: {
+    code: 1,
+  },
+  reducers: {
+    change(state, action) {
+      return {
+        ...state,
+        code: action.code,
+      }
+    }
+  },
 });
 
+app.stream('counter').subscribe(
+  (state) => {
+    console.log(state);
+  },
+  (err) => {
+    console.log(err);
+  },
+);
+
+app.stream('test').subscribe(
+  (state) => {
+    console.log(state);
+  },
+  (err) => {
+    console.log(err);
+  },
+);
 
 // switchMap 连续调用取消请一次异步请求
 // https://ithelp.ithome.com.tw/articles/10188387
 app.dispatch({
   type: 'counter/getData',
 });
+// 执行 👆 代码时报错了，会中断 👇 两次调用
+app.dispatch({
+  type: 'counter/getData',
+});
 
 app.dispatch({
   type: 'counter/getData',
 });
+
+// 其中一个 model 报错，不会影响其它 model 的状况
 app.dispatch({
-  type: 'counter/getData',
+  type: 'test/change',
+  code: 1,
 });
