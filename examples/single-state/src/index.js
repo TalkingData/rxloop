@@ -1,6 +1,6 @@
 import rxLoop from '@rxloop/core';
-import { Observable, of, from } from 'rxjs';
-import { switchMap, map, combineLatest } from 'rxjs/operators';
+import { Observable, of, from, combineLatest } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 const getCounterApi = () => Promise.resolve(100);
 
@@ -56,10 +56,11 @@ app.model({
 const user$ = app.stream('user');
 const counter$ = app.stream('counter');
 
-user$.pipe(
-  combineLatest(
-    counter$,
-  ),
+combineLatest(
+  user$,
+  counter$,
+)
+.pipe(
   map(([user, counter]) => {
     return {
       user,
@@ -70,8 +71,6 @@ user$.pipe(
 .subscribe(state => {
   console.log(state);
 });
-
-
 
 // counter$.subscribe((state) => {
 //   console.log(state);
