@@ -1,13 +1,13 @@
 # rxloop
-[English README](readme.md)
+[English README](README.md)
 > rxloop = Redux + redux-observable.
 
 基于 RxJS 的可预测状态管理容器，超轻量级的 “Redux + redux-observable” 架构。
 
-1. 便于抽象前端领域模型，可自由选择多状态或单一状态树；
+1. 便于抽象前端领域模型，可自由选择多状态或单一状态树；
 2. 简单易用，仅有四个 API: app.model、app.dispatch、app.getState、app.stream；
 3. 使用 Epics 隔离副作用，可轻松取消 AJAX 等异步调用；
-4. 扩展 RxJS，能够串联到 RxJS 数据流，并分发多个数据流。
+4. 扩展 RxJS，能够串联到 RxJS 数据流，并分发多个数据流。
 
 ## 安装
 ```bash

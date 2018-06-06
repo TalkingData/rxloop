@@ -1,5 +1,5 @@
 # rxLoop
-[中文 README](readme-zh_CN.md)
+[中文 README](README-zh_CN.md)
 > rxLoop = Redux + redux-observable.
 
 Predictable state container for JavaScript apps based on RxJS， like Redux with redux-observable middleware.
