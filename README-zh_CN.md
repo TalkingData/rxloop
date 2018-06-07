@@ -43,13 +43,13 @@ app.model({
   },
 });
 
-// 在 View 层订阅 counter 模型的状态
-// 当模型状态变更时，使用相关方法同步 View 的更新，比如 React 的 setState 方法
+// 在 View 层订阅 counter 模型的状态
+// 当模型状态变更时，使用相关方法同步 View 的更新，比如 React 的 setState 方法
 app.stream('counter').subscribe((state) => {
   // this.setState(state);
 });
 
-// 在 view 层，可以通过 dispatch 派发 action
+// 在 view 层，可以通过 dispatch 派发 action
 // action 会经由 epics 或 reducers 更新 model 状态
 app.dispatch({
   type: 'counter/inc',
@@ -67,7 +67,7 @@ app.dispatch({
 ## 文档
 
 1. [快速上手](https://talkingdata.github.io/rxloop/#/basics/getting-started)
-2. [错误处理](https://talkingdata.github.io/rxloop/#/basics/error-handler)
+2. [错误处理](https://talkingdata.github.io/rxloop/#/basics/error-handler)
 3. [与 RxJS 集成](https://talkingdata.github.io/rxloop/#/advanced/integration-with-rxjs)
 4. [多状态与单一状态树](https://talkingdata.github.io/rxloop/#/advanced/multi-state-and-single-state)
 
