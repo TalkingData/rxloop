@@ -43,8 +43,8 @@ app.model({
   },
 });
 
-// 在 View 层订阅 counter 模型的状态
-// 当模型状态变更时，使用相关方法同步 View 的更新，比如 React 的 setState 方法
+// 在 View 层订阅 counter 模型的状态
+// 当模型状态变更时，使用相关方法同步 View 的更新，比如 React 的 setState 方法
 app.stream('counter').subscribe((state) => {
   // this.setState(state);
 });
