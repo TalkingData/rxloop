@@ -16,148 +16,60 @@ $ npm i @rxloop/core
 
 ## 快速上手
 ```javascript
-import rxLoop from '@rxloop/core';
-import { from, fromEvent, combineLatest } from 'rxjs';
-import { mergeMap, map } from 'rxjs/operators';
+import rxloop from '@rxloop/core';
 
-const counterModel = {
+// 一个应用创建一个全局唯一的 app
+const app = rxloop();
+
+// 在应用中，可以创建多个业务模型，比如下面的 counter 模型
+app.model({
   name: 'counter',
   state: {
     counter: 0,
   },
   reducers: {
-    increment(state) {
+    inc(state) {
       return {
         ...state,
         counter: state.counter + 1
       };
     },
+    dec(state) {
+      return {
+        ...state,
+        counter: state.counter - 1
+      };
+    },
   },
-  epics: {
-    getData(action$) {
-      // transform action
-      // through a series of stream operators
-      return action$.pipe(
-        mergeMap(() => {
-          return from(
-            // Promise
-            api().catch((error) => {
-              return { error };
-            }),
-          );
-        }),
-        map((data) => {
-          return {
-            type: 'increment',
-          };
-        }),
-      );
-    }
-  }
-};
+});
 
-const app = rxLoop();
-app.model(counterModel);
-
+// 在 View 层订阅 counter 模型的状态
+// 当模型状态变更时，使用相关方法同步 View 的更新，比如 React 的 setState 方法
 app.stream('counter').subscribe((state) => {
   // this.setState(state);
 });
 
-// 同步更新
+// 在 view 层，可以通过 dispatch 派发 action
+// action 会经由 epics 或 reducers 更新 model 状态
 app.dispatch({
-  type: 'counter/increment',
+  type: 'counter/inc',
 });
-
-// 异步更新
 app.dispatch({
-  type: 'counter/getData',
+  type: 'counter/inc',
+});
+app.dispatch({
+  type: 'counter/dec',
 });
 ```
 
-## 与 RxJS 集成
-
-### 将 rxloop 串联到 RxJS 数据流中
-```javascript
-// 输入数据
-fromEvent(button, 'click')
-.pipe(
-  map((data) => {
-    return {
-      type: 'counter/increment',
-      data,
-    };
-  }),
-)
-.subscribe(app);
-
-// 输出
-app.counter$.pipe(
-  map(() => {
-    return {};
-  }),
-)
-.subscribe((data) => {
-  // this.setState(data);  
-});
-```
-
-### 多状态与单一状态树
-```javascript
-// 添加 user 模型
-app.model({
-  name: 'user',
-  state: {
-    name: 'wxnet',
-    email: 'test@gmail.com',
-  },
-});
-
-// 每一个模型会对应一个状态树，比如之前创建的 counter 模型。
-// counter 状态树
-const counter$ = app.stream('counter');
-// user 状态树
-const user$ = app.stream('user');
-
-// 可以在不同的组件中，自由订阅模型状态的变更
-counter$.subscribe(
-  (state) => {
-    // this.setState(state);
-  },
-  (error) => {},
-);
-
-user$.subscribe(
-  (state) => {
-    // this.setState(state);
-  },
-  (error) => {},
-);
-
-// 还可以使用 RxJS 的 combineLatest 工厂方法将多个模型合并为单一状态树。
-const singleState = combineLatest(
-  user$,
-  counter$,
-)
-.pipe(
-  map(([user, counter]) => {
-    return {
-      user,
-      counter,
-    };
-  }),
-);
-
-singleState.subscribe(
-  (state) => {
-    // this.setState(state);
-  },
-  (error) => {},
-);
-```
+关于更多的异步请求、取消请求等特性，可以翻阅文档。
 
 ## 文档
 
-[rxloop](https://talkingdata.github.io/rxloop/)
+1. [快速上手](https://talkingdata.github.io/rxloop/#/basics/getting-started)
+2. [错误处理](https://talkingdata.github.io/rxloop/#/basics/error-handler)
+3. [与 RxJS 集成](https://talkingdata.github.io/rxloop/#/advanced/integration-with-rxjs)
+4. [多状态与单一状态树](https://talkingdata.github.io/rxloop/#/advanced/multi-state-and-single-state)
 
 ## 示例
 
