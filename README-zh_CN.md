@@ -18,10 +18,10 @@ $ npm i @rxloop/core
 ```javascript
 import rxloop from '@rxloop/core';
 
-// 一个应用创建一个全局唯一的 app
+// 一个应用创建一个全局唯一的 app
 const app = rxloop();
 
-// 在应用中，可以创建多个业务模型，比如下面的 counter 模型
+// 在应用中，可以创建多个业务模型，比如下面的 counter 模型
 app.model({
   name: 'counter',
   state: {
@@ -49,8 +49,8 @@ app.stream('counter').subscribe((state) => {
   // this.setState(state);
 });
 
-// 在 view 层，可以通过 dispatch 派发 action
-// action 会经由 epics 或 reducers 更新 model 状态
+// 在 view 层，可以通过 dispatch 派发 action
+// action 会经由 epics 或 reducers 更新 model 状态
 app.dispatch({
   type: 'counter/inc',
 });
@@ -62,14 +62,14 @@ app.dispatch({
 });
 ```
 
-关于更多的异步请求、取消请求等特性，可以翻阅文档。
+关于更多的异步请求、取消请求等特性，可以翻阅文档。
 
 ## 文档
 
-1. [快速上手](https://talkingdata.github.io/rxloop/#/basics/getting-started)
-2. [错误处理](https://talkingdata.github.io/rxloop/#/basics/error-handler)
-3. [与 RxJS 集成](https://talkingdata.github.io/rxloop/#/advanced/integration-with-rxjs)
-4. [多状态与单一状态树](https://talkingdata.github.io/rxloop/#/advanced/multi-state-and-single-state)
+1. [快速上手](https://talkingdata.github.io/rxloop/#/basics/getting-started)
+2. [错误处理](https://talkingdata.github.io/rxloop/#/basics/error-handler)
+3. [与 RxJS 集成](https://talkingdata.github.io/rxloop/#/advanced/integration-with-rxjs)
+4. [多状态与单一状态树](https://talkingdata.github.io/rxloop/#/advanced/multi-state-and-single-state)
 
 ## 示例
 
