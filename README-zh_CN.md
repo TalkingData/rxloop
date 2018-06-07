@@ -4,14 +4,34 @@
 
 基于 RxJS 的可预测状态管理容器，超轻量级的 “Redux + redux-observable” 架构。
 
-1. 便于抽象前端领域模型，可自由选择多状态或单一状态树；
-2. 简单易用，仅有四个 API: app.model、app.dispatch、app.getState、app.stream；
-3. 使用 Epics 隔离副作用，可轻松取消 AJAX 等异步调用；
-4. 扩展 RxJS，能够串联到 RxJS 数据流，并分发多个数据流。
+## 特性
+* 便于抽象前端领域模型，可自由选择多状态或单一状态树；
+* 易学易用：仅有四个 api，对 Redux 用户友好；
+* 隔离副作用：在 Epics 中借助 RxJS 的异步处理能力，还可以轻松取消 AJAX 等异步调用；
+* 扩展 RxJS：rxloop 能够串联到 RxJS 数据管道之中，最终能够分发出多个数据管道。
 
 ## 安装
+通过 npm 方式：
 ```bash
-$ npm i @rxloop/core
+$ npm install @rxloop/core
+```
+
+或者 yarn 方式
+```bash
+$ yarn add @rxloop/core
+```
+
+在页面中直接通过 CDN 引入
+```html
+<script src="https://unpkg.com/@rxloop/core@0.6.1/dist/rxloop-core.min.js"></script>
+<script src="https://unpkg.com/rxjs@6.2.0/bundles/rxjs.umd.min.js"></script>
+<script>
+var app = rxloopCore();
+app.model({
+  name: 'user',
+  state: { name: 'wxnet' }
+});
+</script>
 ```
 
 ## 快速上手
@@ -62,7 +82,7 @@ app.dispatch({
 });
 ```
 
-关于更多的异步请求、取消请求等特性，可以翻阅文档。
+关于更多异步请求、取消请求等特性，可以翻阅文档。
 
 ## 文档
 
