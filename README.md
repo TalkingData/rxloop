@@ -13,7 +13,7 @@
 
 RxJS-based predictable state management container, ultra-lightweight "Redux + redux-observable" architecture.
 
-## features
+## Features
 * Facilitate the abstract front-end domain model, free choice of multi-state or single state tree;
 * Easy to learn and use: Only four apis, friendly to Redux and RxJS;
 * Isolation side effects: using the asynchronous processing capabilities of RxJS, free combination, cancel AJAX and other asynchronous calls in the Epics;
