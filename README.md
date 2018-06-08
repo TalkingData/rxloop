@@ -112,11 +112,6 @@ you can read through the documentation 👇.
 
 ## Examples
 
-1. [Examples](https://github.com/TalkingData/rxloop/tree/master/examples)
-2. [React todolist app with rxloop](https://github.com/TalkingData/rxloop-react-todos)
-
-## Releases
-
 1. [counter-basic](https://github.com/TalkingData/rxloop/tree/master/examples/counter-basic)
 2. [ajax-cancel](https://github.com/TalkingData/rxloop/tree/master/examples/ajax-cancel)
 3. [error-handler](https://github.com/TalkingData/rxloop/tree/master/examples/error-handler)
