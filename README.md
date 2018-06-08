@@ -17,7 +17,7 @@ RxJS-based predictable state management container, ultra-lightweight "Redux + re
 * Facilitate the abstract front-end domain model, free choice of multi-state or single state tree;
 * Easy to learn and use: Only four apis, friendly to Redux and RxJS;
 * Isolation side effects: using the asynchronous processing capabilities of RxJS, free combination, cancel AJAX and other asynchronous calls in the Epics;
-* Extensions RxJS:rxloop can be cascaded into RxJS data pipelines, eventually distributing multiple data pipes.
+* Extensions RxJS: rxloop can be cascaded into RxJS data pipelines, eventually distributing multiple data pipes.
 
 ## Installation
 Via npm:
@@ -50,7 +50,9 @@ import rxloop from '@rxloop/core';
 // Create a globally unique app in one application
 const app = rxloop();
 
-// In the application, you can create multiple business models, such as the following user and counter models
+// In the application, 
+// you can create multiple business models,
+// such as the following user and counter models
 app.model({
   name: 'user',
   state: { name: 'wxnet' }
@@ -76,13 +78,16 @@ app.model({
   },
 });
 
-// Subscribe to the status of the counter model at the View level
-// When the model state changes, use View layer framework-related methods to synchronize View updates, such as React's setState method
+// Subscribe to the status of the counter model at the View level,
+// When the model state changes,
+// use View layer framework-related methods to synchronize View updates,
+// such as React's setState method
 app.stream('counter').subscribe((state) => {
   // this.setState(state);
 });
 
-// In the view layer, you can dispatch an action via the dispatch method
+// In the view layer,
+// you can dispatch an action via the dispatch method
 // Action updates the model state via epics or reducers
 app.dispatch({
   type: 'counter/inc',
@@ -95,7 +100,8 @@ app.dispatch({
 });
 ```
 
-For more features such as asynchronous requests, cancellation requests, etc., you can read through the documentation 👇.
+For more features such as asynchronous requests, cancellation requests, etc.,
+you can read through the documentation 👇.
 
 ## Documentation
 
