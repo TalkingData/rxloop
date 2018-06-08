@@ -3,6 +3,11 @@
 [![NPM version][npm-image]][npm-url]
 [![npm download][download-image]][download-url]
 
+[npm-image]: https://img.shields.io/npm/v/flclover.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/flclover
+[download-image]: https://img.shields.io/npm/dm/flclover-init.svg?style=flat-square
+[download-url]: https://npmjs.org/package/flclover
+
 [English README](README.md)
 > rxloop = Redux + redux-observable.
 
