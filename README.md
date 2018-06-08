@@ -1,4 +1,4 @@
-# rxLoop
+# rxloop
 
 [![NPM version][npm-image]][npm-url]
 [![npm download][download-image]][download-url]
@@ -9,7 +9,7 @@
 [download-url]: https://npmjs.org/package/@rxloop/core
 
 [中文 README](README-zh_CN.md)
-> rxLoop = Redux + redux-observable.
+> rxloop = Redux + redux-observable.
 
 RxJS-based predictable state management container, ultra-lightweight "Redux + redux-observable" architecture.
 
