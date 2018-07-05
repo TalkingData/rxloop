@@ -2,10 +2,12 @@ import { Subject, BehaviorSubject } from "rxjs";
 import { filter, scan, map, publishReplay, refCount } from "rxjs/operators";
 import invariant from 'invariant';
 import checkModel from './check-model';
+import initPlugins from './plugins';
 
 const bus$ = new Subject();
 
-export default function rxLoop() {
+export default function rxLoop(option = { plugins: [] }) {
+
   function createStream(type) {
     return bus$.pipe(
       filter(e => e.type === type),
@@ -16,6 +18,8 @@ export default function rxLoop() {
     checkModel({ name, state, reducers, epics }, this._state);
     this._state[name] = state;
     this._reducers[name] = reducers;
+    this._epics[name] = epics;
+
     const out$$ = new BehaviorSubject(state => state);
 
     // 创建数据流出口
@@ -54,25 +58,46 @@ export default function rxLoop() {
       // 为每一个 epic 创建一个数据流,
       this._stream[name][`epic_${type}$`] = createStream(`${name}/${type}`);
       this._stream[name][`epic_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
+
+      this._stream[name][`epic_${type}$`].subscribe(data => {
+        this.dispatch({
+          type: 'plugin',
+          action: 'onEpicStart',
+          model: name,
+          epic: type,
+        });
+      });
       
       // 将数据流导入到 epic 之中，进行异步操作
       epics[type](this._stream[name][`epic_${type}$`], this._stream[name][`epic_${type}_cancel$`])
         .pipe(
           map(action => {
-            const { type } = action;
+            const { type: reducer } = action;
             invariant(
               type,
               '[epics] action should be a plain object with type',
             );
             invariant(
-              reducers[type],
-              `[epics] undefined reducer ${type}`,
+              reducers[reducer],
+              `[epics] undefined reducer ${reducer}`,
             );
-            return state => reducers[type](state, action);
+            this.dispatch({
+              type: 'plugin',
+              action: 'onEpicEnd',
+              model: name,
+              epic: type,
+            });
+            return state => reducers[reducer](state, action);
           }),
         )
         // 将异步计算结果推送出去
         .subscribe(out$$);
+    });
+
+    this.dispatch({
+      type: 'plugin',
+      action: 'onModel',
+      model: name,
     });
   }
 
@@ -105,21 +130,27 @@ export default function rxLoop() {
     const stream$ = this[`${name}$`];
     invariant(
       stream$,
-      `[app.stream] model must be registered`,
+      `[app.stream] model "${name}" must be registered`,
     );
     return stream$;
   }
 
   const next = dispatch;
 
-  return {
+  const app = {
     _state: {},
     _stream: {},
     _reducers: {},
+    _epics: {},
     model,
     dispatch,
     next,
     getState,
     stream,
+    plugin$: createStream('plugin'),
   };
+
+  initPlugins.call(app, option.plugins);
+
+  return app;
 }
