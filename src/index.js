@@ -67,6 +67,15 @@ export default function rxLoop(option = { plugins: [] }) {
           epic: type,
         });
       });
+
+      this._stream[name][`epic_${type}_cancel$`].subscribe(data => {
+        this.dispatch({
+          type: 'plugin',
+          action: 'onEpicCancel',
+          model: name,
+          epic: type,
+        });
+      });
       
       // 将数据流导入到 epic 之中，进行异步操作
       epics[type](this._stream[name][`epic_${type}$`], this._stream[name][`epic_${type}_cancel$`])

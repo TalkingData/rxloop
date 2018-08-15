@@ -69,29 +69,59 @@ const loading = function loading() {
   const _model = {
     name: 'loading',
     state: {
-      global: false,
+      global: 0,
       epics: {},
     },
     reducers: {
       globalLoading(state, action) {
         return {
           ...state,
-          global: action.loading,
+          global: state.global + action.loading,
         };
       },
       modelLoading(state, action) {
+        if (!state[action.model]) {
+          return {
+            ...state,
+            [action.model]: 0,
+          };
+        }
         return {
           ...state,
-          [action.model]: action.loading,
+          [action.model]: state[action.model] + action.loading,
         };
       },
       epicLoading(state, action) {
+        if (!state.epics[action.model]) {
+          return {
+            ...state,
+            epics: {
+              ...state.epics,
+              [action.model]: {
+                [action.epic]: 0,
+              },
+            }
+          };
+        }
+        if (action.isCancel) {
+          return {
+            ...state,
+            global: state.global - state.epics[action.model][action.epic],
+            [action.model]: state[action.model] - state.epics[action.model][action.epic],
+            epics: {
+              ...state.epics,
+              [action.model]: {
+                [action.epic]: 0,
+              },
+            }
+          };
+        }
         return {
           ...state,
           epics: {
             ...state.epics,
             [action.model]: {
-              [action.epic]: action.loading
+              [action.epic]: state.epics[action.model][action.epic] + action.loading
             },
           }
         };
@@ -107,7 +137,7 @@ const loading = function loading() {
     this.dispatch({
       type: 'loading/modelLoading',
       model: data.model,
-      loading: false,
+      loading: 0,
     });
 
     Object.keys(this._epics[data.model]).forEach(epic => {
@@ -115,7 +145,7 @@ const loading = function loading() {
         epic,
         type: 'loading/epicLoading',
         model: data.model,
-        loading: false,
+        loading: 0,
       });
     });
   });
@@ -124,18 +154,18 @@ const loading = function loading() {
   .subscribe(data => {
     this.dispatch({
       type: 'loading/globalLoading',
-      loading: true,
+      loading: 1,
     });
     this.dispatch({
       type: 'loading/modelLoading',
       model: data.model,
-      loading: true,
+      loading: 1,
     });
     this.dispatch({
       epic: data.epic,
       type: 'loading/epicLoading',
       model: data.model,
-      loading: true,
+      loading: 1,
     });
   });
 
@@ -143,18 +173,39 @@ const loading = function loading() {
   .subscribe(data => {
     this.dispatch({
       type: 'loading/globalLoading',
-      loading: false,
+      loading: -1,
     });
     this.dispatch({
       type: 'loading/modelLoading',
       model: data.model,
-      loading: false,
+      loading: -1,
     });
     this.dispatch({
       epic: data.epic,
       type: 'loading/epicLoading',
       model: data.model,
-      loading: false,
+      loading: -1,
+    });
+  });
+
+  this.plugin$.pipe( filter(e => e.action === 'onEpicCancel') )
+  .subscribe(data => {
+    console.log(data);
+    // this.dispatch({
+    //   type: 'loading/globalLoading',
+    //   loading: -1,
+    // });
+    // this.dispatch({
+    //   type: 'loading/modelLoading',
+    //   model: data.model,
+    //   loading: -1,
+    // });
+    this.dispatch({
+      epic: data.epic,
+      type: 'loading/epicLoading',
+      model: data.model,
+      loading: 0,
+      isCancel: true,
     });
   });
 };
@@ -178,7 +229,7 @@ app.stream('loading').subscribe(state => {
 });
 
 app.stream('counter').subscribe((state) => {
-  console.log(state);
+  // console.log(state);
   // 局部
   // state.loading.getData
 });
@@ -189,15 +240,15 @@ app.dispatch({
   type: 'counter/getData',
 });
 
-// app.dispatch({
-//   type: 'counter/getData',
-// });
+app.dispatch({
+  type: 'counter/getData',
+});
 
-// app.dispatch({
-//   type: 'counter/getData',
-// });
+app.dispatch({
+  type: 'counter/getData',
+});
 
 // 取消异步请求
-// app.dispatch({
-//   type: 'counter/getData/cancel',
-// });
+app.dispatch({
+  type: 'counter/getData/cancel',
+});
