@@ -56,7 +56,7 @@ export default function rxLoop() {
       this._stream[name][`epic_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
       
       // 将数据流导入到 epic 之中，进行异步操作
-      epics[type](this._stream[name][`epic_${type}$`], this._stream[name][`epic_${type}_cancel$`])
+      epics[type].call(this, this._stream[name][`epic_${type}$`], this._stream[name][`epic_${type}_cancel$`])
         .pipe(
           map(action => {
             const { type } = action;

@@ -1,4 +1,4 @@
-import rxLoop from '@rxloop/core';
+import rxLoop from '../../../src/';
 import { Observable, of, from, combineLatest } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
@@ -34,6 +34,10 @@ app.model({
           );
         }),
         map((data) => {
+          this.dispatch({
+            type: 'user/info',
+            user: { email: 'test@test.com' },
+          });
           return {
             type: 'init',
             counter: data,
@@ -50,6 +54,14 @@ app.model({
   state: {
     name: 'wxnet',
     email: 'www@ddd.com',
+  },
+  reducers: {
+    info(state, action) {
+      return {
+        ...state,
+        ...action.user,
+      };
+    },
   },
 });
 
