@@ -33,12 +33,6 @@ const counterModel = {
         counter: state.counter + 1
       };
     },
-    handleError(state, action) {
-      return {
-        ...state,
-        error: action.error,
-      };
-    },
   },
   epics: {
     getData(action$) {
