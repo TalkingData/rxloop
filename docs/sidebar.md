@@ -7,6 +7,7 @@
   - [请求取消](advanced/cancellation.md)
   - [与 RxJS 集成](advanced/integration-with-rxjs.md)
   - [多状态与单一状态树](advanced/multi-state-and-single-state.md)
+  - [在 Model 之间传递消息](advanced/cross-model-dispatch-action.md)
   - [中间件](advanced/middleware.md)
 - [API](api.md)
 - [更新记录](change-log.md)
