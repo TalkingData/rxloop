@@ -1,6 +1,6 @@
 {
   "name": "@rxloop/core",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Predictable state container for JavaScript apps based on RxJS， like Redux with redux-observable middleware.",
   "scripts": {
     "test": "cross-env BABEL_ENV=commonjs jest",
