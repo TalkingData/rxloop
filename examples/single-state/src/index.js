@@ -1,4 +1,4 @@
-import rxLoop from '@rxloop/core';
+import rxLoop from '../../../src/';
 import { Observable, of, from, combineLatest } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
