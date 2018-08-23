@@ -3,6 +3,7 @@
   "version": "0.7.1",
   "description": "Predictable state container for JavaScript apps based on RxJS， like Redux with redux-observable middleware.",
   "scripts": {
+    "lint": "echo 'lint'",
     "test": "cross-env BABEL_ENV=commonjs jest",
     "test:cov": "npm test -- --coverage",
     "format": "prettier --write \"{src,test}/**/*.js\"",

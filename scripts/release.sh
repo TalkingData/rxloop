@@ -22,6 +22,8 @@ select VERSION in patch minor major "Specific Version"
         # pre release task
         npm run lint
         npm run test
+        npm run clean
+        npm run build
 
         # bump version
         npm version $VERSION
