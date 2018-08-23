@@ -39,7 +39,7 @@ select VERSION in patch minor major "Specific Version"
         git add CHANGELOG.md
         git commit -m "chore: changelog"
         git push
-        git tag -a v${NEW_VERSION} -m 'version ${NEW_VERSION}'
+        git tag -a v${NEW_VERSION} -m "version $NEW_VERSION"
         git push origin v${NEW_VERSION}
         echo "✅ Released to Github."
       else
