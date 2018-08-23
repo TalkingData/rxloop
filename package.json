@@ -11,7 +11,8 @@
     "build:es": "cross-env BABEL_ENV=es NODE_ENV=es rollup -c -o es/rxloop-core.js",
     "build:umd": "cross-env BABEL_ENV=es NODE_ENV=development rollup -c -o dist/rxloop-core.js",
     "build:umd:min": "cross-env BABEL_ENV=es NODE_ENV=production rollup -c -o dist/rxloop-core.min.js",
-    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min"
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "prepublishOnly": "conventional-changelog -p angular -r 2 -i CHANGELOG.md -s"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
+    "conventional-changelog-cli": "^2.0.5",
     "cross-env": "^5.1.4",
     "jest": "^22.4.3",
     "prettier": "^1.12.1",
