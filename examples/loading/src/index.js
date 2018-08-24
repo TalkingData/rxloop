@@ -1,7 +1,6 @@
 import { from } from 'rxjs';
 import { mergeMap, map, takeUntil } from 'rxjs/operators';
-import rxLoop from '../../../src/';
-import loading from '../../../src/plugins/loading';
+import rxLoop, { loading } from '../../../src/';
 
 const apiSlow = async () => {
   const data = await new Promise((resolve) => {
@@ -37,6 +36,15 @@ const counterModel = {
     },
   },
   epics: {
+    setData(action$){
+      return action$.pipe(
+        map(() => {
+          return {
+            type: 'increment',
+          };
+        }),
+      );
+    },
     getData(action$, cancel$) {
       return action$.pipe(
         mergeMap(() => {
@@ -67,14 +75,14 @@ const counterModel = {
 };
 
 const app = rxLoop({
-  plugins: [ loading ],
+  plugins: [ loading() ],
 });
 app.model(counterModel);
 
 // 全局
 app.stream('loading').subscribe(state => {
   // 某个 epic 的 loading 状态
-  console.log(state.epics.counter.getData);
+  console.log(state.epics);
 
   // 某个 model 的 loading 状态，支持获取异步个数
   // state.counter
