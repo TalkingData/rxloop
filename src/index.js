@@ -144,22 +144,19 @@ export default function rxLoop(option = { plugins: [] }) {
     return stream$;
   }
 
-  const next = dispatch;
-
   const app = {
     _state: {},
     _stream: {},
     _reducers: {},
     _epics: {},
     model,
-    dispatch,
-    next,
     getState,
     stream,
-    plugin$: createStream('plugin'),
+    dispatch,
+    next: dispatch,
   };
 
-  initPlugins.call(app, option.plugins);
+  initPlugins.call(app, option.plugins, createStream('plugin'));
 
   return app;
 }
