@@ -1,6 +1,6 @@
 import rxLoop from '../src/';
 import { of } from 'rxjs';
-import { mapTo, catchError } from "rxjs/operators";
+import { map, mapTo, catchError } from "rxjs/operators";
 
 const app = rxLoop();
 app.model({
@@ -52,6 +52,53 @@ app.model({
   state: {
     list: [],
   },
+});
+
+app.model({
+  name: 'a',
+  state: {
+    txt: 'a',
+  },
+  reducers: {
+    update(state, action) {
+      return {
+        ...state,
+        ...action.data,
+      };
+    },
+  },
+  epics: {
+    setTxt(action$) {
+      return action$
+      .pipe(
+        map(data => {
+          this.dispatch({
+            type: 'b/update',
+            data: { txt: 'updated from a' },
+          });
+          return {
+            type: 'update',
+            data: { txt: 'updated' },
+          };
+        }),
+      );
+    }
+  },
+});
+
+app.model({
+  name: 'b',
+  state: {
+    txt: 'b',
+  },
+  reducers: {
+    update(state, action) {
+      return {
+        ...state,
+        ...action.data,
+      };
+    }
+  }
 });
 
 describe('Basic api', () => {
@@ -169,6 +216,20 @@ describe('Basic usage', () => {
     });
     expect(app.getState('counter')).toEqual({
       counter: 100,
+    });
+  });
+});
+
+describe('Cross model usage', () => {
+  test('dispatch model A: update model B', () => {
+    app.dispatch({
+      type: 'a/setTxt',
+    });
+    expect(app.getState('a')).toEqual({
+      txt: 'updated',
+    });
+    expect(app.getState('b')).toEqual({
+      txt: 'updated from a',
     });
   });
 });

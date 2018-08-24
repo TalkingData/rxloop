@@ -4,7 +4,11 @@
 
 ## 安装
 ```bash
-npm i rxloop -S
+$ npm i @rxloop/core
+```
+或
+```bash
+$ yarn add @rxloop/core
 ```
 
 ## 在项目中引入
