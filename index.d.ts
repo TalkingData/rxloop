@@ -34,7 +34,7 @@ export interface RxLoopInstance {
 }
 
 export interface Config {
-  plugins?: Array<function>,
+  plugins?: Function[],
 }
 
 export default function rxloop(conf?: Config): RxLoopInstance;
