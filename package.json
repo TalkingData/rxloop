@@ -1,6 +1,6 @@
 {
   "name": "@rxloop/core",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "Predictable state container for JavaScript apps based on RxJS， like Redux with redux-observable middleware.",
   "scripts": {
     "lint": "echo 'lint'",
