@@ -1,6 +1,7 @@
 import { from } from 'rxjs';
 import { mergeMap, map, takeUntil } from 'rxjs/operators';
-import rxLoop, { loading } from '../../../src/';
+import rxLoop from '@rxloop/core';
+import loading from '@rxloop/loading';
 
 const apiSlow = async () => {
   const data = await new Promise((resolve) => {
