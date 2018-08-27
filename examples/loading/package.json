@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@rxloop/core": "^0.8.1",
+    "@rxloop/loading": "^0.1.2",
     "rxjs": "^6.2.0",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.1.2",
