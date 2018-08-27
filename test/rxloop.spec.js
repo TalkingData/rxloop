@@ -111,6 +111,7 @@ describe('Basic api', () => {
     expect(apis).toContain('dispatch');
     expect(apis).toContain('getState');
     expect(apis).toContain('stream');
+    expect(apis).toContain('plugin$');
   });
 
   test('default counter state is { counter: 0 }', () => {

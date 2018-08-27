@@ -4,9 +4,8 @@ import invariant from 'invariant';
 import checkModel from './check-model';
 import initPlugins from './plugins';
 
-const bus$ = new Subject();
-
 export function rxLoop(option = { plugins: [] }) {
+  const bus$ = new Subject();
 
   function createStream(type) {
     return bus$.pipe(
@@ -61,6 +60,7 @@ export function rxLoop(option = { plugins: [] }) {
 
       this._stream[name][`epic_${type}$`].subscribe(data => {
         this.dispatch({
+          data,
           type: 'plugin',
           action: 'onEpicStart',
           model: name,
@@ -70,6 +70,7 @@ export function rxLoop(option = { plugins: [] }) {
 
       this._stream[name][`epic_${type}_cancel$`].subscribe(data => {
         this.dispatch({
+          data,
           type: 'plugin',
           action: 'onEpicCancel',
           model: name,
@@ -91,6 +92,7 @@ export function rxLoop(option = { plugins: [] }) {
               `[epics] undefined reducer ${reducer}`,
             );
             this.dispatch({
+              data: action,
               type: 'plugin',
               action: 'onEpicEnd',
               model: name,

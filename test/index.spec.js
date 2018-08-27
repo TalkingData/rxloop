@@ -1,6 +1,5 @@
-import rxloop, { loading } from '../src/';
+import rxloop from '../src/';
 
 test('export plugins', () => {
   expect(rxloop).not.toBeUndefined();
-  expect(loading).not.toBeUndefined();
 });
