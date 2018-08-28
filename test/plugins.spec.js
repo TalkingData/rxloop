@@ -1,5 +1,6 @@
 import rxloop from '../src/';
-import { mapTo, map } from "rxjs/operators";
+import { from } from 'rxjs';
+import { mapTo, map, takeUntil, switchMap } from "rxjs/operators";
 
 describe('Basic api', () => {
   test('plugin event source', () => {
@@ -122,6 +123,62 @@ describe('Basic api', () => {
     });
     app.dispatch({
       type: 'test/getData',
+    });
+  });
+
+  test('Event onEpicCancel will be dispached', (done) => {
+    const apiSlow = async () => {
+      const data = await new Promise((resolve) => {
+        setTimeout(() => resolve({}), 5000);
+      });
+      return { code: 200, data };
+    };
+
+    const app = rxloop({
+      plugins: [
+        function pluginOne({ onEpicCancel$ }) {
+          onEpicCancel$.subscribe((data) => {
+            expect(data).toEqual({
+              type: 'plugin',
+              action: "onEpicCancel",
+              model: 'test',
+              epic: "getSlowlyData",
+            });
+            done();
+          });
+        },
+      ],
+    });
+
+    app.model({
+      name: 'test',
+      state: {},
+      reducers: {
+        add(state) {
+          return {
+            ...state,
+            a: 1,
+          };
+        },
+      },
+      epics: {
+        getSlowlyData(action$, cancel$) {
+          return action$.pipe(
+            switchMap(() => {
+              return from(apiSlow).pipe( takeUntil(cancel$) );
+            }),
+            mapTo({
+              type: 'add',
+            }),
+          );
+        },
+      },
+    });
+    app.dispatch({
+      type: 'test/getSlowlyData',
+    });
+    app.dispatch({
+      type: 'test/getSlowlyData/cancel',
     });
   });
 

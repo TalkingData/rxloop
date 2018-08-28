@@ -70,7 +70,6 @@ export function rxLoop(option = { plugins: [] }) {
 
       this._stream[name][`epic_${type}_cancel$`].subscribe(data => {
         this.dispatch({
-          data,
           type: 'plugin',
           action: 'onEpicCancel',
           model: name,
