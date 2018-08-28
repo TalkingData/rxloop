@@ -11,5 +11,6 @@ export default function init(plugins, plugin$) {
     onEpicStart$: source('onEpicStart'),
     onEpicEnd$: source('onEpicEnd'),
     onEpicCancel$: source('onEpicCancel'),
+    onEpicError$: source('onEpicError'),
   }));
 };

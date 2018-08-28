@@ -1,5 +1,5 @@
-import { Subject, BehaviorSubject } from "rxjs";
-import { filter, scan, map, publishReplay, refCount } from "rxjs/operators";
+import { Subject, BehaviorSubject, throwError } from "rxjs";
+import { filter, scan, map, publishReplay, refCount, catchError } from "rxjs/operators";
 import invariant from 'invariant';
 import checkModel from './check-model';
 import initPlugins from './plugins';
@@ -99,6 +99,16 @@ export function rxLoop(option = { plugins: [] }) {
               epic: type,
             });
             return state => reducers[reducer](state, action);
+          }),
+          catchError((error) => {
+            this.dispatch({
+              error,
+              type: 'plugin',
+              action: 'onEpicError',
+              model: name,
+              epic: type,
+            });
+            return throwError(error);
           }),
         )
         // 将异步计算结果推送出去
