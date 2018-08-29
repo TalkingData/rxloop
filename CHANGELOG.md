@@ -1,3 +1,28 @@
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/TalkingData/rxloop/compare/v0.8.3...v0.9.0) (2018-08-29)
+
+
+### Bug Fixes
+
+* **plugin:** add onEpicError hook ([4c877f2](https://github.com/TalkingData/rxloop/commit/4c877f2))
+
+
+### Features
+
+* global error hook ([1e01903](https://github.com/TalkingData/rxloop/commit/1e01903))
+
+
+
+<a name="0.8.3"></a>
+## [0.8.3](https://github.com/TalkingData/rxloop/compare/v0.8.2...v0.8.3) (2018-08-27)
+
+
+### Bug Fixes
+
+* ts type error ([64141ec](https://github.com/TalkingData/rxloop/commit/64141ec))
+
+
+
 <a name="0.8.3"></a>
 ## [0.8.3](https://github.com/TalkingData/rxloop/compare/v0.8.2...v0.8.3) (2018-08-27)
 
