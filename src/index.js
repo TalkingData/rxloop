@@ -1,1 +1,1 @@
-export { rxLoop as default } from './rxloop';
+export { rxloop as default } from './rxloop';

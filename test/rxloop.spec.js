@@ -1,8 +1,8 @@
-import rxLoop from '../src/';
+import rxloop from '../src/';
 import { of } from 'rxjs';
 import { map, mapTo } from "rxjs/operators";
 
-const app = rxLoop();
+const app = rxloop();
 app.model({
   name: 'counter',
   state: {
@@ -232,5 +232,56 @@ describe('Cross model usage', () => {
     expect(app.getState('b')).toEqual({
       txt: 'updated from a',
     });
+  });
+});
+
+describe('check config', () => {
+  test('Mount a plugin', () => {
+    const mockPlugin = jest.fn();
+    rxloop({
+      plugins: [
+        mockPlugin,
+      ],
+    });
+    expect(mockPlugin.mock.calls.length).toBe(1);
+    const pluginEvts = Object.keys(mockPlugin.mock.calls[0][0]);
+    expect(pluginEvts.length).toBe(5);
+    expect(pluginEvts).toContain('onModel$');
+    expect(pluginEvts).toContain('onEpicStart$');
+    expect(pluginEvts).toContain('onEpicEnd$');
+    expect(pluginEvts).toContain('onEpicCancel$');
+    expect(pluginEvts).toContain('onEpicError$');
+  });
+  test('global error hook', (done) => {
+    const app = rxloop({
+      onError(json) {
+        expect(json).toEqual({
+          error: 'boom!',
+          model: 'test',
+          epic: 'getData',
+        });
+        done();
+      },
+    });
+
+    app.model({
+      name: 'test',
+      state: {},
+      reducers: {
+        add(state) {
+          return state;
+        },
+      },
+      epics: {
+        getData(action$) {
+          return action$.pipe(
+            map(() => {
+              throw 'boom!';
+            }),
+          );
+        },
+      },
+    });
+    app.dispatch({ type: 'test/getData' });
   });
 });

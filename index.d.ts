@@ -35,6 +35,7 @@ export interface RxLoopInstance {
 
 export interface Config {
   plugins?: Function[],
+  onError?: Function,
 }
 
 export default function rxloop(conf?: Config): RxLoopInstance;

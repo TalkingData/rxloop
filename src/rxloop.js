@@ -4,7 +4,13 @@ import invariant from 'invariant';
 import checkModel from './check-model';
 import initPlugins from './plugins';
 
-export function rxLoop(option = { plugins: [] }) {
+export function rxloop( config = {} ) {
+  const option = { 
+    plugins: [],
+    onError() {},
+    ...config,
+  };
+
   const bus$ = new Subject();
 
   function createStream(type) {
@@ -100,6 +106,11 @@ export function rxLoop(option = { plugins: [] }) {
             return state => reducers[reducer](state, action);
           }),
           catchError((error) => {
+            option.onError({
+              error,
+              model: name,
+              epic: type,
+            });
             this.dispatch({
               error,
               type: 'plugin',
