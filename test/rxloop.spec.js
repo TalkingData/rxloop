@@ -154,6 +154,40 @@ describe('Error check', () => {
     }).toThrow()
   });
 
+  test('throws if reducers is not a plain object', () => {
+    expect(() => app.model({ name: 'c', state: 1, reducers: 'object' }))
+    .toThrow('[app.model] reducers should be plain object, but got string');
+  });
+
+  test('throws if all reducer should not be function', () => {
+    expect(() => app.model({
+      name: 'd',
+      state: 1,
+      reducers: {
+        a() {},
+        b: 'b',
+      },
+    }))
+    .toThrow('[app.model] all reducer should be function');
+  });
+
+  test('throws if epics is not a plain object', () => {
+    expect(() => app.model({ name: 'c', state: 1, epics: 'object' }))
+    .toThrow('[app.model] epics should be plain object, but got string');
+  });
+
+  test('throws if all epic should not be function', () => {
+    expect(() => app.model({
+      name: 'e',
+      state: 1,
+      epics: {
+        a() {},
+        b: 'b',
+      },
+    }))
+    .toThrow('[app.model] all epic should be function');
+  });
+
   test('throws if is not pass a name', () => {
     expect(() => app.getState()).toThrow()
   });

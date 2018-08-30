@@ -35,6 +35,7 @@
   "homepage": "https://talkingdata.github.io/rxloop",
   "dependencies": {
     "invariant": "^2.2.4",
+    "is-plain-object": "^2.0.4",
     "rxjs": "^6.0.0"
   },
   "peerDependencies": {

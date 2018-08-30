@@ -1,28 +1,52 @@
 import invariant from 'invariant';
+import { isPlainObject, isAllFunction } from './utils';
 
 export default function checkModel(model, rootState) {
-  invariant(true, 'testtest');
   const {
     name,
     reducers,
     epics,
   } = model;
 
-  // name 必须被定义
+  // name should be defined
   invariant(
     name,
     `[app.model] name should be defined`,
   );
 
-  // 并且是字符串
+  // name should be string
   invariant(
     typeof name === 'string',
     `[app.model] name should be string, but got ${typeof name}`,
   );
 
-  // 并且唯一
+  // name should be unique
   invariant(
     rootState[name] === (void 0),
     `[app.model] name should be unique`,
   );
+
+  // reducers should be plain object
+  if (reducers) {
+    invariant(
+      isPlainObject(reducers),
+      `[app.model] reducers should be plain object, but got ${typeof reducers}`,
+    );
+    invariant(
+      isAllFunction(reducers),
+      `[app.model] all reducer should be function`,
+    );
+  }
+
+  // epics should be plain object
+  if (epics) {
+    invariant(
+      isPlainObject(epics),
+      `[app.model] epics should be plain object, but got ${typeof epics}`,
+    );
+    invariant(
+      isAllFunction(epics),
+      `[app.model] all epic should be function`,
+    );
+  }
 }
