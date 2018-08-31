@@ -1,10 +1,10 @@
-import rxLoop from '../../../src/';
-import { Observable, of, from, combineLatest } from 'rxjs';
+import rxloop from '@rxloop/core';
+import { from, combineLatest } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
 const getCounterApi = () => Promise.resolve(100);
 
-const app = rxLoop();
+const app = rxloop();
 
 app.model({
   name: 'counter',
@@ -29,9 +29,7 @@ app.model({
     getCounter(action$, cancel$) {
       return action$.pipe(
         switchMap(() => {
-          return from(
-            getCounterApi()
-          );
+          return from( getCounterApi() );
         }),
         map((data) => {
           this.dispatch({
@@ -47,7 +45,6 @@ app.model({
     }
   },
 });
-
 
 app.model({
   name: 'user',
@@ -84,11 +81,6 @@ combineLatest(
   console.log(state);
 });
 
-// counter$.subscribe((state) => {
-//   console.log(state);
-//   // this.setState(state);
-// });
-
 app.dispatch({
   type: 'counter/getCounter',
 });
@@ -96,12 +88,3 @@ app.dispatch({
 app.dispatch({
   type: 'counter/inc',
 });
-// app.dispatch({
-//   type: 'counter/inc',
-// });
-// app.dispatch({
-//   type: 'counter/inc',
-// });
-// app.dispatch({
-//   type: 'counter/inc',
-// });

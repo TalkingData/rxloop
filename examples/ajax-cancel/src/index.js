@@ -1,6 +1,6 @@
 import { from } from 'rxjs';
-import { mergeMap, switchMap, map, takeUntil } from 'rxjs/operators';
-import rxLoop from '../../../src/';
+import { switchMap, map, takeUntil } from 'rxjs/operators';
+import rxloop from '@rxloop/core';
 
 const apiSlow = async () => {
   const data = await new Promise((resolve) => {
@@ -9,10 +9,9 @@ const apiSlow = async () => {
   return { code: 200, data };
 };
 
-const counterModel = {
+const counter = {
   name: 'counter',
   state: {
-    error: '',
     counter: 0,
   },
   reducers: {
@@ -28,33 +27,15 @@ const counterModel = {
         counter: state.counter + 1
       };
     },
-    handleError(state, action) {
-      return {
-        ...state,
-        error: action.error,
-      };
-    },
   },
   epics: {
     getData(action$, cancel$) {
       return action$.pipe(
-        mergeMap(() => {
-          return from(
-            apiSlow().catch((error) => {
-              return { error };
-            }),
-          )
-          .pipe(
-            takeUntil(cancel$),
-          );
+        switchMap(() => {
+          return from( apiSlow() )
+                .pipe( takeUntil(cancel$) );
         }),
         map((data) => {
-          if (data.error) {
-            return {
-              error: data.error,
-              type: 'handleError',
-            };
-          }
           return {
             data,
             type: 'increment',
@@ -65,22 +46,11 @@ const counterModel = {
   }
 };
 
-const app = rxLoop();
-app.model(counterModel);
+const app = rxloop();
+app.model(counter);
 
 app.stream('counter').subscribe((state) => {
   console.log(state);
-});
-
-
-// switchMap 连续调用取消请一次异步请求
-// https://ithelp.ithome.com.tw/articles/10188387
-app.dispatch({
-  type: 'counter/getData',
-});
-
-app.dispatch({
-  type: 'counter/getData',
 });
 
 app.dispatch({

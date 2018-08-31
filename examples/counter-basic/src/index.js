@@ -1,6 +1,6 @@
-import rxLoop from '../../../src';
+import rxloop from '@rxloop/core';
 
-const counterModel = {
+const counter = {
   name: 'counter',
   state: 0,
   reducers: {
@@ -13,11 +13,11 @@ const counterModel = {
   },
 };
 
-const app = rxLoop();
-app.model(counterModel);
+const app = rxloop();
+app.model(counter);
 
 var valueEl = document.getElementById('value');
-app.counter$.subscribe((state) => {
+app.stream('counter').subscribe((state) => {
   valueEl.innerHTML = state;
 });
 

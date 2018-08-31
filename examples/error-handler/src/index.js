@@ -1,16 +1,14 @@
-import { from, of } from 'rxjs';
-import { mergeMap, switchMap, map } from 'rxjs/operators';
-import rxLoop from '../../../src/';
+import { from } from 'rxjs';
+import { mergeMap, map } from 'rxjs/operators';
+import rxloop from '@rxloop/core';
 
-const api = async () => {
+const apiCrashed = async () => {
   throw new Error('Http Error');
-  // return { code: 200, data: 1 };
 };
 
-const counterModel = {
+const counter = {
   name: 'counter',
   state: {
-    error: '',
     counter: 0,
   },
   reducers: {
@@ -31,9 +29,7 @@ const counterModel = {
     getData(action$) {
       return action$.pipe(
         mergeMap(() => {
-          return from(
-            api(),
-          );
+          return from( apiCrashed() );
         }),
         map((data) => {
           return {
@@ -43,15 +39,20 @@ const counterModel = {
         }),
       );
     }
-  }
+  },
 };
 
-const app = rxLoop();
-app.model(counterModel);
+const app = rxloop({
+  onError(err) {
+    console.log('Global error handler...');
+    console.log(err);
+  },
+});
+app.model(counter);
 app.model({
   name: 'test',
   state: {
-    code: 1,
+    code: 100,
   },
   reducers: {
     change(state, action) {
@@ -68,6 +69,7 @@ app.stream('counter').subscribe(
     console.log(state);
   },
   (err) => {
+    console.log('Model error handler...');
     console.log(err);
   },
 );
@@ -77,16 +79,18 @@ app.stream('test').subscribe(
     console.log(state);
   },
   (err) => {
+    console.log('model error handler');
     console.log(err);
   },
 );
+
 
 // switchMap 连续调用取消请一次异步请求
 // https://ithelp.ithome.com.tw/articles/10188387
 app.dispatch({
   type: 'counter/getData',
 });
-// 执行 👆 代码时报错了，会中断 👇 两次调用
+// // 执行 👆 代码时报错了，会中断 👇 两次调用
 app.dispatch({
   type: 'counter/getData',
 });
@@ -98,5 +102,5 @@ app.dispatch({
 // 其中一个 model 报错，不会影响其它 model 的状况
 app.dispatch({
   type: 'test/change',
-  code: 1,
+  code: 1001,
 });
