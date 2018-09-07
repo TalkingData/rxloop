@@ -8,7 +8,7 @@ export interface Action {
 
 export type Reducer = (state: any, action: Action) => any;
 
-export type Epic = (action$: Observable<any>, cancel$: Observable<any>) => Observable<any>;
+export type Epic = (action$: Observable<Action>, cancel$: Observable<Action>) => Observable<Action>;
 
 export interface EpicsMapObject {
   [key: string]: Epic,
