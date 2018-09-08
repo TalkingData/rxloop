@@ -1,3 +1,13 @@
+<a name="0.9.2"></a>
+## [0.9.2](https://github.com/TalkingData/rxloop/compare/v0.9.1...v0.9.2) (2018-09-08)
+
+
+### Bug Fixes
+
+* pass model name to createReducer ([5995e7b](https://github.com/TalkingData/rxloop/commit/5995e7b))
+
+
+
 <a name="0.9.1"></a>
 ## [0.9.1](https://github.com/TalkingData/rxloop/compare/v0.9.0...v0.9.1) (2018-09-08)
 
