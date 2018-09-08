@@ -1,3 +1,18 @@
+<a name="0.9.1"></a>
+## [0.9.1](https://github.com/TalkingData/rxloop/compare/v0.9.0...v0.9.1) (2018-09-08)
+
+
+### Bug Fixes
+
+* **ts:** Improve epic type definition ([96a8cdd](https://github.com/TalkingData/rxloop/commit/96a8cdd))
+
+
+### Features
+
+* check reducers and epics ([90b43af](https://github.com/TalkingData/rxloop/commit/90b43af))
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/TalkingData/rxloop/compare/v0.8.3...v0.9.0) (2018-08-29)
 
