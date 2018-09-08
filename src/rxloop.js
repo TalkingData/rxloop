@@ -45,7 +45,7 @@ export function rxloop( config = {} ) {
       this._stream[name][`reducer_${type}$`]
         .pipe(
           map(action => {
-            return this.createReducer(action, reducers[type]);
+            return this.createReducer(action, reducers[type], name);
           }),
         )
         // 将同步计算结果推送出去
@@ -103,7 +103,7 @@ export function rxloop( config = {} ) {
               model: name,
               epic: type,
             });
-            return this.createReducer(action, reducers[reducer]);
+            return this.createReducer(action, reducers[reducer], name);
           }),
           catchError((error) => {
             option.onError({
