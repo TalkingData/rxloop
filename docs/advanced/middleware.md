@@ -98,7 +98,7 @@ export interface API {
 export type Plugin = (api: API) => void;
 ```
 
-插件k开发示例：
+插件开发示例：
 ```javascript
 function logger() {
   return function setup({
