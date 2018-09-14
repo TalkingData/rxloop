@@ -5,7 +5,7 @@
 const app = rxloop({
   plugins: [
     loading(),
-    immmer(),
+    immer(),
   ],
 });
 ```

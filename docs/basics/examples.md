@@ -5,3 +5,4 @@
 - [error handler](https://github.com/TalkingData/rxloop/tree/master/examples/error-handler)
 - [single state tree](https://github.com/TalkingData/rxloop/tree/master/examples/single-state)
 - [loading plugin](https://github.com/TalkingData/rxloop/tree/master/examples/loading-plugin)
+- [immer plugin](https://github.com/TalkingData/rxloop/tree/master/examples/immer-plugin)
