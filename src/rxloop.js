@@ -1,5 +1,5 @@
 import { Subject, BehaviorSubject, throwError } from "rxjs";
-import { filter, scan, map, publishReplay, refCount, catchError } from "rxjs/operators";
+import { filter, scan, map, publishReplay, refCount, catchError, tap } from "rxjs/operators";
 import invariant from 'invariant';
 import checkModel from './check-model';
 import initPlugins from './plugins';
@@ -32,6 +32,13 @@ export function rxloop( config = {} ) {
       scan((nextState, reducer) => reducer(nextState), state),
       publishReplay(1),
       refCount(),
+      tap(v => {
+        v.__action__ && this.dispatch({
+          type: 'plugin',
+          action: 'onCreateReducer',
+          actionData: v.__action__,
+        });
+      }),
     );
 
     this._stream[name] = {};
@@ -167,7 +174,11 @@ export function rxloop( config = {} ) {
   }
 
   function createReducer(action = {}, reducer = () => {}) {
-    return (state) => reducer(state, action);
+    return (state) => { 
+      const rtn = reducer(state, action);
+      rtn.__action__ = action;
+      return rtn;
+    };
   }
 
   const app = {
