@@ -12,18 +12,21 @@ app.model({
     increment(state, action) {
       return {
         ...state,
+        __action__: void 0,
         counter: state.counter + 1,
       };
     },
     decrement(state, action) {
       return {
         ...state,
+        __action__: void 0,
         counter: state.counter - 1,
       };
     },
     setCounter(state, action) {
       return {
         ...state,
+        __action__: void 0,
         counter: action.counter,
       };
     }
@@ -63,6 +66,7 @@ app.model({
     update(state, action) {
       return {
         ...state,
+        __action__: void 0,
         ...action.data,
       };
     },
@@ -95,6 +99,7 @@ app.model({
     update(state, action) {
       return {
         ...state,
+        __action__: void 0,
         ...action.data,
       };
     }
@@ -279,12 +284,14 @@ describe('check config', () => {
     });
     expect(mockPlugin.mock.calls.length).toBe(1);
     const pluginEvts = Object.keys(mockPlugin.mock.calls[0][0]);
-    expect(pluginEvts.length).toBe(5);
+    expect(pluginEvts.length).toBe(7);
     expect(pluginEvts).toContain('onModel$');
     expect(pluginEvts).toContain('onEpicStart$');
     expect(pluginEvts).toContain('onEpicEnd$');
     expect(pluginEvts).toContain('onEpicCancel$');
     expect(pluginEvts).toContain('onEpicError$');
+    expect(pluginEvts).toContain('onStatePatch$');
+    expect(pluginEvts).toContain('onStart$');
   });
   test('global error hook', (done) => {
     const app = rxloop({
