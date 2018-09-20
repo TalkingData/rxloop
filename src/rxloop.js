@@ -35,8 +35,8 @@ export function rxloop( config = {} ) {
       tap(v => {
         v.__action__ && this.dispatch({
           type: 'plugin',
-          action: 'onCreateReducer',
-          actionData: v.__action__,
+          action: 'onStatePatch',
+          data: v.__action__,
         });
       }),
     );
@@ -175,9 +175,8 @@ export function rxloop( config = {} ) {
 
   function createReducer(action = {}, reducer = () => {}) {
     return (state) => { 
-      const rtn = reducer(state, action);
-      rtn.__action__ = action;
-      return rtn;
+      state.__action__ = action;
+      return reducer(state, action);
     };
   }
 

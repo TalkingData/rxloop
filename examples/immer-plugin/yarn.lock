@@ -22,10 +22,11 @@
     rxjs "^6.0.0"
 
 "@rxloop/immer@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/@rxloop/immer/-/immer-0.1.2.tgz#ae3138021575e6891c71c07959ef753670422eeb"
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/@rxloop/immer/-/immer-0.1.4.tgz#69406c4279744c83a728942f541f42521b2b237b"
   dependencies:
     immer "^1.6.0"
+    lodash "^4.17.11"
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
@@ -2587,8 +2588,8 @@ ignore@^3.3.5:
   resolved "https://registry.npmjs.org/ignore/-/ignore-3.3.10.tgz#0a97fb876986e8081c631160f8f9f389157f0043"
 
 immer@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.npmjs.org/immer/-/immer-1.6.0.tgz#4e41801272d64bff12d4b58ada0276bb2f4ead81"
+  version "1.7.1"
+  resolved "https://registry.npmjs.org/immer/-/immer-1.7.1.tgz#39e46b415c1086557c053d3657e5a348fbf2f971"
 
 import-local@^1.0.0:
   version "1.0.0"
@@ -3170,6 +3171,10 @@ lodash.debounce@^4.0.8:
 lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
   version "4.17.10"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+
+lodash@^4.17.11:
+  version "4.17.11"
+  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
 log-symbols@^1.0.2:
   version "1.0.2"

@@ -31,6 +31,7 @@ export interface RxLoopInstance {
   dispatch: (action: Action) => void,
   getState: (modelName: String) => any,
   next: (action: Action) => void,
+  start: () => void,
 }
 
 export interface Config {
