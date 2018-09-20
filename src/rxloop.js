@@ -181,6 +181,13 @@ export function rxloop( config = {} ) {
     };
   }
 
+  function start() {
+    this.dispatch({
+      type: 'plugin',
+      action: 'onStart',
+    });
+  }
+
   const app = {
     _state: {},
     _stream: {},
@@ -191,6 +198,7 @@ export function rxloop( config = {} ) {
     stream,
     createReducer,
     dispatch,
+    start,
     next: dispatch,
   };
 

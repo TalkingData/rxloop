@@ -3,7 +3,11 @@ import { from, combineLatest } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import devTools from '../../devtools';
 
-const getCounterApi = () => Promise.resolve(100);
+const getCounterApi = () => {
+  return new Promise((r) => {
+    setTimeout(() => r(100), 500);
+  });
+};
 
 const app = rxloop({
   plugins: [ devTools ]
@@ -65,6 +69,8 @@ app.model({
   },
 });
 
+app.start();
+
 const user$ = app.stream('user');
 const counter$ = app.stream('counter');
 
@@ -76,16 +82,13 @@ combineLatest( user$, counter$ ).pipe(
     };
   }),
 ).subscribe(state => {
-  // console.log(state);
+  console.log(state);
 });
 
-
-setTimeout(() => {
-  app.dispatch({
-    type: 'counter/inc',
-  });
-  app.dispatch({
-    type: 'counter/getCounter',
-  });
-},1000);
+app.dispatch({
+  type: 'counter/inc',
+});
+app.dispatch({
+  type: 'counter/getCounter',
+});
 

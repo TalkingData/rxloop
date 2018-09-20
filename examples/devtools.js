@@ -1,20 +1,18 @@
 import { combineLatest } from 'rxjs';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 
 function devToolsPlugin({
   onCreateReducer$: action$,
+  onStart$,
 }) {
-  // todo
-  setTimeout(() => {
-    this.dispatch({
-      type: 'plugin',
-      action: 'onReady',
-    });
-  }, 0);
-
-  const source = evt => this.plugin$.pipe( filter(e => e.action === evt) );
-  
-  source('onReady').subscribe(() => {
+  if (!window.__REDUX_DEVTOOLS_EXTENSION__) {
+    console.warn(
+      'You need to install Redux DevTools Extension，when using rxloop devtool plugin.\r\n' +
+      'To see more infomation about DevTools: https://github.com/zalmoxisus/redux-devtools-extension/'
+    );
+    return;
+  }
+  onStart$.subscribe(() => {
     const devTools = window.__REDUX_DEVTOOLS_EXTENSION__.connect();
 
     const streams = [];

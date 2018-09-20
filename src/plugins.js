@@ -13,5 +13,6 @@ export default function init(plugins, plugin$) {
     onEpicCancel$: source('onEpicCancel'),
     onEpicError$: source('onEpicError'),
     onCreateReducer$: source('onCreateReducer'),
+    onStart$: source('onStart'),
   }));
 };
