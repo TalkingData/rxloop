@@ -1,3 +1,22 @@
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/TalkingData/rxloop/compare/v0.9.2...v0.10.0) (2018-09-20)
+
+
+### Bug Fixes
+
+* clear code ([32244f5](https://github.com/TalkingData/rxloop/commit/32244f5))
+* fix test error ([8075df8](https://github.com/TalkingData/rxloop/commit/8075df8))
+* rename hooks ([d6b63fc](https://github.com/TalkingData/rxloop/commit/d6b63fc))
+
+
+### Features
+
+* add devtool support ([26f417d](https://github.com/TalkingData/rxloop/commit/26f417d))
+* add devtools support ([e5783c6](https://github.com/TalkingData/rxloop/commit/e5783c6))
+* **plugin:** add start hooks ([63d1d37](https://github.com/TalkingData/rxloop/commit/63d1d37))
+
+
+
 <a name="0.9.2"></a>
 ## [0.9.2](https://github.com/TalkingData/rxloop/compare/v0.9.1...v0.9.2) (2018-09-08)
 
