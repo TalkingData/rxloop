@@ -228,4 +228,70 @@ describe('Basic api', () => {
       type: 'test/getErrorData',
     });
   });
+
+  const mockfn = jest.fn();
+  const app = rxloop({
+    plugins: [
+      function pluginOne({ onStatePatch$ }) {
+        onStatePatch$.subscribe(mockfn);
+      },
+    ],
+  });
+
+  app.model({
+    name: 'counter',
+    state: {
+      counter: 0,
+    },
+    reducers: {
+      inc(state) {
+        return {
+          counter: state.counter + 1,
+        };
+      },
+      dec(state) {
+        return {
+          counter: state.counter - 1,
+        };
+      },
+    },
+  });
+  app.start();
+  app.stream('counter').subscribe();
+
+  app.dispatch({
+    type: 'counter/inc',
+  });
+  app.dispatch({
+    type: 'counter/inc',
+  });
+  app.dispatch({
+    type: 'counter/dec',
+  });
+  
+  test('Event onStatePatch will be dispached', () => {
+    expect(mockfn.mock.calls.length).toBe(3);
+    expect(mockfn.mock.calls[0][0]).toEqual({
+      state: { counter: 1 },
+      reducerAction: { type: 'counter/inc' },
+      model: 'counter',
+      type: 'plugin',
+      action: 'onStatePatch',
+    });
+    expect(mockfn.mock.calls[1][0]).toEqual({
+      state: { counter: 2 },
+      reducerAction: { type: 'counter/inc' },
+      model: 'counter',
+      type: 'plugin',
+      action: 'onStatePatch',
+    });
+    expect(mockfn.mock.calls[2][0]).toEqual({
+      state: { counter: 1 },
+      reducerAction: { type: 'counter/dec' },
+      model: 'counter',
+      type: 'plugin',
+      action: 'onStatePatch',
+    });
+  });
+
 });

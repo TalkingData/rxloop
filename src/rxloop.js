@@ -1,5 +1,5 @@
 import { Subject, BehaviorSubject, throwError } from "rxjs";
-import { filter, scan, map, publishReplay, refCount, catchError, tap } from "rxjs/operators";
+import { filter, scan, map, publishReplay, refCount, catchError } from "rxjs/operators";
 import invariant from 'invariant';
 import checkModel from './check-model';
 import initPlugins from './plugins';
@@ -29,16 +29,22 @@ export function rxloop( config = {} ) {
 
     // 创建数据流出口
     this[`${name}$`] = out$$.pipe(
-      scan((nextState, reducer) => reducer(nextState), state),
+      scan((prevState, reducer) => {
+        const nextState = reducer(prevState);
+        if (reducer.__action__) {
+          this.dispatch({
+            state: nextState,
+            reducerAction: reducer.__action__,
+            model: name,
+            type: 'plugin',
+            action: 'onStatePatch',
+          });
+          delete reducer.__action__;
+        }
+        return nextState;
+      }, state),
       publishReplay(1),
       refCount(),
-      tap(v => {
-        v.__action__ && this.dispatch({
-          type: 'plugin',
-          action: 'onStatePatch',
-          data: v.__action__,
-        });
-      }),
     );
 
     this._stream[name] = {};
@@ -52,7 +58,9 @@ export function rxloop( config = {} ) {
       this._stream[name][`reducer_${type}$`]
         .pipe(
           map(action => {
-            return this.createReducer(action, reducers[type]);
+            const rtn = this.createReducer(action, reducers[type]);
+            rtn.__action__ = action;
+            return rtn;
           }),
         )
         // 将同步计算结果推送出去
@@ -110,7 +118,9 @@ export function rxloop( config = {} ) {
               model: name,
               epic: type,
             });
-            return this.createReducer(action, reducers[reducer]);
+            const rtn = this.createReducer(action, reducers[reducer]);
+            rtn.__action__ = action;
+            return rtn;
           }),
           catchError((error) => {
             option.onError({
@@ -174,10 +184,7 @@ export function rxloop( config = {} ) {
   }
 
   function createReducer(action = {}, reducer = () => {}) {
-    return (state) => { 
-      state.__action__ = action;
-      return reducer(state, action);
-    };
+    return (state) => reducer(state, action);
   }
 
   function start() {
