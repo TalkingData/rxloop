@@ -1,7 +1,7 @@
 import rxloop from '@rxloop/core';
 import { from, combineLatest } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
-import devTools from '../../devtools';
+import devTools from '@rxloop/devtools';
 
 const getCounterApi = () => {
   return new Promise((r) => {
@@ -10,7 +10,7 @@ const getCounterApi = () => {
 };
 
 const app = rxloop({
-  plugins: [ devTools ]
+  plugins: [ devTools() ]
 });
 
 app.model({
@@ -33,7 +33,7 @@ app.model({
     },
   },
   epics: {
-    getCounter(action$, cancel$) {
+    getCounter(action$) {
       return action$.pipe(
         switchMap(() => {
           return from( getCounterApi() );

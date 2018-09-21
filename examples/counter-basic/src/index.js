@@ -1,5 +1,5 @@
 import rxloop from '@rxloop/core';
-import devTools from '../../devtools';
+import devTools from '@rxloop/devtools';
 
 const counter = {
   name: 'counter',
@@ -15,7 +15,7 @@ const counter = {
 };
 
 const app = rxloop({
-  plugins: [ devTools ]
+  plugins: [ devTools() ]
 });
 
 app.model(counter);
@@ -37,6 +37,8 @@ app.model({
     name: 'wxx',
   }
 });
+
+app.start();
 
 var valueEl = document.getElementById('value');
 app.stream('counter').subscribe((state) => {
