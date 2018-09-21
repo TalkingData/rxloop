@@ -1,3 +1,13 @@
+<a name="0.10.1"></a>
+## [0.10.1](https://github.com/TalkingData/rxloop/compare/v0.10.0...v0.10.1) (2018-09-21)
+
+
+### Features
+
+* add onStatePatch hooks ([8a2e859](https://github.com/TalkingData/rxloop/commit/8a2e859))
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/TalkingData/rxloop/compare/v0.9.2...v0.10.0) (2018-09-20)
 
