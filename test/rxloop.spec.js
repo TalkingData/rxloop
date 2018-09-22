@@ -9,24 +9,21 @@ app.model({
     counter: 0,
   },
   reducers: {
-    increment(state, action) {
+    increment(state,) {
       return {
         ...state,
-        __action__: void 0,
         counter: state.counter + 1,
       };
     },
-    decrement(state, action) {
+    decrement(state,) {
       return {
         ...state,
-        __action__: void 0,
         counter: state.counter - 1,
       };
     },
     setCounter(state, action) {
       return {
         ...state,
-        __action__: void 0,
         counter: action.counter,
       };
     }
@@ -66,7 +63,6 @@ app.model({
     update(state, action) {
       return {
         ...state,
-        __action__: void 0,
         ...action.data,
       };
     },
@@ -75,7 +71,7 @@ app.model({
     setTxt(action$) {
       return action$
       .pipe(
-        map(data => {
+        map(() => {
           this.dispatch({
             type: 'b/update',
             data: { txt: 'updated from a' },
@@ -99,7 +95,6 @@ app.model({
     update(state, action) {
       return {
         ...state,
-        __action__: void 0,
         ...action.data,
       };
     }
@@ -193,14 +188,6 @@ describe('Error check', () => {
     .toThrow('[app.model] all epic should be function');
   });
 
-  // test('throws if is not pass a name', () => {
-  //   expect(() => app.getState()).toThrow()
-  // });
-
-  // test('throws if is not pass name', () => {
-  //   expect(() => app.stream()).toThrow();
-  // });
-
   test('throws if is not pass an undifined model', () => {
     expect(() => app.stream('undifined')).toThrow();
   });
@@ -211,7 +198,7 @@ describe('Error check', () => {
 });
 
 describe('Basic usage', () => {
-  test('dispatch increment: state is { counter: 3 }', () => {
+  test('dispatch increment: state is { counter: 4 }', () => {
     app.dispatch({
       type: 'counter/increment',
     });
@@ -231,9 +218,7 @@ describe('Basic usage', () => {
     });
   });
 
-  test('dispatch increment: state is { counter: 1 }', () => {
-    const counter$ = app.stream('counter');
-
+  test('dispatch decrement: state is { counter: 2 }', () => {
     app.dispatch({
       type: 'counter/decrement',
     });
@@ -244,7 +229,7 @@ describe('Basic usage', () => {
       counter: 2,
     });
     let _value;
-    counter$.subscribe(value => (_value = value));
+    app.stream('counter').subscribe(value => (_value = value));
     expect(_value).toEqual({
       counter: 2,
     });
