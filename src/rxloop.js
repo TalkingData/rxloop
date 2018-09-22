@@ -183,11 +183,7 @@ export function rxloop( config = {} ) {
       streams.push(this[`${name}$`]);
     });
   
-    const source$ = combineLatest(
-      ...streams
-    );
-
-    return source$.pipe(
+    return combineLatest( ...streams ).pipe(
       map((arr) => {
         const store = {};
         models.forEach(( model, index) => {
