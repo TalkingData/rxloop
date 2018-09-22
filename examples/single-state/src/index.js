@@ -1,4 +1,4 @@
-import rxloop from '@rxloop/core';
+import rxloop from '../../../src';
 import { from, combineLatest } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import devTools from '@rxloop/devtools';
@@ -71,17 +71,21 @@ app.model({
 
 app.start();
 
-const user$ = app.stream('user');
-const counter$ = app.stream('counter');
+// const user$ = app.stream('user');
+// const counter$ = app.stream('counter');
 
-combineLatest( user$, counter$ ).pipe(
-  map(([user, counter]) => {
-    return {
-      user,
-      counter,
-    };
-  }),
-).subscribe(state => {
+// combineLatest( user$, counter$ ).pipe(
+//   map(([user, counter]) => {
+//     return {
+//       user,
+//       counter,
+//     };
+//   }),
+// ).subscribe(state => {
+//   console.log(state);
+// });
+
+app.stream().subscribe(state => {
   console.log(state);
 });
 

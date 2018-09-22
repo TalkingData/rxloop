@@ -1,4 +1,4 @@
-import { Subject, BehaviorSubject, throwError } from "rxjs";
+import { Subject, BehaviorSubject, throwError, combineLatest } from "rxjs";
 import { filter, scan, map, publishReplay, refCount, catchError } from "rxjs/operators";
 import invariant from 'invariant';
 import checkModel from './check-model';
@@ -159,28 +159,43 @@ export function rxloop( config = {} ) {
   }
 
   function getState(name) {
-    invariant(
-      name,
-      `[app.getState] name should be passed`,
-    );
+    let stream$ = this.stream(name);
     let _state;
-    this[`${name}$`].subscribe(state => {
-      _state = state;
-    });
+    stream$.subscribe(state => (_state = state));
     return _state;
   }
 
   function stream(name) {
-    invariant(
-      name,
-      `[app.stream] name should be passed`,
-    );
-    const stream$ = this[`${name}$`];
-    invariant(
+    let stream$ = !!name ? this[`${name}$`] : this.getSingleStore();
+    !!name && invariant(
       stream$,
       `[app.stream] model "${name}" must be registered`,
     );
     return stream$;
+  }
+
+  function getSingleStore() {
+    const streams = [];
+    const models = [];
+    
+    Object.keys(this._stream).forEach(name => {
+      models.push(name);
+      streams.push(this[`${name}$`]);
+    });
+  
+    const source$ = combineLatest(
+      ...streams
+    );
+
+    return source$.pipe(
+      map((arr) => {
+        const store = {};
+        models.forEach(( model, index) => {
+          store[model] = arr[index];
+        });
+        return store;
+      }),
+    );
   }
 
   function createReducer(action = {}, reducer = () => {}) {
@@ -199,6 +214,7 @@ export function rxloop( config = {} ) {
     _stream: {},
     _reducers: {},
     _epics: {},
+    getSingleStore,
     model,
     getState,
     stream,

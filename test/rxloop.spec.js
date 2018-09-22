@@ -193,13 +193,13 @@ describe('Error check', () => {
     .toThrow('[app.model] all epic should be function');
   });
 
-  test('throws if is not pass a name', () => {
-    expect(() => app.getState()).toThrow()
-  });
+  // test('throws if is not pass a name', () => {
+  //   expect(() => app.getState()).toThrow()
+  // });
 
-  test('throws if is not pass name', () => {
-    expect(() => app.stream()).toThrow();
-  });
+  // test('throws if is not pass name', () => {
+  //   expect(() => app.stream()).toThrow();
+  // });
 
   test('throws if is not pass an undifined model', () => {
     expect(() => app.stream('undifined')).toThrow();
@@ -324,5 +324,59 @@ describe('check config', () => {
       },
     });
     app.dispatch({ type: 'test/getData' });
+  });
+});
+
+describe('Single store', () => {
+  const app = rxloop();
+  app.model({
+    name: 'user',
+    state: {
+      user: 'user', 
+    },
+  });
+  app.model({
+    name: 'counter',
+    state: {
+      counter: 0, 
+    },
+    reducers: {
+      inc(state) {
+        return {
+          counter: state.counter + 1,
+        };
+      }
+    },
+  });
+  app.dispatch({ type: 'counter/inc' });
+
+  test('single stream test', (done) => {
+    app.stream().subscribe(store => {
+      expect(store).toEqual({
+        user: {
+          user: 'user',
+        },
+        counter: {
+          counter: 1,
+        },
+      });
+      done();
+    });
+  });
+  test('get single store test', () => {
+    expect(app.getState('user')).toEqual({
+      user: 'user',
+    });
+    expect(app.getState('counter')).toEqual({
+      counter: 1,
+    });
+    expect(app.getState()).toEqual({
+      user: {
+        user: 'user',
+      },
+      counter: {
+        counter: 1,
+      },
+    });
   });
 });
