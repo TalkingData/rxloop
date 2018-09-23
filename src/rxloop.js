@@ -126,6 +126,7 @@ export function rxloop( config = {} ) {
               epic: type,
             });
             const rtn = this.createReducer(action, reducers[reducer]);
+            action.type = `${name}/${action.type}`;
             rtn.__action__ = action;
             return rtn;
           }),
