@@ -1,3 +1,14 @@
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/TalkingData/rxloop/compare/v0.10.1...v0.11.0) (2018-09-23)
+
+
+### Features
+
+* Single store support ([74d6b07](https://github.com/TalkingData/rxloop/commit/74d6b07))
+* **plugin:** add onModelBeforeCreate hooks ([572ebb8](https://github.com/TalkingData/rxloop/commit/572ebb8))
+
+
+
 <a name="0.10.1"></a>
 ## [0.10.1](https://github.com/TalkingData/rxloop/compare/v0.10.0...v0.10.1) (2018-09-21)
 
