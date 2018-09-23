@@ -13,16 +13,19 @@
   version "1.1.1"
   resolved "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-1.1.1.tgz#53f349bb986ab273d601175aa1b25a655ab90ee3"
 
-"@rxloop/core@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.npmjs.org/@rxloop/core/-/core-0.9.0.tgz#64224f13a8f3f7fbd454f3c37547415223cd13bc"
+"@rxloop/core@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.npmjs.org/@rxloop/core/-/core-0.11.0.tgz#077daaf289dd5a0044dbf2314faf31a0b6f8b94f"
   dependencies:
     invariant "^2.2.4"
+    is-plain-object "^2.0.4"
     rxjs "^6.0.0"
 
-"@rxloop/loading@^0.1.9":
-  version "0.1.9"
-  resolved "https://registry.npmjs.org/@rxloop/loading/-/loading-0.1.9.tgz#b5feecec2022ae1679881d796b87f99425259d0f"
+"@rxloop/loading@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/@rxloop/loading/-/loading-0.2.0.tgz#002c0c25a7a4007949cef62bf5e319677a67541c"
+  dependencies:
+    immer "^1.7.2"
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
@@ -2585,6 +2588,10 @@ ignore@^3.3.5:
   version "3.3.10"
   resolved "https://registry.npmjs.org/ignore/-/ignore-3.3.10.tgz#0a97fb876986e8081c631160f8f9f389157f0043"
 
+immer@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.npmjs.org/immer/-/immer-1.7.2.tgz#a51e9723c50b27e132f6566facbec1c85fc69547"
+
 import-local@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/import-local/-/import-local-1.0.0.tgz#5e4ffdc03f4fe6c009c6729beb29631c2f8227bc"
@@ -4353,7 +4360,13 @@ rxjs@^5.5.2:
   dependencies:
     symbol-observable "1.0.1"
 
-rxjs@^6.0.0, rxjs@^6.1.0, rxjs@^6.2.0:
+rxjs@^6.0.0:
+  version "6.3.2"
+  resolved "https://registry.npmjs.org/rxjs/-/rxjs-6.3.2.tgz#6a688b16c4e6e980e62ea805ec30648e1c60907f"
+  dependencies:
+    tslib "^1.9.0"
+
+rxjs@^6.1.0, rxjs@^6.2.0:
   version "6.3.0"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-6.3.0.tgz#e55b05ad4bdf351db4b45756638dfa368260a8a3"
   dependencies:
