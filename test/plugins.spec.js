@@ -6,15 +6,31 @@ describe('Basic api', () => {
   test('plugin event source', () => {
     rxloop({
       plugins: [
-        function pluginOne({ onModel$, onEpicStart$, onEpicEnd$, onEpicCancel$, onEpicError$ }) {
-          expect(onModel$).not.toBeUndefined();
+        function pluginOne({
+          onModelBeforeCreate$,
+          onModelCreated$,
+          onEpicStart$,
+          onEpicEnd$,
+          onEpicCancel$,
+          onEpicError$,
+        }) {
+          expect(onModelBeforeCreate$).not.toBeUndefined();
+          expect(onModelCreated$).not.toBeUndefined();
           expect(onEpicStart$).not.toBeUndefined();
           expect(onEpicEnd$).not.toBeUndefined();
           expect(onEpicCancel$).not.toBeUndefined();
           expect(onEpicError$).not.toBeUndefined();
         },
-        function pluginTwo({ onModel$, onEpicStart$, onEpicEnd$, onEpicCancel$, onEpicError$ }) {
-          expect(onModel$).not.toBeUndefined();
+        function pluginTwo({
+          onModelBeforeCreate$,
+          onModelCreated$,
+          onEpicStart$,
+          onEpicEnd$,
+          onEpicCancel$,
+          onEpicError$,
+        }) {
+          expect(onModelBeforeCreate$).not.toBeUndefined();
+          expect(onModelCreated$).not.toBeUndefined();
           expect(onEpicStart$).not.toBeUndefined();
           expect(onEpicEnd$).not.toBeUndefined();
           expect(onEpicCancel$).not.toBeUndefined();
@@ -27,11 +43,11 @@ describe('Basic api', () => {
   test('Event onModel will be dispached', (done) => {
     const app = rxloop({
       plugins: [
-        function pluginOne({ onModel$ }) {
-          onModel$.subscribe((data) => {
+        function pluginOne({ onModelCreated$ }) {
+          onModelCreated$.subscribe((data) => {
             expect(data).toEqual({
               type: 'plugin',
-              action: 'onModel',
+              action: 'onModelCreated',
               model: 'test'
             });
             done();

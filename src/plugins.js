@@ -7,7 +7,8 @@ export default function init(plugins, plugin$) {
   const source = evt => this.plugin$.pipe( filter(e => e.action === evt) );
 
   plugins.forEach(plugin => plugin.call(this, {
-    onModel$: source('onModel'),
+    onModelBeforeCreate$: source('onModelBeforeCreate'),
+    onModelCreated$: source('onModelCreated'),
     onEpicStart$: source('onEpicStart'),
     onEpicEnd$: source('onEpicEnd'),
     onEpicCancel$: source('onEpicCancel'),

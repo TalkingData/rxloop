@@ -21,6 +21,13 @@ export function rxloop( config = {} ) {
 
   function model({ name, state = {}, reducers = {}, epics = {} }) {
     checkModel({ name, state, reducers, epics }, this._state);
+    
+    this.dispatch({
+      type: 'plugin',
+      action: 'onModelBeforeCreate',
+      model: { name, state, reducers, epics },
+    });
+
     this._state[name] = state;
     this._reducers[name] = reducers;
     this._epics[name] = epics;
@@ -144,7 +151,7 @@ export function rxloop( config = {} ) {
 
     this.dispatch({
       type: 'plugin',
-      action: 'onModel',
+      action: 'onModelCreated',
       model: name,
     });
   }

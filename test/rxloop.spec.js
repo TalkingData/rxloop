@@ -269,8 +269,9 @@ describe('check config', () => {
     });
     expect(mockPlugin.mock.calls.length).toBe(1);
     const pluginEvts = Object.keys(mockPlugin.mock.calls[0][0]);
-    expect(pluginEvts.length).toBe(7);
-    expect(pluginEvts).toContain('onModel$');
+    expect(pluginEvts.length).toBe(8);
+    expect(pluginEvts).toContain('onModelBeforeCreate$');
+    expect(pluginEvts).toContain('onModelCreated$');
     expect(pluginEvts).toContain('onEpicStart$');
     expect(pluginEvts).toContain('onEpicEnd$');
     expect(pluginEvts).toContain('onEpicCancel$');
