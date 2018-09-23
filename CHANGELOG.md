@@ -1,3 +1,13 @@
+<a name="0.11.1"></a>
+## [0.11.1](https://github.com/TalkingData/rxloop/compare/v0.11.0...v0.11.1) (2018-09-23)
+
+
+### Bug Fixes
+
+* add model name to action ([28e3ccc](https://github.com/TalkingData/rxloop/commit/28e3ccc))
+
+
+
 <a name="0.11.0"></a>
 # [0.11.0](https://github.com/TalkingData/rxloop/compare/v0.10.1...v0.11.0) (2018-09-23)
 
