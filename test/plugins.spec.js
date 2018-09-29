@@ -2,6 +2,30 @@ import rxloop from '../src/';
 import { from } from 'rxjs';
 import { mapTo, map, takeUntil, switchMap } from "rxjs/operators";
 
+describe('Error check', () => {
+  test('Throw error if all plugin should not be function', () => {
+    expect(() => {
+      rxloop({
+        plugins: [
+          function plugin() {},
+          'plugin',
+        ],
+      });
+    }).toThrow('[plugins] all plugin should be function');
+  });
+
+  test('Should not throw error', () => {
+    expect(() => {
+      rxloop({
+        plugins: [
+          function pluginOne() {},
+          function pluginTwo() {},
+        ],
+      });
+    }).not.toThrow('[plugins] all plugin should be function');
+  });
+});
+
 describe('Basic api', () => {
   test('plugin event source', () => {
     rxloop({
