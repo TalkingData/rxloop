@@ -19,22 +19,105 @@ export function rxloop( config = {} ) {
     );
   }
 
-  function model({ name, state = {}, reducers = {}, epics = {} }) {
-    checkModel({ name, state, reducers, epics }, this._state);
-    
-    this.dispatch({
-      type: 'plugin',
-      action: 'onModelBeforeCreate',
-      model: { name, state, reducers, epics },
+  function createReducerStreams(name, reducers, out$$) {
+    const stream = this._stream[name];
+
+    Object.keys(reducers).forEach(type => {
+      // 为每一个 reducer 创建一个数据流,
+      stream[`reducer_${type}$`] = createStream(`${name}/${type}`);
+      
+      // 将数据流导入到 reducer 之中，进行同步状态数据计算
+      stream[`reducer_${type}$`].pipe(
+        map(action => {
+          const rtn = this.createReducer(action, reducers[type]);
+          rtn.__action__ = action;
+          return rtn;
+        }),
+      )
+        // 将同步计算结果推送出去
+      .subscribe(out$$);
     });
+  }
 
-    this._state[name] = state;
-    this._reducers[name] = reducers;
-    this._epics[name] = epics;
+  function createEpicStreams(name, reducers, epics, out$$) {
+    const stream = this._stream[name];
 
-    const out$$ = new BehaviorSubject(state => state);
+    Object.keys(epics).forEach(type => {
+      // epics 中函数名称不能跟 reducers 里的函数同名
+      invariant(
+        !stream[`reducer_${type}$`],
+        `[epics] duplicated type ${type} in epics and reducers`,
+      );
 
-    // 创建数据流出口
+      // 为每一个 epic 创建一个数据流,
+      stream[`epic_${type}$`] = createStream(`${name}/${type}`);
+      stream[`epic_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
+
+      stream[`epic_${type}$`].subscribe(data => {
+        this.dispatch({
+          data,
+          type: 'plugin',
+          action: 'onEpicStart',
+          model: name,
+          epic: type,
+        });
+      });
+
+      stream[`epic_${type}_cancel$`].subscribe(() => {
+        this.dispatch({
+          type: 'plugin',
+          action: 'onEpicCancel',
+          model: name,
+          epic: type,
+        });
+      });
+      
+      // 将数据流导入到 epic 之中，进行异步操作
+      epics[type].call(this, stream[`epic_${type}$`], stream[`epic_${type}_cancel$`]).pipe(
+        map(action => {
+          const { type: reducer } = action;
+          invariant(
+            type,
+            '[epics] action should be a plain object with type',
+          );
+          invariant(
+            reducers[reducer],
+            `[epics] undefined reducer ${reducer}`,
+          );
+          this.dispatch({
+            data: action,
+            type: 'plugin',
+            action: 'onEpicEnd',
+            model: name,
+            epic: type,
+          });
+          const rtn = this.createReducer(action, reducers[reducer]);
+          action.type = `${name}/${action.type}`;
+          rtn.__action__ = action;
+          return rtn;
+        }),
+        catchError((error) => {
+          option.onError({
+            error,
+            model: name,
+            epic: type,
+          });
+          this.dispatch({
+            error,
+            type: 'plugin',
+            action: 'onEpicError',
+            model: name,
+            epic: type,
+          });
+          return throwError(error);
+        }),
+      )
+      // 将异步计算结果推送出去
+      .subscribe(out$$);
+    });
+  }
+
+  function createModelStream(name, state, out$$) {
     this[`${name}$`] = out$$.pipe(
       scan((prevState, reducer) => {
         const nextState = reducer(prevState);
@@ -53,102 +136,32 @@ export function rxloop( config = {} ) {
       publishReplay(1),
       refCount(),
     );
+  }
 
+  function model({ name, state = {}, reducers = {}, epics = {} }) {
+    checkModel({ name, state, reducers, epics }, this._state);
+    
+    this.dispatch({
+      type: 'plugin',
+      action: 'onModelBeforeCreate',
+      model: { name, state, reducers, epics },
+    });
+
+    this._state[name] = state;
+    this._reducers[name] = reducers;
+    this._epics[name] = epics;
     this._stream[name] = {};
 
+    const out$$ = new BehaviorSubject(state => state);
+
+    // 创建数据流出口
+    createModelStream.call(this, name, state, out$$);
+
     // 为 reducers 创建同步数据流
-    Object.keys(reducers).forEach(type => {
-      // 为每一个 reducer 创建一个数据流,
-      this._stream[name][`reducer_${type}$`] = createStream(`${name}/${type}`);
-      
-      // 将数据流导入到 reducer 之中，进行同步状态数据计算
-      this._stream[name][`reducer_${type}$`]
-        .pipe(
-          map(action => {
-            const rtn = this.createReducer(action, reducers[type]);
-            rtn.__action__ = action;
-            return rtn;
-          }),
-        )
-        // 将同步计算结果推送出去
-        .subscribe(out$$);
-    });
+    createReducerStreams.call(this, name, reducers, out$$);
 
     // 为 epics 创建异步数据流
-    Object.keys(epics).forEach(type => {
-      // epics 中函数名称不能跟 reducers 里的函数同名
-      invariant(
-        !this._stream[name][`reducer_${type}$`],
-        `[epics] duplicated type ${type} in epics and reducers`,
-      );
-
-      // 为每一个 epic 创建一个数据流,
-      this._stream[name][`epic_${type}$`] = createStream(`${name}/${type}`);
-      this._stream[name][`epic_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
-
-      this._stream[name][`epic_${type}$`].subscribe(data => {
-        this.dispatch({
-          data,
-          type: 'plugin',
-          action: 'onEpicStart',
-          model: name,
-          epic: type,
-        });
-      });
-
-      this._stream[name][`epic_${type}_cancel$`].subscribe(data => {
-        this.dispatch({
-          type: 'plugin',
-          action: 'onEpicCancel',
-          model: name,
-          epic: type,
-        });
-      });
-      
-      // 将数据流导入到 epic 之中，进行异步操作
-      epics[type].call(this, this._stream[name][`epic_${type}$`], this._stream[name][`epic_${type}_cancel$`])
-        .pipe(
-          map(action => {
-            const { type: reducer } = action;
-            invariant(
-              type,
-              '[epics] action should be a plain object with type',
-            );
-            invariant(
-              reducers[reducer],
-              `[epics] undefined reducer ${reducer}`,
-            );
-            this.dispatch({
-              data: action,
-              type: 'plugin',
-              action: 'onEpicEnd',
-              model: name,
-              epic: type,
-            });
-            const rtn = this.createReducer(action, reducers[reducer]);
-            action.type = `${name}/${action.type}`;
-            rtn.__action__ = action;
-            return rtn;
-          }),
-          catchError((error) => {
-            option.onError({
-              error,
-              model: name,
-              epic: type,
-            });
-            this.dispatch({
-              error,
-              type: 'plugin',
-              action: 'onEpicError',
-              model: name,
-              epic: type,
-            });
-            return throwError(error);
-          }),
-        )
-        // 将异步计算结果推送出去
-        .subscribe(out$$);
-    });
+    createEpicStreams.call(this, name, reducers, epics, out$$);
 
     this.dispatch({
       type: 'plugin',
