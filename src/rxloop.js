@@ -186,6 +186,10 @@ export function rxloop( config = {} ) {
     return _state;
   }
 
+  function subscribe(fn = () => {}) {
+    this.stream().subscribe(fn);
+  }
+
   function stream(name) {
     let stream$ = !!name ? this[`${name}$`] : this.getSingleStore();
     !!name && invariant(
@@ -233,6 +237,7 @@ export function rxloop( config = {} ) {
     _epics: {},
     getSingleStore,
     model,
+    subscribe,
     getState,
     stream,
     createReducer,
