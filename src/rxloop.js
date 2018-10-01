@@ -187,7 +187,7 @@ export function rxloop( config = {} ) {
   }
 
   function subscribe(fn = () => {}) {
-    this.stream().subscribe(fn);
+    return this.stream().subscribe(fn);
   }
 
   function stream(name) {

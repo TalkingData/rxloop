@@ -349,6 +349,22 @@ describe('Single store', () => {
       done();
     });
   });
+
+  test('Subscribe single stream', (done) => {
+    const sub = app.subscribe(() => {
+      expect(app.getState()).toEqual({
+        user: {
+          user: 'user',
+        },
+        counter: {
+          counter: 1,
+        },
+      });
+      done();
+    });
+    sub.unsubscribe();
+  });
+
   test('get single store test', () => {
     expect(app.getState('user')).toEqual({
       user: 'user',
