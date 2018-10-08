@@ -1,3 +1,14 @@
+<a name="0.12.0"></a>
+# [0.12.0](https://github.com/TalkingData/rxloop/compare/v0.11.1...v0.12.0) (2018-10-08)
+
+
+### Features
+
+* **plugin:** all plugin should be function ([b20ce76](https://github.com/TalkingData/rxloop/commit/b20ce76))
+* add subscribe method ([0f63cd7](https://github.com/TalkingData/rxloop/commit/0f63cd7))
+
+
+
 <a name="0.11.1"></a>
 ## [0.11.1](https://github.com/TalkingData/rxloop/compare/v0.11.0...v0.11.1) (2018-09-23)
 
