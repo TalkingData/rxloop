@@ -1,3 +1,13 @@
+<a name="0.12.1"></a>
+## [0.12.1](https://github.com/TalkingData/rxloop/compare/v0.12.0...v0.12.1) (2018-10-09)
+
+
+### Bug Fixes
+
+* should return unsubscribe method ([f923931](https://github.com/TalkingData/rxloop/commit/f923931))
+
+
+
 <a name="0.12.0"></a>
 # [0.12.0](https://github.com/TalkingData/rxloop/compare/v0.11.1...v0.12.0) (2018-10-08)
 
