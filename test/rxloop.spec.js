@@ -351,7 +351,7 @@ describe('Single store', () => {
   });
 
   test('Subscribe single stream', (done) => {
-    const sub = app.subscribe(() => {
+    const unsubscribe = app.subscribe(() => {
       expect(app.getState()).toEqual({
         user: {
           user: 'user',
@@ -362,7 +362,7 @@ describe('Single store', () => {
       });
       done();
     });
-    sub.unsubscribe();
+    unsubscribe();
   });
 
   test('get single store test', () => {
