@@ -1,3 +1,13 @@
+<a name="0.12.2"></a>
+## [0.12.2](https://github.com/TalkingData/rxloop/compare/v0.12.1...v0.12.2) (2018-10-09)
+
+
+### Bug Fixes
+
+* add ts types ([80db3f9](https://github.com/TalkingData/rxloop/commit/80db3f9))
+
+
+
 <a name="0.12.1"></a>
 ## [0.12.1](https://github.com/TalkingData/rxloop/compare/v0.12.0...v0.12.1) (2018-10-09)
 
