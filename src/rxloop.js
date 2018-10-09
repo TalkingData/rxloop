@@ -2,7 +2,7 @@ import { Subject, BehaviorSubject, throwError, combineLatest } from "rxjs";
 import { filter, scan, map, publishReplay, refCount, catchError } from "rxjs/operators";
 import invariant from 'invariant';
 import checkModel from './check-model';
-import { isFunction } from './utils';
+import { isFunction, noop } from './utils';
 import initPlugins from './plugins';
 
 export function rxloop( config = {} ) {
@@ -187,7 +187,7 @@ export function rxloop( config = {} ) {
     return _state;
   }
 
-  function subscribe(listener = () => {}) {
+  function subscribe(listener = noop) {
     invariant(
       isFunction(listener),
       'Expected the listener to be a function',
@@ -231,7 +231,7 @@ export function rxloop( config = {} ) {
     );
   }
 
-  function createReducer(action = {}, reducer = () => {}) {
+  function createReducer(action = {}, reducer = noop) {
     return (state) => reducer(state, action);
   }
 

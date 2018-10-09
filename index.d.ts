@@ -25,10 +25,15 @@ export interface Model {
   epics?: EpicsMapObject,
 }
 
+export interface Unsubscribe {
+  (): void
+}
+
 export interface RxLoopInstance {
   model: (model: Model) => void,
   stream: (modelName: String) => Observable<any>,
   dispatch: (action: Action) => void,
+  subscribe: (listener: () => void) => Unsubscribe,
   getState: (modelName: String) => any,
   next: (action: Action) => void,
   start: () => void,
