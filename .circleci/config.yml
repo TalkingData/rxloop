@@ -54,12 +54,27 @@ jobs:
           name: Running Unit Tests
           command: |
             yarn test
+  test-cover:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/rxloop
+      - run: yarn test:cov
+      - run:
+         name: report coverage stats for non-PRs
+         command: |
+           if [[ -z $CI_PULL_REQUEST ]]; then
+             ./node_modules/.bin/codecov
+           fi
 
 workflows:
   version: 2
   install-and-parallel-test:
     jobs:
       - install
+      - test-cover:
+          requires:
+            - install
       - lint-types:
           requires:
             - install
