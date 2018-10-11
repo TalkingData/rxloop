@@ -14,7 +14,7 @@
 ## 特性
 * elm 概念：通过 reducers、epics 组织 model，支持多状态或单一状态树；
 * 易学易用：仅有五个 api，对 Redux、RxJS 用户友好；
-* 插件机制：比如 [@rxloop/loading](https://github.com/TalkingData/rxloop-loading) 可以自动处理 loading 状态，[@rxloop/devtools](https://github.com/TalkingData/rxloop-devtools) 可视化状态树，便于代码调试；
+* 插件机制：比如 [@rxloop/loading](https://github.com/TalkingData/rxloop-loading) 可以自动处理 loading 状态，[@rxloop/devtools](https://github.com/TalkingData/rxloop-devtools) 可视化状态树，便于代码调试；
 * 扩展 RxJS：rxloop 能够串联到 RxJS 数据管道之中，最终能够分发出多个数据管道。
 
 ## 安装
