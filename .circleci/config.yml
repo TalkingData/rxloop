@@ -40,10 +40,6 @@ jobs:
           name: Testing Types
           command: |
             yarn test:types
-      - store_test_results:
-          path: test-results
-      - store_artifacts:
-          path: test-results
 
   test-unit:
     <<: *defaults
