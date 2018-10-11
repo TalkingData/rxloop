@@ -1,5 +1,5 @@
 简体中文 | [English](README-en_US.md)
-# rxloop [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url]
+# rxloop [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![Build Status](https://circleci.com/gh/TalkingData/rxloop/tree/master.png?style=shield)](https://circleci.com/gh/TalkingData/rxloop)
 
 [npm-image]: https://img.shields.io/npm/v/@rxloop/core.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/@rxloop/core
