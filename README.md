@@ -1,13 +1,13 @@
 简体中文 | [English](README-en_US.md)
 # rxloop [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![Build Status][build-status-image]][build-status-url] [![codecov status][codecov-image]][codecov-url]
 
-[npm-image]: https://img.shields.io/npm/v/@rxloop/core.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/@rxloop/core.svg?style=shield
 [npm-url]: https://npmjs.org/package/@rxloop/core
-[download-image]: https://img.shields.io/npm/dm/@rxloop/core.svg?style=flat-square
+[download-image]: https://img.shields.io/npm/dm/@rxloop/core.svg?style=shield
 [download-url]: https://npmjs.org/package/@rxloop/core
 [build-status-image]: https://circleci.com/gh/TalkingData/rxloop/tree/master.png?style=shield
 [build-status-url]: https://circleci.com/gh/TalkingData/rxloop
-[codecov-image]: https://img.shields.io/codecov/c/github/TalkingData/rxloop/master.svg
+[codecov-image]: https://img.shields.io/codecov/c/github/TalkingData/rxloop/master.svg?style=shield
 [codecov-url]: https://codecov.io/github/TalkingData/rxloop?branch=master
 
 
