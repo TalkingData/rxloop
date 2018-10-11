@@ -92,7 +92,7 @@ app.dispatch({
 4. [错误处理](https://codesandbox.io/s/0qmn89noj0)
 3. [取消异步请求](https://codesandbox.io/s/3vy8ox7zx5)
 2. [使用 react-redux 绑定 rxloop](https://codesandbox.io/s/y3www03181)
-5. [任务列表](https://codesandbox.io/s/ypwo37zmo1)
+5. [任务列表应用](https://codesandbox.io/s/ypwo37zmo1)
 5. [loading 插件](https://codesandbox.io/s/8l1mnx18v2)
 5. [immer 插件](https://codesandbox.io/s/343wrnq6pp)
 
