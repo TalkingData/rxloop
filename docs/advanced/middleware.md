@@ -1,4 +1,4 @@
-# 插件
+# 插件
 在初始化应用时，可以根据需要配置一些插件。
 
 ```javascript
@@ -58,7 +58,7 @@ app.stream('loading').subscribe((loading))) => {
 [查看 demo](https://github.com/TalkingData/rxloop/tree/master/examples/loading-plugin)
 
 ## immer 插件
-插件将 [immer](https://github.com/mweststrate/immer) 的能力集成到应用中，可以以更简洁直观的方式去创建一个不可变的状态对象。
+插件将 [immer](https://github.com/mweststrate/immer) 的能力集成到应用中，可以以更简洁直观的方式去创建一个不可变的状态对象。
 
 ```javascript
 import rxloop from '@rxloop/core';
@@ -82,9 +82,9 @@ app.model({
 ```
 [查看 demo](https://github.com/TalkingData/rxloop/tree/master/examples/immer-plugin)
 
-## 插件开发
+## 插件开发
 
-在插件中可订阅 core 的数据流，比如创建 Model、epic 启动和结束等。
+在插件中可订阅 core 的数据流，比如创建 Model、epic 启动和结束等。
 
 ```typescript
 export interface API {
@@ -98,7 +98,7 @@ export interface API {
 export type Plugin = (api: API) => void;
 ```
 
-插件开发示例：
+插件开发示例：
 ```javascript
 function logger() {
   return function setup({
