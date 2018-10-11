@@ -58,7 +58,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: ~/rxloop
+          at: ~/
       - run: yarn test:cov
       - run:
          name: report coverage stats for non-PRs
