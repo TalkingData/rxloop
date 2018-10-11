@@ -1,62 +1,48 @@
-# rxloop
-
-[![NPM version][npm-image]][npm-url]
-[![npm download][download-image]][download-url]
+简体中文 | [English](README-en_US.md)
+# rxloop [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/@rxloop/core.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/@rxloop/core
 [download-image]: https://img.shields.io/npm/dm/@rxloop/core.svg?style=flat-square
 [download-url]: https://npmjs.org/package/@rxloop/core
 
-[中文 README](README-zh_CN.md)
+
 > rxloop = Redux + redux-observable.
 
-RxJS-based predictable state management container, ultra-lightweight "Redux + redux-observable" architecture.
+基于 RxJS 的可预测状态管理容器，超轻量级的 “redux + redux-observable” 架构。
 
-## Features
-* Facilitate the abstract front-end domain model, free choice of multi-state or single state tree;
-* Easy to learn and use: Only four apis, friendly to Redux and RxJS;
-* Isolation side effects: using the asynchronous processing capabilities of RxJS, free combination, cancel AJAX and other asynchronous calls in the Epics;
-* Extensions RxJS: rxloop can be cascaded into RxJS data pipelines, eventually distributing multiple data pipes.
+## 特性
+* elm 概念：通过 reducers、epics 组织 model，支持多状态或单一状态树；
+* 易学易用：仅有五个 api，对 Redux、RxJS 用户友好；
+* 插件机制：比如 [@rxloop/loading](https://github.com/TalkingData/rxloop-loading) 可以自动处理 loading 状态，[@rxloop/devtools](https://github.com/TalkingData/rxloop-devtools) 可视化状态树，便于代码调试；
+* 扩展 RxJS：rxloop 能够串联到 RxJS 数据管道之中，最终能够分发出多个数据管道。
 
-## Installation
-Via npm:
+## 安装
+**`rxjs` 需要作为 peer dependency 引入。**
+
+通过 npm 方式：
 ```bash
-$ npm install @rxloop/core
+$ npm install @rxloop/core rxjs
 ```
 
-Or yarn
+或者 yarn 方式
 ```bash
-$ yarn add @rxloop/core
+$ yarn add @rxloop/core rxjs
 ```
 
-Or introduced through CDN
-```html
-<script src="https://unpkg.com/@rxloop/core@0.6.1/dist/rxloop-core.min.js"></script>
-<script src="https://unpkg.com/rxjs@6.2.0/bundles/rxjs.umd.min.js"></script>
-<script>
-var app = rxloopCore();
-app.model({
-  name: 'user',
-  state: { name: 'wxnet' }
-});
-</script>
-```
-
-## Hello rxloop
+## 快速上手
 ```javascript
 import rxloop from '@rxloop/core';
 
-// Create a globally unique app in one application
+// 在一个应用创建一个全局唯一的 app
 const app = rxloop();
 
-// In the application, 
-// you can create multiple business models,
-// such as the following user and counter models
+// 在应用中，可以创建多个业务模型，比如下面的 user 和 counter 模型
 app.model({
   name: 'user',
   state: { name: 'wxnet' }
 });
+
 app.model({
   name: 'counter',
   state: {
@@ -78,44 +64,55 @@ app.model({
   },
 });
 
-// Subscribe to the status of the counter model at the View level,
-// When the model state changes,
-// use View layer framework-related methods to synchronize View updates,
-// such as React's setState method
+// 在 View 层订阅 counter 模型的状态
+// 当模型状态变更时，使用 View 层框架相关方法同步 View 的更新，比如 React 的 setState 方法
 app.stream('counter').subscribe((state) => {
   // this.setState(state);
 });
 
-// In the view layer,
-// you can dispatch an action via the dispatch method
-// Action updates the model state via epics or reducers
+// 在 view 层，可以通过 dispatch 方法派发 action
+// action 会经由 epics 或 reducers 更新 model 状态
 app.dispatch({
   type: 'counter/inc',
 });
+
 app.dispatch({
   type: 'counter/inc',
 });
+
 app.dispatch({
   type: 'counter/dec',
 });
 ```
 
-For more features such as asynchronous requests, cancellation requests, etc.,
-you can read through the documentation 👇.
+## 更多示例
 
-## Documentation
+1. [基本的计数器](https://codesandbox.io/s/mz6yyw17vy)
+4. [单一状态和多状态树](https://codesandbox.io/s/348w57x936)
+4. [错误处理](https://codesandbox.io/s/0qmn89noj0)
+3. [取消异步请求](https://codesandbox.io/s/3vy8ox7zx5)
+2. [使用 react-redux 绑定 rxloop](https://codesandbox.io/s/y3www03181)
+5. [任务列表](https://codesandbox.io/s/ypwo37zmo1)
+5. [loading 插件](https://codesandbox.io/s/8l1mnx18v2)
+5. [immer 插件](https://codesandbox.io/s/343wrnq6pp)
 
-1. [Quick start](https://talkingdata.github.io/rxloop/#/basics/getting-started)
-2. [Error handling](https://talkingdata.github.io/rxloop/#/basics/error-handler)
-3. [Integration with RxJS](https://talkingdata.github.io/rxloop/#/advanced/integration-with-rxjs)
-4. [Multi-state and single-state trees](https://talkingdata.github.io/rxloop/#/advanced/multi-state-and-single-state)
 
-## Examples
+## [文档索引](https://github.com/TalkingData/rxloop/blob/master/docs/sidebar.md)
 
-1. [counter-basic](https://github.com/TalkingData/rxloop/tree/master/examples/counter-basic)
-2. [ajax-cancel](https://github.com/TalkingData/rxloop/tree/master/examples/ajax-cancel)
-3. [error-handler](https://github.com/TalkingData/rxloop/tree/master/examples/error-handler)
-4. [React todolist app with rxloop](https://github.com/TalkingData/rxloop-react-todos)
+- [介绍](https://github.com/TalkingData/rxloop/blob/master/docs/index.md)
+- [基础](https://github.com/TalkingData/rxloop/blob/master/docs/basics/index.md)
+  - [快速上手](https://github.com/TalkingData/rxloop/blob/master/docs/basics/getting-started.md)
+  - [错误处理](https://github.com/TalkingData/rxloop/blob/master/docs/basics/error-handler.md)
+  - [示例](https://github.com/TalkingData/rxloop/blob/master/docs/basics/examples.md)
+- [高级特性](https://github.com/TalkingData/rxloop/blob/master/docs/advanced/index.md)
+  - [请求取消](https://github.com/TalkingData/rxloop/blob/master/docs/advanced/cancellation.md)
+  - [与 RxJS 集成](https://github.com/TalkingData/rxloop/blob/master/docs/advanced/integration-with-rxjs.md)
+  - [多状态与单一状态树](https://github.com/TalkingData/rxloop/blob/master/docs/advanced/multi-state-and-single-state.md)
+  - [在 Model 之间传递消息](https://github.com/TalkingData/rxloop/blob/master/docs/advanced/cross-model-dispatch-action.md)
+  - [中间件](https://github.com/TalkingData/rxloop/blob/master/docs/advanced/middleware.md)
+  - [TypeScript](https://github.com/TalkingData/rxloop/blob/master/docs/advanced/typescript.md)
+- [API](https://github.com/TalkingData/rxloop/blob/master/docs/api.md)
+- [更新记录](https://github.com/TalkingData/rxloop/blob/master/CHANGELOG.md)
 
-## License
+## 协议许可
 MIT

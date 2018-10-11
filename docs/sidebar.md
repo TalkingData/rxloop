@@ -11,4 +11,4 @@
   - [中间件](advanced/middleware.md)
   - [TypeScript](advanced/typescript.md)
 - [API](api.md)
-- [更新记录](change-log.md)
+- [更新记录](https://github.com/TalkingData/rxloop/blob/master/CHANGELOG.md)
