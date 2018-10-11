@@ -6,6 +6,7 @@
     "lint": "echo 'lint'",
     "test": "cross-env BABEL_ENV=commonjs jest",
     "test:cov": "npm test -- --coverage",
+    "test:types": "echo 'test types'",
     "format": "prettier --write \"{src,test}/**/*.js\"",
     "clean": "rimraf lib dist es",
     "build:commonjs": "cross-env NODE_ENV=cjs rollup -c -o lib/rxloop-core.js",
