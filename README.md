@@ -1,5 +1,5 @@
 简体中文 | [English](README-en_US.md)
-# rxloop [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![Build Status][build-status-image]][build-status-url] [![codecov status][codecov-image]][codecov-url]
+# rxloop [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![Build Status][build-status-image]][build-status-url] [![codecov status][codecov-image]][codecov-url] [![license][license-image]][license-url]
 
 [npm-image]: https://img.shields.io/npm/v/@rxloop/core.svg?style=shield
 [npm-url]: https://npmjs.org/package/@rxloop/core
@@ -9,6 +9,8 @@
 [build-status-url]: https://circleci.com/gh/TalkingData/rxloop
 [codecov-image]: https://img.shields.io/codecov/c/github/TalkingData/rxloop/master.svg?style=shield
 [codecov-url]: https://codecov.io/github/TalkingData/rxloop?branch=master
+[license-image]: https://img.shields.io/npm/l/@rxloop/core.svg
+[license-url]: https://github.com/TalkingData/rxloop/blob/master/LICENSE
 
 
 > rxloop = Redux + redux-observable.
