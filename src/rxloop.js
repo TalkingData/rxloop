@@ -2,7 +2,7 @@ import { Subject, BehaviorSubject, throwError, combineLatest } from "rxjs";
 import { filter, scan, map, publishReplay, refCount, catchError } from "rxjs/operators";
 import invariant from 'invariant';
 import checkModel from './check-model';
-import { isFunction, noop } from './utils';
+import { isPlainObject, isFunction, noop } from './utils';
 import initPlugins from './plugins';
 
 export function rxloop( config = {} ) {
@@ -172,9 +172,12 @@ export function rxloop( config = {} ) {
   }
 
   function dispatch(action) {
-    const { type } = action;
     invariant(
-      type,
+      isPlainObject(action),
+      '[action] Actions must be plain objects.',
+    );
+    invariant(
+      action.type,
       '[action] action should be a plain Object with type',
     );
     bus$.next(action);
@@ -187,7 +190,7 @@ export function rxloop( config = {} ) {
     return _state;
   }
 
-  function subscribe(listener = noop) {
+  function subscribe(listener) {
     invariant(
       isFunction(listener),
       'Expected the listener to be a function',
