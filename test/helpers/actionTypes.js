@@ -1,7 +1,1 @@
 export const ADD_TODO = 'test/ADD_TODO'
-export const DISPATCH_IN_MIDDLE = 'test/DISPATCH_IN_MIDDLE'
-export const GET_STATE_IN_MIDDLE = 'test/GET_STATE_IN_MIDDLE'
-export const SUBSCRIBE_IN_MIDDLE = 'test/SUBSCRIBE_IN_MIDDLE'
-export const UNSUBSCRIBE_IN_MIDDLE = 'test/UNSUBSCRIBE_IN_MIDDLE'
-export const THROW_ERROR = 'test/THROW_ERROR'
-export const UNKNOWN_ACTION = 'test/UNKNOWN_ACTION'
