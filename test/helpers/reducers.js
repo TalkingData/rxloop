@@ -13,7 +13,3 @@ export function ADD_TODO(state = [], action) {
     }
   ]
 }
-
-export function THROW_ERROR() {
-  throw new Error()
-}
