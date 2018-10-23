@@ -91,6 +91,10 @@ app.dispatch({
 });
 ```
 
+## 集成
+1. [与 Vue 集成](https://github.com/TalkingData/vue-rxloop)
+2. [与 React 集成](https://github.com/TalkingData/react-rxloop)
+
 ## 更多示例
 
 1. [基本的计数器](https://codesandbox.io/s/mz6yyw17vy)
