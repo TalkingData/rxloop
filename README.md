@@ -9,7 +9,7 @@
 [build-status-url]: https://circleci.com/gh/TalkingData/rxloop
 [codecov-image]: https://img.shields.io/codecov/c/github/TalkingData/rxloop/master.svg?style=shield&colorB=brightgreen
 [codecov-url]: https://codecov.io/github/TalkingData/rxloop?branch=master
-[license-image]: https://img.shields.io/npm/l/@rxloop/core.svg?style=shield&colorB=brightgreen
+[license-image]: https://img.shields.io/npm/l/@rxloop/core.svg?style=shield&colorB=brightgreen&longCache=true
 [license-url]: https://github.com/TalkingData/rxloop/blob/master/LICENSE
 
 
