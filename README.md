@@ -95,6 +95,12 @@ app.dispatch({
 1. [与 Vue 集成](https://github.com/TalkingData/vue-rxloop)
 2. [与 React 集成](https://github.com/TalkingData/react-rxloop)
 
+## 插件
+1. [immer](https://github.com/TalkingData/rxloop-immer)
+2. [loading](https://github.com/TalkingData/rxloop-loading)
+3. [devtools](https://github.com/TalkingData/rxloop-devtools)
+4. [meta](https://github.com/TalkingData/rxloop-meta)
+
 ## 更多示例
 
 1. [基本的计数器](https://codesandbox.io/s/mz6yyw17vy)
