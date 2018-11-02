@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.2"></a>
+# [1.0.0-alpha.2](https://github.com/TalkingData/rxloop/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2018-11-02)
+
+
+### Features
+
+* Record the source of the state change ([a81d842](https://github.com/TalkingData/rxloop/commit/a81d842))
+
+
+
 <a name="1.0.0-alpha.1"></a>
 # [1.0.0-alpha.1](https://github.com/TalkingData/rxloop/compare/v0.12.2...v1.0.0-alpha.1) (2018-11-01)
 
