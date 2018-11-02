@@ -313,21 +313,21 @@ describe('Basic api', () => {
     expect(mockfn.mock.calls.length).toBe(3);
     expect(mockfn.mock.calls[0][0]).toEqual({
       state: { counter: 1 },
-      reducerAction: { type: 'counter/inc' },
+      reducerAction: { type: 'counter/inc', __source__: { reducer: 'inc' } },
       model: 'counter',
       type: 'plugin',
       action: 'onStatePatch',
     });
     expect(mockfn.mock.calls[1][0]).toEqual({
       state: { counter: 2 },
-      reducerAction: { type: 'counter/inc' },
+      reducerAction: { type: 'counter/inc', __source__: { reducer: 'inc' } },
       model: 'counter',
       type: 'plugin',
       action: 'onStatePatch',
     });
     expect(mockfn.mock.calls[2][0]).toEqual({
       state: { counter: 1 },
-      reducerAction: { type: 'counter/dec' },
+      reducerAction: { type: 'counter/dec', __source__: { reducer: 'dec' } },
       model: 'counter',
       type: 'plugin',
       action: 'onStatePatch',

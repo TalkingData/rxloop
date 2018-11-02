@@ -31,6 +31,7 @@ export function rxloop( config = {} ) {
       stream[`reducer_${type}$`].pipe(
         map(action => {
           const rtn = this.createReducer(action, reducers[type]);
+          action.__source__ = { reducer: type };
           rtn.__action__ = action;
           return rtn;
         }),
@@ -94,6 +95,7 @@ export function rxloop( config = {} ) {
           });
           const rtn = this.createReducer(action, reducers[reducer]);
           action.type = `${name}/${action.type}`;
+          action.__source__ = { epic: type };
           rtn.__action__ = action;
           return rtn;
         }),
