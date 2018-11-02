@@ -41,15 +41,15 @@ $ yarn add @rxloop/core rxjs
 import rxloop from '@rxloop/core';
 
 // 在一个应用创建一个全局唯一的 app
-const app = rxloop();
+const store = rxloop();
 
 // 在应用中，可以创建多个业务模型，比如下面的 user 和 counter 模型
-app.model({
+store.model({
   name: 'user',
   state: { name: 'wxnet' }
 });
 
-app.model({
+store.model({
   name: 'counter',
   state: {
     counter: 0,
@@ -72,21 +72,21 @@ app.model({
 
 // 在 View 层订阅 counter 模型的状态
 // 当模型状态变更时，使用 View 层框架相关方法同步 View 的更新，比如 React 的 setState 方法
-app.stream('counter').subscribe((state) => {
+store.stream('counter').subscribe((state) => {
   // this.setState(state);
 });
 
 // 在 view 层，可以通过 dispatch 方法派发 action
 // action 会经由 epics 或 reducers 更新 model 状态
-app.dispatch({
+store.dispatch({
   type: 'counter/inc',
 });
 
-app.dispatch({
+store.dispatch({
   type: 'counter/inc',
 });
 
-app.dispatch({
+store.dispatch({
   type: 'counter/dec',
 });
 ```
