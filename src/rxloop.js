@@ -56,6 +56,8 @@ export function rxloop( config = {} ) {
       stream[`epic_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
 
       stream[`epic_${type}$`].subscribe(data => {
+        data.__cancel__ = stream[`epic_${type}_cancel$`];
+
         this.dispatch({
           data,
           type: 'plugin',

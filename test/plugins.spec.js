@@ -87,6 +87,8 @@ describe('Basic api', () => {
       plugins: [
         function pluginOne({ onEpicStart$ }) {
           onEpicStart$.subscribe((data) => {
+            delete data.data.__cancel__;
+
             expect(data).toEqual({
               type: 'plugin',
               action: "onEpicStart",
