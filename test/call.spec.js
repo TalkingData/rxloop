@@ -1,13 +1,13 @@
-import { process } from '../src/';
+import { call } from '../src/';
 import { Subject } from 'rxjs';
 
 const delay = (ms) => new Promise((r) => setTimeout(() => r(), ms));
 
-describe('Process pipe', () => {
-  test('Process pipe', (done) => {
+describe('call pipe', () => {
+  test('call pipe', (done) => {
     const test$$ = new Subject();
     test$$.pipe(
-      process(async (action) => {
+      call(async (action) => {
         await delay(500);
         return { data: 1, type: action.type };
       }),
@@ -21,7 +21,7 @@ describe('Process pipe', () => {
   test('Process error', (done) => {
     const test$$ = new Subject();
     test$$.pipe(
-      process(async () => {
+      call(async () => {
         error
       }),
     ).subscribe(v => {
@@ -36,7 +36,7 @@ describe('Process pipe', () => {
 
     const test$$ = new Subject();
     test$$.pipe(
-      process(async () => {
+      call(async () => {
         await delay(500);
       }),
     ).subscribe(listenerA);

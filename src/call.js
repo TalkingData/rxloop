@@ -16,4 +16,4 @@ const handler = (f) => (action) => {
   );
 };
 
-export const process = (f) => switchMap( handler(f) );
+export const call = (f) => switchMap( handler(f) );
