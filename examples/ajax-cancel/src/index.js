@@ -1,10 +1,9 @@
-import { from } from 'rxjs';
-import { switchMap, map, takeUntil } from 'rxjs/operators';
-import rxloop from '@rxloop/core';
+import { map } from 'rxjs/operators';
+import rxloop, { call } from '../../../src';
 
 const apiSlow = async () => {
   const data = await new Promise((resolve) => {
-    setTimeout(() => resolve({}), 5000);
+    setTimeout(() => resolve({}), 2000);
   });
   return { code: 200, data };
 };
@@ -29,11 +28,10 @@ const counter = {
     },
   },
   epics: {
-    getData(action$, cancel$) {
+    getData(action$) {
       return action$.pipe(
-        switchMap(() => {
-          return from( apiSlow() )
-                .pipe( takeUntil(cancel$) );
+        call(async () => {
+          return await apiSlow();
         }),
         map((data) => {
           return {
@@ -42,22 +40,22 @@ const counter = {
           };
         }),
       );
-    }
+    },
   }
 };
 
-const app = rxloop();
-app.model(counter);
+const store = rxloop();
+store.model(counter);
 
-app.stream('counter').subscribe((state) => {
+store.stream('counter').subscribe((state) => {
   console.log(state);
 });
 
-app.dispatch({
+store.dispatch({
   type: 'counter/getData',
 });
 
 // 取消异步请求
-app.dispatch({
+store.dispatch({
   type: 'counter/getData/cancel',
 });

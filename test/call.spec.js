@@ -1,4 +1,4 @@
-import { call } from '../src/';
+import rxloop, { call } from '../src/';
 import { Subject } from 'rxjs';
 
 const delay = (ms) => new Promise((r) => setTimeout(() => r(), ms));
@@ -19,16 +19,39 @@ describe('call pipe', () => {
   });
 
   test('Process error', (done) => {
-    const test$$ = new Subject();
-    test$$.pipe(
-      call(async () => {
-        error
-      }),
-    ).subscribe(v => {
-      expect(v.error).toBeDefined();
-      done();
+    const listenerA = jest.fn();
+    const store = rxloop();
+    store.model({
+      name: 'test',
+      state: 0,
+      reducers: {
+        add(state) { return state },
+      },
+      epics: {
+        errorTest(action$) {
+          return action$.pipe(
+            call(async () => {
+              throw 'error!';
+            }),
+          );
+        },
+      },
     });
-    test$$.next({ type: 'test/getData' });
+
+    store.stream('test').subscribe(listenerA);
+
+    store.dispatch({ type: 'test/errorTest' });
+
+    setTimeout(() => {
+      expect(listenerA.mock.calls.length).toBe(2);
+      expect(listenerA.mock.calls[1][0]).toEqual({
+        type: 'test/errorTest/error',
+        error: 'error!',
+        model: 'test',
+        epic: 'errorTest',
+      });
+      done();
+    }, 500);
   });
 
   test('cancel process', (done) => {
@@ -42,6 +65,7 @@ describe('call pipe', () => {
     ).subscribe(listenerA);
     const action = { type: 'test/getData' };
     action.__cancel__ = new Subject();
+    action.__bus__ = new Subject();
     test$$.next(action);
     action.__cancel__.next(1);
     setTimeout(() => {

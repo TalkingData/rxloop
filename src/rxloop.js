@@ -1,4 +1,4 @@
-import { Subject, BehaviorSubject, throwError, combineLatest } from "rxjs";
+import { Subject, BehaviorSubject, throwError, combineLatest, merge } from "rxjs";
 import { filter, scan, map, publishReplay, refCount, catchError } from "rxjs/operators";
 import invariant from 'invariant';
 import checkModel from './check-model';
@@ -43,6 +43,7 @@ export function rxloop( config = {} ) {
 
   function createEpicStreams(name, reducers, epics, out$$) {
     const stream = this._stream[name];
+    const errors = this._errors[name];
 
     Object.keys(epics).forEach(type => {
       // epics 中函数名称不能跟 reducers 里的函数同名
@@ -54,9 +55,13 @@ export function rxloop( config = {} ) {
       // 为每一个 epic 创建一个数据流,
       stream[`epic_${type}$`] = createStream(`${name}/${type}`);
       stream[`epic_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
+      stream[`epic_${type}_error$`] = createStream(`${name}/${type}/error`);
+      
+      errors.push(stream[`epic_${type}_error$`]);
 
       stream[`epic_${type}$`].subscribe(data => {
         data.__cancel__ = stream[`epic_${type}_cancel$`];
+        data.__bus__ = bus$;
 
         this.dispatch({
           data,
@@ -73,6 +78,17 @@ export function rxloop( config = {} ) {
           action: 'onEpicCancel',
           model: name,
           epic: type,
+        });
+      });
+
+      stream[`epic_${type}_error$`].subscribe(({ model, epic, error }) => {
+        option.onError({ model, epic, error });
+        this.dispatch({
+          model,
+          epic,
+          error,
+          type: 'plugin',
+          action: 'onEpicError',
         });
       });
       
@@ -123,7 +139,7 @@ export function rxloop( config = {} ) {
   }
 
   function createModelStream(name, state, out$$) {
-    this[`${name}$`] = out$$.pipe(
+    const output$ = out$$.pipe(
       scan((prevState, reducer) => {
         const nextState = reducer(prevState);
         if (reducer.__action__) {
@@ -141,6 +157,11 @@ export function rxloop( config = {} ) {
       publishReplay(1),
       refCount(),
     );
+
+    this[`${name}$`] = merge(
+      output$,
+      merge(...this._errors[name]),
+    );
   }
 
   function model({ name, state = {}, reducers = {}, epics = {} }) {
@@ -156,17 +177,18 @@ export function rxloop( config = {} ) {
     this._reducers[name] = reducers;
     this._epics[name] = epics;
     this._stream[name] = {};
+    this._errors[name] = [];
 
     const out$$ = new BehaviorSubject(state => state);
-
-    // 创建数据流出口
-    createModelStream.call(this, name, state, out$$);
 
     // 为 reducers 创建同步数据流
     createReducerStreams.call(this, name, reducers, out$$);
 
     // 为 epics 创建异步数据流
     createEpicStreams.call(this, name, reducers, epics, out$$);
+
+    // 创建数据流出口
+    createModelStream.call(this, name, state, out$$);
 
     this.dispatch({
       type: 'plugin',
@@ -252,6 +274,7 @@ export function rxloop( config = {} ) {
   const app = {
     _state: {},
     _stream: {},
+    _errors: {},
     _reducers: {},
     _epics: {},
     getSingleStore,
