@@ -31,21 +31,10 @@ user$.subscribe(
   (error) => {},
 );
 
-// 还可以使用 RxJS 的 combineLatest 工厂方法将多个模型合并为单一状态树。
-const singleState = combineLatest(
-  user$,
-  counter$,
-)
-.pipe(
-  map(([user, counter]) => {
-    return {
-      user,
-      counter,
-    };
-  }),
-);
+// 还可以直接使用 stream 方法，获取单一状态树。
+const singleState$ = app.stream();
 
-singleState.subscribe(
+singleState$.subscribe(
   (state) => {
     // this.setState(state);
   },
