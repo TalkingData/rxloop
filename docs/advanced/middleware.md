@@ -2,7 +2,7 @@
 在初始化应用时，可以根据需要配置一些插件。
 
 ```javascript
-const app = rxloop({
+const store = rxloop({
   plugins: [
     loading(),
     immer(),
@@ -17,11 +17,11 @@ const app = rxloop({
 import rxloop from '@rxloop/core';
 import loading from '@rxloop/loading';
 
-const app = rxloop({
+const store = rxloop({
   plugins: [ loading() ],
 });
 
-app.model({
+store.model({
   name: 'modelA',
   state: {
     a: 1,
@@ -49,7 +49,7 @@ app.model({
   },
 });
 
-app.stream('loading').subscribe((loading))) => {
+store.stream('loading').subscribe((loading))) => {
   console.log(loading.epics.modelA.getData);
   console.log(loading.epics.modelA.setData);
 });
@@ -64,11 +64,11 @@ app.stream('loading').subscribe((loading))) => {
 import rxloop from '@rxloop/core';
 import immer from '@rxloop/immer';
 
-const app = rxloop({
+const store = rxloop({
   plugins: [ immer() ],
 });
 
-app.model({
+store.model({
   name: 'commnet',
   state: {
     list: [],
@@ -116,7 +116,7 @@ function logger() {
   }
 }
 
-const app = rxloop({
+const store = rxloop({
   plugins: [ logger() ],
 });
 ```
