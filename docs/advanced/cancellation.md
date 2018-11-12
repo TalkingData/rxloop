@@ -14,22 +14,16 @@ const apiSlow = async () => {
 };
 ```
 
-## 取消 epic
+## 取消异步请求
 在 epics 中，串联一个 `takeUntil` 操作符，这个操作符会“监听“取消信号 cancel$.
 
 ```javascript
+  import rxloop, { call } from 'rxloop';
   // ...
     getData(action$, cancel$) {
       return action$.pipe(
-        mergeMap(() => {
-          return from(
-            apiSlow().catch((error) => {
-              return { error };
-            }),
-          )
-          .pipe(
-            takeUntil(cancel$),
-          );
+        call(async () => {
+          return await apiSlow();
         }),
         map((data) => {
           return {
