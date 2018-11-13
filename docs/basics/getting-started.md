@@ -4,26 +4,26 @@
 
 ## 安装
 ```bash
-$ npm i @rxloop/core
+$ npm i @rxloop/core rxjs
 ```
 或
 ```bash
-$ yarn add @rxloop/core
+$ yarn add @rxloop/core rxjs
 ```
 
 ## 在项目中引入
 除了 rxloop 之前，往往还需要引入 RxJS 的很多操作符。
 
 ```javascript
-import rxLoop from '@rxloop/core';
+import rxloop from '@rxloop/core';
 import { Observable } from 'rxjs';
 import { switchMap, map, mapTo } from 'rxjs/operators';
 ```
 
-接着，使用 rxLoop 函数创建一个应用：
+接着，使用 rxloop 函数创建一个应用：
 
 ```javascript
-const app = rxLoop();
+const store = rxloop();
 ```
 
 ## 创建 Model
@@ -31,7 +31,7 @@ rxloop 不强制状态树的唯一性，这一点跟 Redux 不同，推荐的方
 
 ```javascript
 // 创建 todos 的模型
-app.model({
+store.model({
   name: 'todos',
   state: {
     list: [],
@@ -39,7 +39,7 @@ app.model({
 });
 
 // 创建用户模型
-app.model({
+store.model({
   name: 'user',
   state: {
     name: '',
@@ -57,7 +57,7 @@ rxloop 中的 reducer 跟 Redux 中是一致的，reducer 是一个原则单一�
 这里仅以 todos 的模型为例，一个名叫 setList 的 reducer 像 model 中添加一个列表数据。
 
 ```javascript
-app.model({
+store.model({
   name: 'todos',
   state: {
     list: [],
@@ -99,7 +99,7 @@ getTodos(action$) {
 完整大代码如下：
 
 ```javascirpt
-app.model({
+store.model({
   name: 'todos',
   state: {
     list: [],
@@ -136,16 +136,16 @@ app.model({
 执行 `app.model` 方法会创建一个以model name 为名称的 RxJS 数据流，在业务代码里，可以订阅这些数据流，然后更新 View 的状态。
 
 ```javascript
-app.stream('todos').subscribe((state) => {
+store.stream('todos').subscribe((state) => {
   // ....
   // this.setState(state);
 });
 ```
 
-当然也可以通过 RxJS 的操作符，对这些数据流做进一步的操作，上面的代码创建了 `app.todo$` 和 `app.user$` 两个数据流，数据流的名字规则是model name 后面跟上 $。
+当然也可以通过 RxJS 的操作符，对这些数据流做进一步的操作，上面的代码创建了 `store.stream('todo')` 和 `store.stream('user')` 两个数据流。
 
 ```javascript
-const state$ = Observable.combineLatest(app.stream('todo'), app.stream('user'));
+const state$ = Observable.combineLatest(store.stream('todo'), store.stream('user'));
 state$.subscribe((state) => {
   // this.setState(state);
 });
@@ -156,7 +156,7 @@ rxloop 通过 dispatch 方法派发 action，来修改 model 的数据，这一�
 
 ```javascript
 // 出发 todos model 中的 epics
-app.dispatch({
+store.dispatch({
   action: 'todos/getTodos',
   params: {},
 });
