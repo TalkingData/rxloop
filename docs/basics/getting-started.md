@@ -16,7 +16,7 @@ $ yarn add @rxloop/core rxjs
 
 ```javascript
 import rxloop from '@rxloop/core';
-import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { switchMap, map, mapTo } from 'rxjs/operators';
 ```
 
@@ -145,7 +145,7 @@ store.stream('todos').subscribe((state) => {
 当然也可以通过 RxJS 的操作符，对这些数据流做进一步的操作，上面的代码创建了 `store.stream('todo')` 和 `store.stream('user')` 两个数据流。
 
 ```javascript
-const state$ = Observable.combineLatest(store.stream('todo'), store.stream('user'));
+const state$ = combineLatest(store.stream('todo'), store.stream('user'));
 state$.subscribe((state) => {
   // this.setState(state);
 });
@@ -157,7 +157,7 @@ rxloop 通过 dispatch 方法派发 action，来修改 model 的数据，这一�
 ```javascript
 // 出发 todos model 中的 epics
 store.dispatch({
-  action: 'todos/getTodos',
+  type: 'todos/getTodos',
   params: {},
 });
 ```
