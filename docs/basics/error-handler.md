@@ -8,23 +8,23 @@ import { mergeMap, map } from 'rxjs/operators';
 import rxloop from '@rxloop/core';
 
 // 模拟异常接口，后面会在 counter 模型中调用这个接口。
-// 调用时接口直接抛出异常信息。
+// 调用时接口直接抛出异常信息。
 const apiCrashed = async () => {
   throw new Error('Http Error');
 };
 
 // 在创建应用时，
 // 可以注册全局的 onError 事件，能够统一监听到应用中所有模型的异常信息，在这里可以将应用异常上报监控服务。
-const app = rxloop({
+const store = rxloop({
   onError(err) {
     console.log('Global error handler...');
     console.log(err);
-    // 上报异常信息到监控服务
+    // 上报异常信息到监控服务
   },
 });
 
-// 定义简单的 counter 模型
-app.model({
+// 定义简单的 counter 模型
+store.model({
   name: 'counter',
   state: {
     counter: 0,
@@ -61,8 +61,8 @@ app.model({
   },
 });
 
-// 订阅 counter 模型的数据流
-app.stream('counter').subscribe(
+// 订阅 counter 模型的数据流
+store.stream('counter').subscribe(
   (state) => {
     console.log(state);
   },
@@ -73,12 +73,12 @@ app.stream('counter').subscribe(
   },
 );
 
-app.dispatch({
+store.dispatch({
   type: 'counter/getData',
 });
 ```
 
-运行代码，会在控制台中看到全局和模型两个级别的异常信息：
+运行代码，会在控制台中看到全局和模型两个级别的异常信息：
 ```
 Global error handler...
 index.js:52 Objectepic: "getData"error: Error: Http Error
@@ -107,6 +107,6 @@ index.js:77 Error: Http Error
     at eval (index.js:94)
 ```
 
-大家还可以到 examples 目录中，查看异常处理 demo：
+大家还可以到 examples 目录中，查看异常处理 demo：
 
 [https://github.com/TalkingData/rxloop/tree/master/examples/error-handler](https://github.com/TalkingData/rxloop/tree/master/examples/error-handler)
