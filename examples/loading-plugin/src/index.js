@@ -1,7 +1,7 @@
 import { from } from 'rxjs';
-import { mergeMap, map } from 'rxjs/operators';
-import rxloop from '@rxloop/core';
+import { mergeMap } from 'rxjs/operators';
 import loading from '@rxloop/loading';
+import rxloop from '../../../src';
 
 const apiSlow = async () => {
   const data = await new Promise((resolve) => {
@@ -30,7 +30,7 @@ const counter = {
     },
   },
   pipes: {
-    setData(action$){
+    setData(action$, { map }){
       return action$.pipe(
         map(() => {
           return {
@@ -39,7 +39,7 @@ const counter = {
         }),
       );
     },
-    getData(action$) {
+    getData(action$, { map }) {
       return action$.pipe(
         mergeMap(() => {
           return from( apiSlow() );

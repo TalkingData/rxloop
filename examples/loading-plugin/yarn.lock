@@ -13,14 +13,6 @@
   version "1.1.1"
   resolved "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-1.1.1.tgz#53f349bb986ab273d601175aa1b25a655ab90ee3"
 
-"@rxloop/core@^0.11.0":
-  version "0.11.0"
-  resolved "https://registry.npmjs.org/@rxloop/core/-/core-0.11.0.tgz#077daaf289dd5a0044dbf2314faf31a0b6f8b94f"
-  dependencies:
-    invariant "^2.2.4"
-    is-plain-object "^2.0.4"
-    rxjs "^6.0.0"
-
 "@rxloop/loading@^0.2.0":
   version "0.2.0"
   resolved "https://registry.npmjs.org/@rxloop/loading/-/loading-0.2.0.tgz#002c0c25a7a4007949cef62bf5e319677a67541c"
@@ -2690,7 +2682,7 @@ into-stream@^3.1.0:
     from2 "^2.1.1"
     p-is-promise "^1.1.0"
 
-invariant@^2.2.2, invariant@^2.2.4:
+invariant@^2.2.2:
   version "2.2.4"
   resolved "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   dependencies:
@@ -4359,12 +4351,6 @@ rxjs@^5.5.2:
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-5.5.12.tgz#6fa61b8a77c3d793dbaf270bee2f43f652d741cc"
   dependencies:
     symbol-observable "1.0.1"
-
-rxjs@^6.0.0:
-  version "6.3.2"
-  resolved "https://registry.npmjs.org/rxjs/-/rxjs-6.3.2.tgz#6a688b16c4e6e980e62ea805ec30648e1c60907f"
-  dependencies:
-    tslib "^1.9.0"
 
 rxjs@^6.1.0, rxjs@^6.2.0:
   version "6.3.0"
