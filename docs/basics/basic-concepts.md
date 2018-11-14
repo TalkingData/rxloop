@@ -4,7 +4,7 @@
 2. State：一个对象，保存整个应用状态
 3. Action：一个对象，描述事件
 4. dispatch 方法：一个函数，发送 Action 到 State
-5. Model：一个对象，用于组织应用的逻辑关系
+5. Model：一个对象，用于组织应用的逻辑关系
 
 ## State 和 View
 
@@ -13,7 +13,7 @@ View 是由组件构成的 UI 层，订阅 Model 推送的 State ，渲染成 HT
 
 ## Action
 
-```json
+```javascript
 {
   type: 'submit',
   payload: {}
@@ -30,7 +30,7 @@ dispatch({
 })
 ```
 
-## model 对象
+## model 对象
 
 ```javascript
 {
