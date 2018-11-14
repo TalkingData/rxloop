@@ -40,7 +40,7 @@ dispatch({
     add(state) { return state + 1 },
   },
   pipes: {
-    addAfter1Second(action$, { call, dispatch, put }) {
+    addAfterOneSecond(action$, { call, dispatch, put }) {
       return action$.pipe(
         call(async () => {
           await delay(1000);
