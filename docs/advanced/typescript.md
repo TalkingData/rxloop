@@ -17,7 +17,7 @@ const comment: Model = {
       state.comments = action.data.comments;
     },
   },
-  epics: {
+  pipes: {
     loadComments(action$: Observable<Action>): Observable<Action> {
       return action$.pipe(
         map((data: any) => {

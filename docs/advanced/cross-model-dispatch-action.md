@@ -3,7 +3,7 @@
 Model A：
 ```javascript
 name: 'a',
-epics: {
+pipes: {
   getData(action$) {
     // ...
   },
@@ -13,7 +13,7 @@ epics: {
 Model B：
 ```javascript
 name: 'b',
-epics: {
+pipes: {
   getData(action$) {
     action$.pipe(
       map((data) => {
@@ -31,7 +31,7 @@ epics: {
 },
 ```
 
-在 epics 中调用 `dispatch`，指定 action 的 type 为 `model/epic`。
+在 pipes 中调用 `dispatch`，指定 action 的 type 为 `model/pipe`。
 ```javascript
 this.dispatch({
   type: 'a/getData',

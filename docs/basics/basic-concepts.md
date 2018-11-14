@@ -39,7 +39,7 @@ dispatch({
   reducers: {
     add(state) { return state + 1 },
   },
-  epics: {
+  pipes: {
     addAfter1Second(action$, { call, dispatch, put }) {
       return action.pipe(
         call(async () => {
@@ -62,11 +62,11 @@ dispatch({
 1. name: 当前 Model 的名称。整个应用的 State，由多个小的 Model 的 State 以 name 为 key 合成
 2. state: 该 Model 当前的状态。数据保存在这里，直接决定了视图层的输出
 3. reducers: Action 处理器，处理同步动作，用来算出最新的 State
-4. epics：Action 处理器，处理异步动作
+4. pipes：Action 处理器，处理异步动作
 
 ### Reducer
 
 Reducer 是 Action 处理器，用来处理同步操作，可以看做是 state 的计算器。它的作用是根据 Action，从上一个 State 算出当前 State。
 
-### Epic
+### Pipe
 Action 处理器，处理副作用,根据函数式编程，计算以外的操作都属于 Effect，典型的就是 I/O 操作、数据库读写。

@@ -51,7 +51,7 @@ const counterModel = {
       return state - 1;
     },
   },
-  epics: {
+  pipes: {
     loadData(action$) {
       return action$.pipe(
         // switchMap(...),

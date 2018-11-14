@@ -66,12 +66,12 @@
 ### Bug Fixes
 
 * Pass model name to createReducer ([5995e7b](https://github.com/TalkingData/rxloop/commit/5995e7b))
-* Improve epic type definition ([96a8cdd](https://github.com/TalkingData/rxloop/commit/96a8cdd))
-* **plugin:** add onEpicError hook ([4c877f2](https://github.com/TalkingData/rxloop/commit/4c877f2))
+* Improve pipe type definition ([96a8cdd](https://github.com/TalkingData/rxloop/commit/96a8cdd))
+* **plugin:** add onPipeError hook ([4c877f2](https://github.com/TalkingData/rxloop/commit/4c877f2))
 
 ### Features
 
-* Check reducers and epics ([90b43af](https://github.com/TalkingData/rxloop/commit/90b43af))
+* Check reducers and pipes ([90b43af](https://github.com/TalkingData/rxloop/commit/90b43af))
 * Add global error hook ([1e01903](https://github.com/TalkingData/rxloop/commit/1e01903))
 
 

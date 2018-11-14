@@ -43,7 +43,7 @@ store.model({
       };
     },
   },
-  epics: {
+  pipes: {
     getData(action$) {
       return action$.pipe(
         mergeMap(() => {
@@ -81,7 +81,7 @@ store.dispatch({
 运行代码，会在控制台中看到全局和模型两个级别的异常信息：
 ```
 Global error handler...
-index.js:52 Objectepic: "getData"error: Error: Http Error
+index.js:52 Objectpipe: "getData"error: Error: Http Error
     at apiCrashed (webpack:///./src/index.js?:10:9)
     at MergeMapSubscriber.action$.pipe.Object [as project] (webpack:///./src/index.js?:36:69)
     at MergeMapSubscriber._tryNext (webpack:///./node_modules/rxjs/_esm5/internal/operators/mergeMap.js?:71:27)

@@ -8,10 +8,10 @@ export interface Action {
 
 export type Reducer = (state: any, action: Action) => any;
 
-export type Epic = (action$: Observable<Action>, cancel$: Observable<Action>) => Observable<Action>;
+export type Pipe = (action$: Observable<Action>, cancel$: Observable<Action>) => Observable<Action>;
 
-export interface EpicsMapObject {
-  [key: string]: Epic,
+export interface PipesMapObject {
+  [key: string]: Pipe,
 }
 
 export interface ReducersMapObject {
@@ -22,7 +22,7 @@ export interface Model {
   name: string,
   state?: any,
   reducers?: ReducersMapObject,
-  epics?: EpicsMapObject,
+  pipes?: PipesMapObject,
 }
 
 export interface Unsubscribe {

@@ -3,7 +3,7 @@
 在复杂单页应用下，会经常频繁地切换路由，需要及时取消上一个界面未完成的请求。
 在 RxJS 中，一般用 `takeUntil` 操作符来终止数据流，rxloop 将这一过程封装为 `call` 操作符，在 call 中调用的所有异步过程，可以轻松取消。
 
-接下来我们通过一个简单的实例，演示下在 rxloop 中如何取消一个 epic。
+接下来我们通过一个简单的实例，演示下在 rxloop 中如何取消一个 pipe。
 
 ## 模拟慢请求
 首先使用 Promise 来模拟一个慢请求，这个接口会在 5 秒后返回数据。
@@ -17,7 +17,7 @@ const apiSlow = async () => {
 ```
 
 ## 取消异步请求
-在 epics 中，串联一个 `takeUntil` 操作符，这个操作符会“监听“取消信号 cancel$.
+在 pipes 中，串联一个 `takeUntil` 操作符，这个操作符会“监听“取消信号 cancel$.
 
 ```javascript
   import rxloop, { call } from 'rxloop';

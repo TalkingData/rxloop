@@ -18,7 +18,7 @@
 基于 RxJS 的可预测状态管理容器，超轻量级的 “redux + redux-observable” 架构。
 
 ## 特性
-* elm 概念：通过 reducers、epics 组织 model，支持多状态或单一状态树；
+* elm 概念：通过 reducers、pipes 组织 model，支持多状态或单一状态树；
 * 易学易用：仅有五个 api，对 Redux、RxJS 用户友好；
 * 插件机制：比如 [@rxloop/loading](https://github.com/TalkingData/rxloop-loading) 可以自动处理 loading 状态，[@rxloop/devtools](https://github.com/TalkingData/rxloop-devtools) 可视化状态树，便于代码调试；
 * 扩展 RxJS：rxloop 能够串联到 RxJS 数据管道之中，最终能够分发出多个数据管道。
@@ -77,7 +77,7 @@ store.stream('counter').subscribe((state) => {
 });
 
 // 在 view 层，可以通过 dispatch 方法派发 action
-// action 会经由 epics 或 reducers 更新 model 状态
+// action 会经由 pipes 或 reducers 更新 model 状态
 store.dispatch({
   type: 'counter/inc',
 });

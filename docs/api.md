@@ -23,7 +23,7 @@ app.model({
       return state - 1;
     }
   },
-  epics: {
+  pipes: {
     getData(action$, cancel$) {
       return action$.pipe(
         mapTo({
@@ -41,8 +41,8 @@ app.model({
 (state, action) => state;
 ```
 
-### epic
-epic 的概念来源于知名 Redux 中间件 redux-observable，在 epic 中组合、发起和取消异步请求，签名为：
+### pipe
+pipe 的概念来源于知名 Redux 中间件 redux-observable，在 pipe 中组合、发起和取消异步请求，签名为：
 
 ```javascript
 (action$, cancel$) => action$;
@@ -75,7 +75,7 @@ app.dispatch({
 ```
 
 ### 异步更新
-还可以 dispatch 一个 action 到 epics 中，异步地修改状态值。
+还可以 dispatch 一个 action 到 pipes 中，异步地修改状态值。
 
 ```javascript
 app.dispatch({

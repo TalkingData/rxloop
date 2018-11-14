@@ -1,5 +1,4 @@
-import { map } from 'rxjs/operators';
-import rxloop, { call } from '../../../src';
+import rxloop from '../../../src';
 
 const counter = {
   name: 'counter',
@@ -21,7 +20,7 @@ const counter = {
     },
   },
   pipes: {
-    getData(action$) {
+    getData(action$, { call, map }) {
       return action$.pipe(
         call(async () => {
           throw new Error('not login');

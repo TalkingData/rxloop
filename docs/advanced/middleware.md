@@ -11,7 +11,7 @@ const store = rxloop({
 ```
 ## loading 插件
 
-安装 loading 插件后，会自动创建一个 loading 模型，可以在全局状态下监测其它模型的 epics 状态。
+安装 loading 插件后，会自动创建一个 loading 模型，可以在全局状态下监测其它模型的 pipes 状态。
 
 ```javascript
 import rxloop from '@rxloop/core';
@@ -31,7 +31,7 @@ store.model({
       return state;
     },
   },
-  epics: {
+  pipes: {
     getData(action$) {
       return action$.pipe(
         mapTo({
@@ -50,8 +50,8 @@ store.model({
 });
 
 store.stream('loading').subscribe((loading))) => {
-  console.log(loading.epics.modelA.getData);
-  console.log(loading.epics.modelA.setData);
+  console.log(loading.pipes.modelA.getData);
+  console.log(loading.pipes.modelA.setData);
 });
 ```
 
@@ -84,15 +84,15 @@ store.model({
 
 ## 插件开发
 
-在插件中可订阅 core 的数据流，比如创建 Model、epic 启动和结束等。
+在插件中可订阅 core 的数据流，比如创建 Model、pipe 启动和结束等。
 
 ```typescript
 export interface API {
   onModel$: Observable<any>,
-  onEpicStart$: Observable<any>,
-  onEpicEnd$: Observable<any>,
-  onEpicCancel$: Observable<any>,
-  onEpicError$: Observable<any>,
+  onPipeStart$: Observable<any>,
+  onPipeEnd$: Observable<any>,
+  onPipeCancel$: Observable<any>,
+  onPipeError$: Observable<any>,
 }
 
 export type Plugin = (api: API) => void;
@@ -103,16 +103,16 @@ export type Plugin = (api: API) => void;
 function logger() {
   return function setup({
     onModel$,
-    onEpicStart$,
-    onEpicEnd$,
-    onEpicCancel$,
-    onEpicError$,
+    onPipeStart$,
+    onPipeEnd$,
+    onPipeCancel$,
+    onPipeError$,
   }) {
     onModel$.subscribe(json => console.info(json));
-    onEpicStart$.subscribe(json => console.info(json));
-    onEpicEnd$.subscribe(json => console.info(json));
-    onEpicCancel$.subscribe(json => console.warn(json));
-    onEpicError$.subscribe(json => console.error(json));
+    onPipeStart$.subscribe(json => console.info(json));
+    onPipeEnd$.subscribe(json => console.info(json));
+    onPipeCancel$.subscribe(json => console.warn(json));
+    onPipeError$.subscribe(json => console.error(json));
   }
 }
 

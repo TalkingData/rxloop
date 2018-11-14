@@ -96,6 +96,17 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
+"@rxloop/immer@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.npmjs.org/@rxloop/immer/-/immer-0.1.5.tgz#ded20e878e5bca3fbd8ceb22cfe2869355afb6b3"
+  dependencies:
+    immer "^1.6.0"
+    lodash "^4.17.11"
+
+"@rxloop/loading@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/@rxloop/loading/-/loading-0.2.2.tgz#479b45c6fb65cd86ac27c984666b1bd078396ace"
+
 "@types/estree@0.0.38":
   version "0.0.38"
   resolved "https://registry.npmjs.org/@types/estree/-/estree-0.0.38.tgz#c1be40aa933723c608820a99a373a16d215a1ca2"
@@ -2007,6 +2018,10 @@ ignore-walk@^3.0.1:
   dependencies:
     minimatch "^3.0.4"
 
+immer@^1.6.0:
+  version "1.7.4"
+  resolved "https://registry.npmjs.org/immer/-/immer-1.7.4.tgz#b9a833a61cbeee477a3694870b172c590837a963"
+
 import-local@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/import-local/-/import-local-1.0.0.tgz#5e4ffdc03f4fe6c009c6729beb29631c2f8227bc"
@@ -2824,6 +2839,10 @@ lodash.templatesettings@^4.0.0:
 lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1:
   version "4.17.10"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+
+lodash@^4.17.11:
+  version "4.17.11"
+  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
 longest@^1.0.1:
   version "1.0.1"

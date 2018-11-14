@@ -13,14 +13,6 @@
   version "1.1.2"
   resolved "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-1.1.2.tgz#54c5a964462be3d4d78af631363c18d6fa91ac26"
 
-"@rxloop/core@^0.9.0":
-  version "0.9.2"
-  resolved "https://registry.npmjs.org/@rxloop/core/-/core-0.9.2.tgz#32c3d4ba06a8fdda386ca5c7fd2b9918b2964c30"
-  dependencies:
-    invariant "^2.2.4"
-    is-plain-object "^2.0.4"
-    rxjs "^6.0.0"
-
 "@rxloop/immer@^0.1.2":
   version "0.1.4"
   resolved "https://registry.npmjs.org/@rxloop/immer/-/immer-0.1.4.tgz#69406c4279744c83a728942f541f42521b2b237b"
@@ -2690,7 +2682,7 @@ into-stream@^3.1.0:
     from2 "^2.1.1"
     p-is-promise "^1.1.0"
 
-invariant@^2.2.2, invariant@^2.2.4:
+invariant@^2.2.2:
   version "2.2.4"
   resolved "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   dependencies:
@@ -4390,7 +4382,7 @@ rxjs@^5.5.2:
   dependencies:
     symbol-observable "1.0.1"
 
-rxjs@^6.0.0, rxjs@^6.1.0, rxjs@^6.2.0:
+rxjs@^6.1.0, rxjs@^6.2.0:
   version "6.3.2"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-6.3.2.tgz#6a688b16c4e6e980e62ea805ec30648e1c60907f"
   dependencies:

@@ -16,7 +16,7 @@ RxJS-based predictable state management container, ultra-lightweight "Redux + re
 ## Features
 * Facilitate the abstract front-end domain model, free choice of multi-state or single state tree;
 * Easy to learn and use: Only four apis, friendly to Redux and RxJS;
-* Isolation side effects: using the asynchronous processing capabilities of RxJS, free combination, cancel AJAX and other asynchronous calls in the Epics;
+* Isolation side effects: using the asynchronous processing capabilities of RxJS, free combination, cancel AJAX and other asynchronous calls in the Pipes;
 * Extensions RxJS: rxloop can be cascaded into RxJS data pipelines, eventually distributing multiple data pipes.
 
 ## Installation
@@ -88,7 +88,7 @@ app.stream('counter').subscribe((state) => {
 
 // In the view layer,
 // you can dispatch an action via the dispatch method
-// Action updates the model state via epics or reducers
+// Action updates the model state via pipes or reducers
 app.dispatch({
   type: 'counter/inc',
 });

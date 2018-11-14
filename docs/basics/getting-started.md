@@ -79,8 +79,8 @@ store.model({
 
 除 setList 之外，还可以添加更多的 reducer。 
 
-## 创建 epics
-rxloop 将业务中所有的副作用，隔离在 epics 中，一个 epic 是一个纯函数，函数的第一个参数是一个输入流，在 epic 内部，可以使用 RxJS 的 pipe 串联、组合不同的异步逻辑。
+## 创建 pipes
+rxloop 将业务中所有的副作用，隔离在 pipes 中，一个 pipe 是一个纯函数，函数的第一个参数是一个输入流，在 pipe 内部，可以使用 RxJS 的 pipe 串联、组合不同的异步逻辑。
 
 数据流最终 map 的数据，必须符合 action 的规范，关联到不同的 reducer：
 
@@ -155,7 +155,7 @@ state$.subscribe((state) => {
 rxloop 通过 dispatch 方法派发 action，来修改 model 的数据，这一点跟 Redux 是一致的，不同的是 rxloop 支持创建多个状态树，在 model 外部派发事件时，需要指定具体的 model name：
 
 ```javascript
-// 出发 todos model 中的 epics
+// 出发 todos model 中的 pipes
 store.dispatch({
   type: 'todos/getTodos',
   params: {},

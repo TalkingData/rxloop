@@ -1,4 +1,4 @@
-import rxloop from '@rxloop/core';
+import rxloop from '../../../src';
 import devTools from '@rxloop/devtools';
 
 const counter = {

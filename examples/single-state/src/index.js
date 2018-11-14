@@ -1,6 +1,4 @@
 import rxloop from '../../../src';
-import { from, combineLatest } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
 import devTools from '@rxloop/devtools';
 
 const getCounterApi = () => {
@@ -19,7 +17,7 @@ app.model({
     counter: 0,
   },
   reducers: {
-    inc(state, action) {
+    inc(state) {
       return {
         ...state,
         counter: state.counter + 1,
@@ -33,13 +31,13 @@ app.model({
     },
   },
   pipes: {
-    getCounter(action$) {
+    getCounter(action$, { call, map, dispatch }) {
       return action$.pipe(
-        switchMap(() => {
-          return from( getCounterApi() );
+        call(async () => {
+          return await getCounterApi();
         }),
         map((data) => {
-          this.dispatch({
+          dispatch({
             type: 'user/info',
             user: { email: 'test@test.com' },
           });
