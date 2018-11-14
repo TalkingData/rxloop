@@ -6,9 +6,17 @@ export interface Action {
   data?: any,
 }
 
+export interface OperatorsMap {
+  call: Function,
+  map: Function,
+  dispatch: Function,
+  put: Function,
+  cancel$: Observable<Action>,
+}
+
 export type Reducer = (state: any, action: Action) => any;
 
-export type Pipe = (action$: Observable<Action>, cancel$: Observable<Action>) => Observable<Action>;
+export type Pipe = (action$: Observable<Action>, operators: OperatorsMap) => Observable<Action>;
 
 export interface PipesMapObject {
   [key: string]: Pipe,
