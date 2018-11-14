@@ -1,4 +1,3 @@
-import { map } from 'rxjs/operators';
 import rxloop from '../../../src';
 
 const apiSlow = async () => {
@@ -28,7 +27,7 @@ const counter = {
     },
   },
   pipes: {
-    getData(action$, { call }) {
+    getData(action$, { call, map }) {
       return action$.pipe(
         call(async () => {
           return await apiSlow();
