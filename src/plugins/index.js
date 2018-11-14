@@ -1,6 +1,7 @@
 import invariant from 'invariant';
 import { filter } from 'rxjs/operators';
-import { isFunction } from './utils';
+import { isFunction } from '../utils';
+import context from './context';
 
 // plugins
 export default function init(plugins, plugin$) {
@@ -10,6 +11,8 @@ export default function init(plugins, plugin$) {
     plugins.every(plugin => isFunction(plugin)),
     '[plugins] all plugin should be function',
   );
+
+  plugins.push(context());
   
   const source = evt => this.plugin$.pipe( filter(e => e.action === evt) );
 
