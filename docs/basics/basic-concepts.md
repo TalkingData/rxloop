@@ -41,7 +41,7 @@ dispatch({
   },
   pipes: {
     addAfter1Second(action$, { call, dispatch, put }) {
-      return action.pipe(
+      return action$.pipe(
         call(async () => {
           await delay(1000);
           return { a: 1 };
