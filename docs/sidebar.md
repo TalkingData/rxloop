@@ -1,6 +1,7 @@
 - [介绍](index.md)
 - [基础](basics/index.md)
   - [快速上手](basics/getting-started.md)
+  - [错误处理](basics/basic-concepts.md)
   - [错误处理](basics/error-handler.md)
   - [示例](basics/examples.md)
 - [高级特性](advanced/index.md)

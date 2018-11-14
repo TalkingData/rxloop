@@ -28,7 +28,7 @@ describe('call pipe', () => {
         add(state) { return state },
       },
       epics: {
-        errorTest(action$) {
+        errorTest(action$, { call }) {
           return action$.pipe(
             call(async () => {
               throw 'error!';

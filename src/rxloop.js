@@ -4,6 +4,7 @@ import invariant from 'invariant';
 import checkModel from './check-model';
 import { isPlainObject, isFunction, noop } from './utils';
 import initPlugins from './plugins';
+import { call } from './call';
 
 export function rxloop( config = {} ) {
   const option = { 
@@ -93,7 +94,10 @@ export function rxloop( config = {} ) {
       });
       
       // 将数据流导入到 epic 之中，进行异步操作
-      epics[type].call(this, stream[`epic_${type}$`], stream[`epic_${type}_cancel$`]).pipe(
+      epics[type].call(this,
+        stream[`epic_${type}$`],
+        { call, map, dispatch, put: dispatch, cancel$: stream[`epic_${type}_cancel$`] }
+      ).pipe(
         map(action => {
           const { type: reducer } = action;
           invariant(

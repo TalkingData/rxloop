@@ -68,9 +68,8 @@ app.model({
     },
   },
   epics: {
-    setTxt(action$) {
-      return action$
-      .pipe(
+    setTxt(action$, { map }) {
+      return action$.pipe(
         map(() => {
           this.dispatch({
             type: 'b/update',
