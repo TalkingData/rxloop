@@ -7,16 +7,8 @@ export default function context() {
     onEpicError$,
     onEpicCancel$,
    }) {
-    if ( this.context !== void 0 ) return;
-
     this.context = {};
-    this.getMeta = getContext;
-    this.getContext = getContext;
     
-    function getContext(model) {
-      return model !== void 0 ? this.context[model] : this.context;
-    }
-
     onModelBeforeCreate$.subscribe(({ model }) => {
       const context = {
         source: '',
