@@ -68,10 +68,10 @@ app.model({
     },
   },
   epics: {
-    setTxt(action$, { map }) {
+    setTxt(action$, { map, dispatch }) {
       return action$.pipe(
         map(() => {
-          this.dispatch({
+          dispatch({
             type: 'b/update',
             data: { txt: 'updated from a' },
           });
