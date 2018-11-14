@@ -19,10 +19,10 @@ export default function init(plugins, plugin$) {
   plugins.forEach(plugin => plugin.call(this, {
     onModelBeforeCreate$: source('onModelBeforeCreate'),
     onModelCreated$: source('onModelCreated'),
-    onEpicStart$: source('onEpicStart'),
-    onEpicEnd$: source('onEpicEnd'),
-    onEpicCancel$: source('onEpicCancel'),
-    onEpicError$: source('onEpicError'),
+    onPipeStart$: source('onPipeStart'),
+    onPipeEnd$: source('onPipeEnd'),
+    onPipeCancel$: source('onPipeCancel'),
+    onPipeError$: source('onPipeError'),
     onStatePatch$: source('onStatePatch'),
     onStart$: source('onStart'),
   }));

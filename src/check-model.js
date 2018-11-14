@@ -5,7 +5,7 @@ export default function checkModel(model, rootState) {
   const {
     name,
     reducers,
-    epics,
+    pipes,
   } = model;
 
   // name should be defined
@@ -38,15 +38,15 @@ export default function checkModel(model, rootState) {
     );
   }
 
-  // epics should be plain object
-  if (epics) {
+  // pipes should be plain object
+  if (pipes) {
     invariant(
-      isPlainObject(epics),
-      `[app.model] epics should be plain object, but got ${typeof epics}`,
+      isPlainObject(pipes),
+      `[app.model] pipes should be plain object, but got ${typeof pipes}`,
     );
     invariant(
-      isAllFunction(epics),
-      `[app.model] all epic should be function`,
+      isAllFunction(pipes),
+      `[app.model] all pipe should be function`,
     );
   }
 }

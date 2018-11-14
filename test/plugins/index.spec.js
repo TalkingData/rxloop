@@ -33,32 +33,32 @@ describe('Basic api', () => {
         function pluginOne({
           onModelBeforeCreate$,
           onModelCreated$,
-          onEpicStart$,
-          onEpicEnd$,
-          onEpicCancel$,
-          onEpicError$,
+          onPipeStart$,
+          onPipeEnd$,
+          onPipeCancel$,
+          onPipeError$,
         }) {
           expect(onModelBeforeCreate$).not.toBeUndefined();
           expect(onModelCreated$).not.toBeUndefined();
-          expect(onEpicStart$).not.toBeUndefined();
-          expect(onEpicEnd$).not.toBeUndefined();
-          expect(onEpicCancel$).not.toBeUndefined();
-          expect(onEpicError$).not.toBeUndefined();
+          expect(onPipeStart$).not.toBeUndefined();
+          expect(onPipeEnd$).not.toBeUndefined();
+          expect(onPipeCancel$).not.toBeUndefined();
+          expect(onPipeError$).not.toBeUndefined();
         },
         function pluginTwo({
           onModelBeforeCreate$,
           onModelCreated$,
-          onEpicStart$,
-          onEpicEnd$,
-          onEpicCancel$,
-          onEpicError$,
+          onPipeStart$,
+          onPipeEnd$,
+          onPipeCancel$,
+          onPipeError$,
         }) {
           expect(onModelBeforeCreate$).not.toBeUndefined();
           expect(onModelCreated$).not.toBeUndefined();
-          expect(onEpicStart$).not.toBeUndefined();
-          expect(onEpicEnd$).not.toBeUndefined();
-          expect(onEpicCancel$).not.toBeUndefined();
-          expect(onEpicError$).not.toBeUndefined();
+          expect(onPipeStart$).not.toBeUndefined();
+          expect(onPipeEnd$).not.toBeUndefined();
+          expect(onPipeCancel$).not.toBeUndefined();
+          expect(onPipeError$).not.toBeUndefined();
         },
       ],
     });
@@ -82,19 +82,19 @@ describe('Basic api', () => {
     app.model({ name: 'test', state: {} });
   });
 
-  test('Event onEpicStart will be dispached', (done) => {
+  test('Event onPipeStart will be dispached', (done) => {
     const app = rxloop({
       plugins: [
-        function pluginOne({ onEpicStart$ }) {
-          onEpicStart$.subscribe((data) => {
+        function pluginOne({ onPipeStart$ }) {
+          onPipeStart$.subscribe((data) => {
             delete data.data.__cancel__;
             delete data.data.__bus__;
 
             expect(data).toEqual({
               type: 'plugin',
-              action: "onEpicStart",
+              action: "onPipeStart",
               model: 'test',
-              epic: "getData",
+              pipe: "getData",
               data: {
                 type: "test/getData",
               },
@@ -111,7 +111,7 @@ describe('Basic api', () => {
       reducers: {
         add(state) { return state },
       },
-      epics: {
+      pipes: {
         getData(action$) {
           return action$.pipe(
             mapTo({
@@ -126,20 +126,20 @@ describe('Basic api', () => {
     });
   });
 
-  test('Event onEpicEnd will be dispached', (done) => {
+  test('Event onPipeEnd will be dispached', (done) => {
     const app = rxloop({
       plugins: [
-        function pluginOne({ onEpicEnd$ }) {
-          onEpicEnd$.subscribe((data) => {
+        function pluginOne({ onPipeEnd$ }) {
+          onPipeEnd$.subscribe((data) => {
             expect(data).toEqual({
               data: {
                 type: 'add',
                 payload: 1,
               },
               type: 'plugin',
-              action: "onEpicEnd",
+              action: "onPipeEnd",
               model: 'test',
-              epic: "getData",
+              pipe: "getData",
             });
             done();
           });
@@ -153,7 +153,7 @@ describe('Basic api', () => {
       reducers: {
         add(state) { return state },
       },
-      epics: {
+      pipes: {
         getData(action$) {
           return action$.pipe(
             mapTo({
@@ -169,7 +169,7 @@ describe('Basic api', () => {
     });
   });
 
-  test('Event onEpicCancel will be dispached', (done) => {
+  test('Event onPipeCancel will be dispached', (done) => {
     const apiSlow = async () => {
       const data = await new Promise((resolve) => {
         setTimeout(() => resolve({}), 5000);
@@ -179,13 +179,13 @@ describe('Basic api', () => {
 
     const app = rxloop({
       plugins: [
-        function pluginOne({ onEpicCancel$ }) {
-          onEpicCancel$.subscribe((data) => {
+        function pluginOne({ onPipeCancel$ }) {
+          onPipeCancel$.subscribe((data) => {
             expect(data).toEqual({
               type: 'plugin',
-              action: "onEpicCancel",
+              action: "onPipeCancel",
               model: 'test',
-              epic: "getSlowlyData",
+              pipe: "getSlowlyData",
             });
             done();
           });
@@ -204,7 +204,7 @@ describe('Basic api', () => {
           };
         },
       },
-      epics: {
+      pipes: {
         getSlowlyData(action$, cancel$) {
           return action$.pipe(
             switchMap(() => {
@@ -225,17 +225,17 @@ describe('Basic api', () => {
     });
   });
 
-  test('Event onEpicError will be dispached', (done) => {
+  test('Event onPipeError will be dispached', (done) => {
     const app = rxloop({
       plugins: [
-        function pluginOne({ onEpicError$ }) {
-          onEpicError$.subscribe((data) => {
+        function pluginOne({ onPipeError$ }) {
+          onPipeError$.subscribe((data) => {
             expect(data).toEqual({
-              error: 'epic error',
+              error: 'pipe error',
               type: 'plugin',
-              action: "onEpicError",
+              action: "onPipeError",
               model: 'test',
-              epic: "getErrorData",
+              pipe: "getErrorData",
             });
             done();
           });
@@ -254,11 +254,11 @@ describe('Basic api', () => {
           };
         },
       },
-      epics: {
+      pipes: {
         getErrorData(action$) {
           return action$.pipe(
             map(() => {
-              throw 'epic error';
+              throw 'pipe error';
               // return {
               //   type: 'add',
               // };

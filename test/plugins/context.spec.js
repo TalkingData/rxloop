@@ -1,7 +1,7 @@
 import rxloop from '../../src';
 import { mapTo, tap, delay } from "rxjs/operators";
 
-describe('Epic success', () => {
+describe('Pipe success', () => {
   const store = rxloop();
 
   store.model({
@@ -14,7 +14,7 @@ describe('Epic success', () => {
         return state;
       }
     },
-    epics: {
+    pipes: {
       a(action$) {
         return action$.pipe(
           mapTo({ type: 'info' }),
@@ -40,7 +40,7 @@ describe('Epic success', () => {
   test('Default state', () => {
     expect(store.context.user).toEqual({
       source: '',
-      epic: {
+      pipe: {
         a: 'pending',
         b: 'pending',
         c: 'pending',
@@ -48,14 +48,14 @@ describe('Epic success', () => {
     });
   });
 
-  test('The a epic status is success', (done) => {
+  test('The a pipe status is success', (done) => {
     store.dispatch({
       type: 'user/a',
     });
     store.stream('user').subscribe(() => {
       expect(store.context.user).toEqual({
         source: 'a',
-        epic: {
+        pipe: {
           a: 'success',
           b: 'pending',
           c: 'pending',
@@ -65,13 +65,13 @@ describe('Epic success', () => {
     });
   });
 
-  test('The b epic status is canceled', () => {
+  test('The b pipe status is canceled', () => {
     store.dispatch({
       type: 'user/b/cancel',
     });
     expect(store.context.user).toEqual({
       source: 'b',
-      epic: {
+      pipe: {
         a: 'success',
         b: 'cancel',
         c: 'pending',
@@ -79,13 +79,13 @@ describe('Epic success', () => {
     });
   });
 
-  test('The c epic status is error', () => {
+  test('The c pipe status is error', () => {
     store.dispatch({
       type: 'user/c',
     });
     expect(store.context.user).toEqual({
       source: 'c',
-      epic: {
+      pipe: {
         a: 'success',
         b: 'cancel',
         c: 'error',

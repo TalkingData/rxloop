@@ -29,7 +29,7 @@ const counter = {
       };
     },
   },
-  epics: {
+  pipes: {
     setData(action$){
       return action$.pipe(
         map(() => {
@@ -67,8 +67,8 @@ app.stream('counter').subscribe(state => {
 
 // loading 状态
 app.stream('loading').subscribe(state => {
-  // 某个 epic 的 loading 状态
-  console.log(state.epics.counter);
+  // 某个 pipe 的 loading 状态
+  console.log(state.pipes.counter);
 });
 
 document.getElementById('getdata').onclick = () => {

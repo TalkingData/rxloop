@@ -28,7 +28,7 @@ app.model({
       };
     }
   },
-  epics: {
+  pipes: {
     getRemoteCount(action$) {
       return action$.pipe(
         mapTo({
@@ -67,7 +67,7 @@ app.model({
       };
     },
   },
-  epics: {
+  pipes: {
     setTxt(action$, { map, dispatch }) {
       return action$.pipe(
         map(() => {
@@ -132,7 +132,7 @@ describe('Error check', () => {
     expect(() => app.model({ name: 'counter' })).toThrow()
   });
 
-  test('throws if is duplicated type in epics and reducers', () => {
+  test('throws if is duplicated type in pipes and reducers', () => {
     expect(() => {
       app.model({
         name: 'test',
@@ -142,7 +142,7 @@ describe('Error check', () => {
             return state;
           },
         },
-        epics: {
+        pipes: {
           aa(action$) {
             return action$.pipe(
               mapTo({})
@@ -170,21 +170,21 @@ describe('Error check', () => {
     .toThrow('[app.model] all reducer should be function');
   });
 
-  test('throws if epics is not a plain object', () => {
-    expect(() => app.model({ name: 'c', state: 1, epics: 'object' }))
-    .toThrow('[app.model] epics should be plain object, but got string');
+  test('throws if pipes is not a plain object', () => {
+    expect(() => app.model({ name: 'c', state: 1, pipes: 'object' }))
+    .toThrow('[app.model] pipes should be plain object, but got string');
   });
 
-  test('throws if all epic should not be function', () => {
+  test('throws if all pipe should not be function', () => {
     expect(() => app.model({
       name: 'e',
       state: 1,
-      epics: {
+      pipes: {
         a() {},
         b: 'b',
       },
     }))
-    .toThrow('[app.model] all epic should be function');
+    .toThrow('[app.model] all pipe should be function');
   });
 
   test('throws if is not pass an undifined model', () => {
@@ -271,10 +271,10 @@ describe('check config', () => {
     expect(pluginEvts.length).toBe(8);
     expect(pluginEvts).toContain('onModelBeforeCreate$');
     expect(pluginEvts).toContain('onModelCreated$');
-    expect(pluginEvts).toContain('onEpicStart$');
-    expect(pluginEvts).toContain('onEpicEnd$');
-    expect(pluginEvts).toContain('onEpicCancel$');
-    expect(pluginEvts).toContain('onEpicError$');
+    expect(pluginEvts).toContain('onPipeStart$');
+    expect(pluginEvts).toContain('onPipeEnd$');
+    expect(pluginEvts).toContain('onPipeCancel$');
+    expect(pluginEvts).toContain('onPipeError$');
     expect(pluginEvts).toContain('onStatePatch$');
     expect(pluginEvts).toContain('onStart$');
   });
@@ -284,7 +284,7 @@ describe('check config', () => {
         expect(json).toEqual({
           error: 'boom!',
           model: 'test',
-          epic: 'getData',
+          pipe: 'getData',
         });
         done();
       },
@@ -298,7 +298,7 @@ describe('check config', () => {
           return state;
         },
       },
-      epics: {
+      pipes: {
         getData(action$) {
           return action$.pipe(
             map(() => {

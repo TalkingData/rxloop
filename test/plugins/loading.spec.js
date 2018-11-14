@@ -21,7 +21,7 @@ app.model({
       };
     },
   },
-  epics: {
+  pipes: {
     getData(action$) {
       return action$.pipe(
         mapTo({
@@ -51,7 +51,7 @@ app.stream('test').subscribe();
 
 app.start();
 
-describe('test epic loading', () => {
+describe('test pipe loading', () => {
   test('exposes the public API', () => {
     expect(Object.keys(app1)).not.toContain('loading$');
     expect(Object.keys(app)).toContain('loading$');
@@ -70,7 +70,7 @@ describe('test epic loading', () => {
       },
     });
     expect(app.getState('loading')).toEqual({
-      epics: {
+      pipes: {
         test: {
           getData: false,
           getDataCounter: 0,
@@ -99,7 +99,7 @@ describe('test epic loading', () => {
       },
     });
     expect(app.getState('loading')).toEqual({
-      epics: {
+      pipes: {
         test: {
           getData: false,
           getDataCounter: 0,
@@ -123,7 +123,7 @@ describe('test epic loading', () => {
         },
       });
       expect(app.getState('loading')).toEqual({
-        epics: {
+        pipes: {
           test: {
             getData: false,
             getDataCounter: 0,
@@ -139,7 +139,7 @@ describe('test epic loading', () => {
   });
 });
 
-describe('test epic loading when error', () => {
+describe('test pipe loading when error', () => {
   const app = rxloop({
     plugins: [ loading() ],
   });
@@ -151,7 +151,7 @@ describe('test epic loading when error', () => {
         return state;
       }
     },
-    epics: {
+    pipes: {
       getDataError(action$) {
         return action$.pipe(
           delay(2000),
@@ -177,7 +177,7 @@ describe('test epic loading when error', () => {
         { loading: { getDataErrorCounter: 0, getDataError: false } }
       );
       expect(app.getState('loading')).toEqual({
-        epics: {
+        pipes: {
           test: {
             getDataError: false,
             getDataErrorCounter: 0,
@@ -189,7 +189,7 @@ describe('test epic loading when error', () => {
   });
 });
 
-describe('test epic loading when error', () => {
+describe('test pipe loading when error', () => {
   const app = rxloop({
     plugins: [ loading() ],
   });
@@ -203,7 +203,7 @@ describe('test epic loading when error', () => {
         return state;
       }
     },
-    epics: {
+    pipes: {
       getData(action$) {
         return action$.pipe(
           mapTo({
@@ -222,7 +222,7 @@ describe('test epic loading when error', () => {
       loading: true,
     });
     expect(app.getState('loading')).toEqual({
-      epics: {
+      pipes: {
         test: {
           getDataCounter: 0,
           getData: false,

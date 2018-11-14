@@ -42,82 +42,82 @@ export function rxloop( config = {} ) {
     });
   }
 
-  function createEpicStreams(name, reducers, epics, out$$) {
+  function createPipeStreams(name, reducers, pipes, out$$) {
     const stream = this._stream[name];
     const errors = this._errors[name];
 
-    Object.keys(epics).forEach(type => {
-      // epics 中函数名称不能跟 reducers 里的函数同名
+    Object.keys(pipes).forEach(type => {
+      // pipes 中函数名称不能跟 reducers 里的函数同名
       invariant(
         !stream[`reducer_${type}$`],
-        `[epics] duplicated type ${type} in epics and reducers`,
+        `[pipes] duplicated type ${type} in pipes and reducers`,
       );
 
-      // 为每一个 epic 创建一个数据流,
-      stream[`epic_${type}$`] = createStream(`${name}/${type}`);
-      stream[`epic_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
-      stream[`epic_${type}_error$`] = createStream(`${name}/${type}/error`);
+      // 为每一个 pipe 创建一个数据流,
+      stream[`pipe_${type}$`] = createStream(`${name}/${type}`);
+      stream[`pipe_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
+      stream[`pipe_${type}_error$`] = createStream(`${name}/${type}/error`);
       
-      errors.push(stream[`epic_${type}_error$`]);
+      errors.push(stream[`pipe_${type}_error$`]);
 
-      stream[`epic_${type}$`].subscribe(data => {
-        data.__cancel__ = stream[`epic_${type}_cancel$`];
+      stream[`pipe_${type}$`].subscribe(data => {
+        data.__cancel__ = stream[`pipe_${type}_cancel$`];
         data.__bus__ = bus$;
 
         this.dispatch({
           data,
           type: 'plugin',
-          action: 'onEpicStart',
+          action: 'onPipeStart',
           model: name,
-          epic: type,
+          pipe: type,
         });
       });
 
-      stream[`epic_${type}_cancel$`].subscribe(() => {
+      stream[`pipe_${type}_cancel$`].subscribe(() => {
         this.dispatch({
           type: 'plugin',
-          action: 'onEpicCancel',
+          action: 'onPipeCancel',
           model: name,
-          epic: type,
+          pipe: type,
         });
       });
 
-      stream[`epic_${type}_error$`].subscribe(({ model, epic, error }) => {
-        option.onError({ model, epic, error });
+      stream[`pipe_${type}_error$`].subscribe(({ model, pipe, error }) => {
+        option.onError({ model, pipe, error });
         this.dispatch({
           model,
-          epic,
+          pipe,
           error,
           type: 'plugin',
-          action: 'onEpicError',
+          action: 'onPipeError',
         });
       });
       
-      // 将数据流导入到 epic 之中，进行异步操作
-      epics[type].call(this,
-        stream[`epic_${type}$`],
-        { call, map, dispatch, put: dispatch, cancel$: stream[`epic_${type}_cancel$`] }
+      // 将数据流导入到 pipe 之中，进行异步操作
+      pipes[type].call(this,
+        stream[`pipe_${type}$`],
+        { call, map, dispatch, put: dispatch, cancel$: stream[`pipe_${type}_cancel$`] }
       ).pipe(
         map(action => {
           const { type: reducer } = action;
           invariant(
             type,
-            '[epics] action should be a plain object with type',
+            '[pipes] action should be a plain object with type',
           );
           invariant(
             reducers[reducer],
-            `[epics] undefined reducer ${reducer}`,
+            `[pipes] undefined reducer ${reducer}`,
           );
           this.dispatch({
             data: action,
             type: 'plugin',
-            action: 'onEpicEnd',
+            action: 'onPipeEnd',
             model: name,
-            epic: type,
+            pipe: type,
           });
           const rtn = this.createReducer(action, reducers[reducer]);
           action.type = `${name}/${action.type}`;
-          action.__source__ = { epic: type };
+          action.__source__ = { pipe: type };
           rtn.__action__ = action;
           return rtn;
         }),
@@ -125,14 +125,14 @@ export function rxloop( config = {} ) {
           option.onError({
             error,
             model: name,
-            epic: type,
+            pipe: type,
           });
           this.dispatch({
             error,
             type: 'plugin',
-            action: 'onEpicError',
+            action: 'onPipeError',
             model: name,
-            epic: type,
+            pipe: type,
           });
           return throwError(error);
         }),
@@ -168,18 +168,18 @@ export function rxloop( config = {} ) {
     );
   }
 
-  function model({ name, state = {}, reducers = {}, epics = {} }) {
-    checkModel({ name, state, reducers, epics }, this._state);
+  function model({ name, state = {}, reducers = {}, pipes = {} }) {
+    checkModel({ name, state, reducers, pipes }, this._state);
     
     this.dispatch({
       type: 'plugin',
       action: 'onModelBeforeCreate',
-      model: { name, state, reducers, epics },
+      model: { name, state, reducers, pipes },
     });
 
     this._state[name] = state;
     this._reducers[name] = reducers;
-    this._epics[name] = epics;
+    this._pipes[name] = pipes;
     this._stream[name] = {};
     this._errors[name] = [];
 
@@ -188,8 +188,8 @@ export function rxloop( config = {} ) {
     // 为 reducers 创建同步数据流
     createReducerStreams.call(this, name, reducers, out$$);
 
-    // 为 epics 创建异步数据流
-    createEpicStreams.call(this, name, reducers, epics, out$$);
+    // 为 pipes 创建异步数据流
+    createPipeStreams.call(this, name, reducers, pipes, out$$);
 
     // 创建数据流出口
     createModelStream.call(this, name, state, out$$);
@@ -280,7 +280,7 @@ export function rxloop( config = {} ) {
     _stream: {},
     _errors: {},
     _reducers: {},
-    _epics: {},
+    _pipes: {},
     getSingleStore,
     model,
     subscribe,

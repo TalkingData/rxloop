@@ -32,7 +32,7 @@ app.model({
       };
     },
   },
-  epics: {
+  pipes: {
     getCounter(action$) {
       return action$.pipe(
         switchMap(() => {

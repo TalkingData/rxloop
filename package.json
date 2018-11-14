@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@rxloop/immer": "^0.1.5",
-    "@rxloop/loading": "^0.2.1",
+    "@rxloop/loading": "^0.2.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.2",
     "babel-jest": "^22.4.3",

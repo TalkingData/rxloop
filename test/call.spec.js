@@ -27,7 +27,7 @@ describe('call pipe', () => {
       reducers: {
         add(state) { return state },
       },
-      epics: {
+      pipes: {
         errorTest(action$, { call }) {
           return action$.pipe(
             call(async () => {
@@ -48,7 +48,7 @@ describe('call pipe', () => {
         type: 'test/errorTest/error',
         error: 'error!',
         model: 'test',
-        epic: 'errorTest',
+        pipe: 'errorTest',
       });
       done();
     }, 500);

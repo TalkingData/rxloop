@@ -20,7 +20,7 @@ const counter = {
       };
     },
   },
-  epics: {
+  pipes: {
     getData(action$) {
       return action$.pipe(
         call(async () => {

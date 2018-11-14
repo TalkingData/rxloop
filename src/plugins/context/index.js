@@ -2,10 +2,10 @@ export default function context() {
   return function init({
     onModelBeforeCreate$,
     onStatePatch$,
-    onEpicStart$,
-    onEpicEnd$,
-    onEpicError$,
-    onEpicCancel$,
+    onPipeStart$,
+    onPipeEnd$,
+    onPipeError$,
+    onPipeCancel$,
    }) {
     this.context = {};
     
@@ -14,10 +14,10 @@ export default function context() {
         source: '',
       };
 
-      if ( model.epics ) {
-        context.epic = {};
-        Object.keys(model.epics).forEach(epic => {
-          context.epic[epic] = 'pending';
+      if ( model.pipes ) {
+        context.pipe = {};
+        Object.keys(model.pipes).forEach(pipe => {
+          context.pipe[pipe] = 'pending';
         });
       }
 
@@ -27,31 +27,31 @@ export default function context() {
     onStatePatch$.subscribe(({ model, reducerAction }) => {
       const context = this.context[model];
       if (context) {
-        context.source = reducerAction.__source__.reducer || reducerAction.__source__.epic;
+        context.source = reducerAction.__source__.reducer || reducerAction.__source__.pipe;
       }
     });
     
-    onEpicStart$.subscribe(({ model, epic }) => {
+    onPipeStart$.subscribe(({ model, pipe }) => {
       const context = this.context[model];
       context.source = '';
-      context.epic[epic] = 'start';
+      context.pipe[pipe] = 'start';
     });
     
-    onEpicEnd$.subscribe(({ model, epic }) => {
+    onPipeEnd$.subscribe(({ model, pipe }) => {
       const context = this.context[model];
-      context.epic[epic] = 'success';
+      context.pipe[pipe] = 'success';
     });
 
-    onEpicError$.subscribe(({ model, epic }) => {
+    onPipeError$.subscribe(({ model, pipe }) => {
       const context = this.context[model];
-      context.source = epic;
-      context.epic[epic] = 'error';
+      context.source = pipe;
+      context.pipe[pipe] = 'error';
     });
 
-    onEpicCancel$.subscribe(({ model, epic }) => {
+    onPipeCancel$.subscribe(({ model, pipe }) => {
       const context = this.context[model];
-      context.source = epic;
-      context.epic[epic] = 'cancel';
+      context.source = pipe;
+      context.pipe[pipe] = 'cancel';
     });
   };
 };
