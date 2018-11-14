@@ -116,7 +116,7 @@ store.model({
     },
     // other...
   },
-  epcis: {
+  pipes: {
     getTodos(action$) {
       return action$.pipe(
         // other pipe method..
