@@ -21,14 +21,12 @@ counter$.subscribe(
   (state) => {
     // this.setState(state);
   },
-  (error) => {},
 );
 
 user$.subscribe(
   (state) => {
     // this.setState(state);
   },
-  (error) => {},
 );
 
 // 还可以直接使用 stream 方法，获取单一状态树。
@@ -38,6 +36,5 @@ singleState$.subscribe(
   (state) => {
     // this.setState(state);
   },
-  (error) => {},
 );
 ```
