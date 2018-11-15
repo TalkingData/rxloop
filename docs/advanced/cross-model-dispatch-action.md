@@ -14,10 +14,10 @@ Model B：
 ```javascript
 name: 'b',
 pipes: {
-  getData(action$) {
+  getData(action$, { dispatch, map }) {
     action$.pipe(
       map((data) => {
-        this.dispatch({
+        dispatch({
           type: 'a/getData',
           data,
         });
@@ -33,7 +33,7 @@ pipes: {
 
 在 pipes 中调用 `dispatch`，指定 action 的 type 为 `model/pipe`。
 ```javascript
-this.dispatch({
+dispatch({
   type: 'a/getData',
   data,
 });
