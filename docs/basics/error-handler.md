@@ -1,10 +1,8 @@
-# 异常处理
+# 错误处理
 
 rxloop 支持应用和模型两个级别的错误处理，所有模型的异常会汇总到应用的 onError 钩子函数之中，在订阅模型数据时，可以单独检测该模型的异常情况，具体用法可以参考下面代码的注释：
 
 ```javascript
-import { from } from 'rxjs';
-import { mergeMap, map } from 'rxjs/operators';
 import rxloop from '@rxloop/core';
 
 // 模拟异常接口，后面会在 counter 模型中调用这个接口。
@@ -44,11 +42,11 @@ store.model({
     },
   },
   pipes: {
-    getData(action$) {
+    getData(action$, { call, map }) {
       return action$.pipe(
-        mergeMap(() => {
+        call(async () => {
           // 这里调用接口时，api 服务崩溃了
-          return from( apiCrashed() );
+          return await apiCrashed();
         }),
         map((data) => {
           return {
@@ -64,12 +62,13 @@ store.model({
 // 订阅 counter 模型的数据流
 store.stream('counter').subscribe(
   (state) => {
-    console.log(state);
-  },
-  // 除了全局的异常处理，还可以单独处理 counter 模型的异常。
-  (err) => {
-    console.log('Model error handler...');
-    console.log(err);
+    // 除了全局的异常处理，还可以单独处理 counter 模型的异常。
+    if (state.error) {
+      console.log('Model error handler...');
+      console.log(err);
+      return;
+    }
+    // setState(state);
   },
 );
 
