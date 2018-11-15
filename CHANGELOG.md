@@ -1,23 +1,3 @@
-<a name="1.0.0-alpha.3"></a>
-# [1.0.0-alpha.3](https://github.com/TalkingData/rxloop/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2018-11-15)
-
-
-### Bug Fixes
-
-* change examples code ([6558663](https://github.com/TalkingData/rxloop/commit/6558663))
-* Improve ts type definition ([bf956cd](https://github.com/TalkingData/rxloop/commit/bf956cd))
-
-
-### Features
-
-* add async  process oprator ([9f722b1](https://github.com/TalkingData/rxloop/commit/9f722b1))
-* Add public attribute context ([4b8a6a5](https://github.com/TalkingData/rxloop/commit/4b8a6a5))
-* error handlers ([6db44d6](https://github.com/TalkingData/rxloop/commit/6db44d6))
-* **epic:** can be passed more params to epic ([7bde209](https://github.com/TalkingData/rxloop/commit/7bde209))
-* rename epic to pipe ([87f5417](https://github.com/TalkingData/rxloop/commit/87f5417))
-
-
-
 <a name="1.0.0-alpha.2"></a>
 # [1.0.0-alpha.2](https://github.com/TalkingData/rxloop/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2018-11-02)
 
