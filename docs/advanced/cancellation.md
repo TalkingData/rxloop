@@ -20,9 +20,9 @@ const apiSlow = async () => {
 在 pipes 中，串联一个 `takeUntil` 操作符，这个操作符会“监听“取消信号 cancel$.
 
 ```javascript
-  import rxloop, { call } from 'rxloop';
+  import rxloop from 'rxloop';
   // ...
-    getData(action$, cancel$) {
+    getData(action$, { call, map }) {
       return action$.pipe(
         call(async () => {
           return await apiSlow();
