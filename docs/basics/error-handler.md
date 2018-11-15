@@ -89,7 +89,7 @@ index.js:52 Objectpipe: "getData"error: Error: Http Error
     at FilterSubscriber._next (webpack:///./node_modules/rxjs/_esm5/internal/operators/filter.js?:42:30)
     at FilterSubscriber.Subscriber.next (webpack:///./node_modules/rxjs/_esm5/internal/Subscriber.js?:64:18)
     at Subject.next (webpack:///./node_modules/rxjs/_esm5/internal/Subject.js?:58:25)
-    at Object.dispatch (webpack:///./node_modules/@rxloop/core/es/rxloop-core.js?:202:10)
+    at Object.dispatch (webpack:///./node_modules/@rxloop/core/es/rxloop.js?:202:10)
     at eval (webpack:///./src/index.js?:94:5)model: "counter"__proto__: Object
 
 index.js:76 Model error handler...
@@ -102,7 +102,7 @@ index.js:77 Error: Http Error
     at FilterSubscriber._next (filter.js:42)
     at FilterSubscriber.Subscriber.next (Subscriber.js:64)
     at Subject.next (Subject.js:58)
-    at Object.dispatch (rxloop-core.js:202)
+    at Object.dispatch (rxloop.js:202)
     at eval (index.js:94)
 ```
 

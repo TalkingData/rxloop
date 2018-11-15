@@ -32,7 +32,7 @@ $ yarn add @rxloop/core
 
 Or introduced through CDN
 ```html
-<script src="https://unpkg.com/@rxloop/core@0.6.1/dist/rxloop-core.min.js"></script>
+<script src="https://unpkg.com/@rxloop/core@0.6.1/dist/rxloop.min.js"></script>
 <script src="https://unpkg.com/rxjs@6.2.0/bundles/rxjs.umd.min.js"></script>
 <script>
 var app = rxloopCore();

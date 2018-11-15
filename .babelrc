@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/env",
       {
         "targets": {
           "browsers": [
@@ -15,13 +15,13 @@
     ]
   ],
   "plugins": [
-    "transform-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread"
   ],
   "env": {
     "commonjs": {
       "presets": [
         [
-          "env",
+          "@babel/env",
           {
             "loose": true
           }
