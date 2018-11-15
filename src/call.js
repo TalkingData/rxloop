@@ -16,12 +16,6 @@ const handler = (f) => (action) => {
         pipe,
       });
       return empty();
-      // return of({
-      //   type: 'error',
-      //   error,
-      //   model,
-      //   pipe,
-      // });
     }),
   );
 };
