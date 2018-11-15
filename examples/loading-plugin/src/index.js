@@ -1,5 +1,3 @@
-import { from } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
 import loading from '@rxloop/loading';
 import rxloop from '../../../src';
 
@@ -39,10 +37,10 @@ const counter = {
         }),
       );
     },
-    getData(action$, { map }) {
+    getData(action$, { call, map }) {
       return action$.pipe(
-        mergeMap(() => {
-          return from( apiSlow() );
+        call(async () => {
+          return await apiSlow();
         }),
         map((data) => {
           return {
