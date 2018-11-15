@@ -1,3 +1,13 @@
+# [1.0.0-alpha.4](https://github.com/TalkingData/rxloop/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2018-11-15)
+
+
+### Bug Fixes
+
+* fix version ([248936b](https://github.com/TalkingData/rxloop/commit/248936b))
+* rollup ([c93afd9](https://github.com/TalkingData/rxloop/commit/c93afd9))
+
+
+
 <a name="1.0.0-alpha.2"></a>
 # [1.0.0-alpha.2](https://github.com/TalkingData/rxloop/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2018-11-02)
 
