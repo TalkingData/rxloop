@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+export { Observable, Subject } from 'rxjs';
 
 export interface Action {
   type: string,
