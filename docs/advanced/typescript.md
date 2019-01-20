@@ -34,3 +34,35 @@ const comment: Model = {
 };
 export default comment;
 ```
+
+##  Class style model 
+
+```typescript
+import { Action, model, reducer, pipe } from '@rxloop/core';
+
+@model({ name: '', email: '' })
+export class User {
+  @reducer
+  info(state: any, action: Action) { return state }
+
+  @pipe
+  getData(action$: Observable<Action>, { call, map }) {
+    return action$.pipe(
+      call(async (action: Action) => {
+        return { name: 'wxnet' };
+      }),
+      map((data) => {
+        return { type: 'info', data };
+      }),
+    );
+  }
+
+  @pipe
+  setData(action$: Observable<Action>) {
+    return action$.pipe();
+  }
+}
+
+const app = rxloop();
+app.model(User);
+```

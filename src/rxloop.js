@@ -2,7 +2,7 @@ import { Subject, BehaviorSubject, throwError, combineLatest, merge } from "rxjs
 import { filter, scan, map, publishReplay, refCount, catchError } from "rxjs/operators";
 import invariant from 'invariant';
 import checkModel from './check-model';
-import { isPlainObject, isFunction, noop } from './utils';
+import { isPlainObject, isFunction, noop, normalizeArgsModle } from './utils';
 import initPlugins from './plugins';
 import { call } from './call';
 
@@ -282,7 +282,7 @@ export function rxloop( config = {} ) {
     _reducers: {},
     _pipes: {},
     getSingleStore,
-    model,
+    model: normalizeArgsModle(model),
     subscribe,
     getState,
     stream,

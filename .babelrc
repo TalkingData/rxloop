@@ -3,11 +3,7 @@
     [
       "@babel/env",
       {
-        "targets": {
-          "browsers": [
-            "ie >= 11"
-          ]
-        },
+        "targets": { "browsers": ["ie >= 11"] },
         "exclude": ["transform-async-to-generator", "transform-regenerator"],
         "modules": false,
         "loose": true
@@ -15,18 +11,13 @@
     ]
   ],
   "plugins": [
-    "@babel/plugin-proposal-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]
   ],
   "env": {
     "commonjs": {
-      "presets": [
-        [
-          "@babel/env",
-          {
-            "loose": true
-          }
-        ]
-      ]
+      "presets": [["@babel/env", {  "modules": "cjs" }]]
     }
   }
 }
