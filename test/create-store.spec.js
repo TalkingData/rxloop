@@ -1,7 +1,6 @@
 import rxloop from '../src/';
 import { addTodo } from './helpers/actionCreators'
 import * as reducers from './helpers/reducers'
-delete reducers.__esModule;
 
 function createStore(reducers, state, name = 'test') {
   const store = rxloop();
