@@ -13,25 +13,22 @@ export interface OperatorsMap {
   dispatch: Function,
   put: Function,
   cancel$: Observable<Action>,
+  [key: string]: any,
 }
 
-export type Reducer = (state: any, action: Action) => any;
+export type Reducer<T=any> = (state: T, action?: Action) => T;
 
 export type Pipe = (action$: Observable<Action>, operators: OperatorsMap) => Observable<Action>;
 
-export interface PipesMapObject {
-  [key: string]: Pipe,
+type MapObject<T> = {
+  [key: string]: T,
 }
 
-export interface ReducersMapObject {
-  [key: string]: Reducer,
-}
-
-export interface Model {
+export interface Model<T=any> {
   name: string,
-  state?: any,
-  reducers?: ReducersMapObject,
-  pipes?: PipesMapObject,
+  state: T,
+  reducers?: MapObject<Reducer>,
+  pipes?: MapObject<Pipe>,
 }
 
 export interface Unsubscribe {
