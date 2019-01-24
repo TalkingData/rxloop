@@ -96,10 +96,12 @@ store.dispatch({
 2. [与 React 集成](https://github.com/TalkingData/react-rxloop)
 
 ## 插件
-1. [immer](https://github.com/TalkingData/rxloop-immer)
-2. [loading](https://github.com/TalkingData/rxloop-loading)
-3. [devtools](https://github.com/TalkingData/rxloop-devtools)
-4. [meta](https://github.com/TalkingData/rxloop-meta)
+| Plugins   |     NPM      |
+|----------|:-------------:|
+| [immer](https://github.com/TalkingData/rxloop-immer)       | ![immer](https://img.shields.io/npm/v/@rxloop/immer.svg?style=shield&colorB=brightgreen) |
+| [loading](https://github.com/TalkingData/rxloop-loading)   | ![immer](https://img.shields.io/npm/v/@rxloop/loading.svg?style=shield&colorB=brightgreen)   |
+| [devtools](https://github.com/TalkingData/rxloop-devtools) | ![immer](https://img.shields.io/npm/v/@rxloop/devtools.svg?style=shield&colorB=brightgreen) |
+
 
 ## 更多示例
 
