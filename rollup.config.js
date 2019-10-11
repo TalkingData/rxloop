@@ -10,7 +10,7 @@ export default [
   // CommonJS
   {
     input: 'src/index.js',
-    output: { file: 'lib/rxloop.js', format: 'cjs', indent: false, exports: 'named' },
+    output: { file: 'lib/rxloop.js', format: 'cjs', indent: false },
     external: [
       ...Object.keys(pkg.dependencies || {}),
       ...Object.keys(pkg.peerDependencies || {})
@@ -48,7 +48,7 @@ export default [
     plugins: [
       nodeResolve({
         jsnext: true,
-        main: true,
+        main: true
       }),
       babel(),
       commonjs(),
@@ -79,7 +79,7 @@ export default [
     plugins: [
       nodeResolve({
         jsnext: true,
-        main: true,
+        main: true
       }),
       babel({
         exclude: 'node_modules/**',
