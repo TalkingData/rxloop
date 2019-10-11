@@ -1,0 +1,22 @@
+{
+  "name": "@rxloop/loading",
+  "version": "1.0.0-alpha.4",
+  "description": "@rxloop/loading",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:TalkingData/rxloop.git"
+  },
+  "keywords": [
+    "rxjs",
+    "model",
+    "vue"
+  ],
+  "author": "wxnet <wxnet2013@gmail.com> (https://github.com/wxnet2013)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TalkingData/rxloop/issues"
+  },
+  "homepage": "https://talkingdata.github.io/rxloop",
+  "dependencies": {},
+  "peerDependencies": {}
+}

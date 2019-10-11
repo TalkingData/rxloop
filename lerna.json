@@ -1,0 +1,5 @@
+{
+  "npmClient": "npm",
+  "useWorkspaces": true,
+  "version": "1.0.0-alpha.4"
+}
