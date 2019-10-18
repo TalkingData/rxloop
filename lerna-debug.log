@@ -13,26 +13,104 @@
 8 silly runScriptInDir test [] core
 9 silly getExecOpts { cwd:
 9 silly getExecOpts    '/Users/wxnet/Projects/talkingdata/rxloop/rxloop/packages/core' }
-10 silly runScriptInDir test [] devtools
-11 silly getExecOpts { cwd:
-11 silly getExecOpts    '/Users/wxnet/Projects/talkingdata/rxloop/rxloop/packages/devtools' }
-12 silly runScriptInDir test [] immer
-13 silly getExecOpts { cwd:
-13 silly getExecOpts    '/Users/wxnet/Projects/talkingdata/rxloop/rxloop/packages/immer' }
-14 error test Errored while running script in '@rxloop/devtools'
-15 error execute callback with error
-16 error Error: Command failed: yarn run test
-16 error error Command failed with exit code 1.
-16 error yarn run v1.19.1
-16 error $ jest --config ../../jest.config.js
-16 error No tests found, exiting with code 1
-16 error Run with `--passWithNoTests` to exit with code 0
-16 error In /Users/wxnet/Projects/talkingdata/rxloop/rxloop
-16 error   69 files checked.
-16 error   testMatch: /Users/wxnet/Projects/talkingdata/rxloop/rxloop/packages/devtools/test/**/*spec.[jt]s?(x) - 0 matches
-16 error   testPathIgnorePatterns: /node_modules/ - 69 matches
-16 error   testRegex:  - 0 matches
-16 error Pattern:  - 0 matches
-16 error info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
-16 error
-16 error     at Promise.all.then.arr (/usr/local/lib/node_modules/lerna/node_modules/execa/index.js:236:11)
+10 error test Errored while running script in '@rxloop/core'
+11 error execute callback with error
+12 error Error: Command failed: yarn run test
+12 error FAIL test/call.spec.js
+12 error   ● Test suite failed to run
+12 error
+12 error     Cannot find module '../' from 'call.spec.js'
+12 error
+12 error     > 1 | import rxloop, { call } from '../';
+12 error         | ^
+12 error       2 | import { Subject } from 'rxjs';
+12 error       3 |
+12 error       4 | const delay = (ms) => new Promise((r) => setTimeout(() => r(), ms));
+12 error
+12 error       at Resolver.resolveModule (node_modules/jest-resolve/build/index.js:259:17)
+12 error       at Object.<anonymous> (packages/core/test/call.spec.js:1:1)
+12 error
+12 error FAIL test/plugins/index.spec.js
+12 error   ● Test suite failed to run
+12 error
+12 error     Cannot find module '../../' from 'index.spec.js'
+12 error
+12 error     > 1 | import rxloop from '../../';
+12 error         | ^
+12 error       2 | import { from } from 'rxjs';
+12 error       3 | import { mapTo, map, takeUntil, switchMap } from "rxjs/operators";
+12 error       4 |
+12 error
+12 error       at Resolver.resolveModule (node_modules/jest-resolve/build/index.js:259:17)
+12 error       at Object.<anonymous> (packages/core/test/plugins/index.spec.js:1:1)
+12 error
+12 error FAIL test/rxloop.spec.js
+12 error   ● Test suite failed to run
+12 error
+12 error     Cannot find module '../' from 'rxloop.spec.js'
+12 error
+12 error     > 1 | import rxloop from '../';
+12 error         | ^
+12 error       2 | import { of } from 'rxjs';
+12 error       3 | import { map, mapTo } from "rxjs/operators";
+12 error       4 |
+12 error
+12 error       at Resolver.resolveModule (node_modules/jest-resolve/build/index.js:259:17)
+12 error       at Object.<anonymous> (packages/core/test/rxloop.spec.js:1:1)
+12 error
+12 error FAIL test/create-store.spec.js
+12 error   ● Test suite failed to run
+12 error
+12 error     Cannot find module '..' from 'create-store.spec.js'
+12 error
+12 error     > 1 | import rxloop from '..';
+12 error         | ^
+12 error       2 | import { addTodo } from './helpers/actionCreators'
+12 error       3 | import * as reducers from './helpers/reducers'
+12 error       4 |
+12 error
+12 error       at Resolver.resolveModule (node_modules/jest-resolve/build/index.js:259:17)
+12 error       at Object.<anonymous> (packages/core/test/create-store.spec.js:1:1)
+12 error
+12 error FAIL test/plugins/context.spec.js
+12 error   ● Test suite failed to run
+12 error
+12 error     Cannot find module '../../' from 'context.spec.js'
+12 error
+12 error     > 1 | import rxloop from '../../';
+12 error         | ^
+12 error       2 | import { mapTo, tap, delay } from "rxjs/operators";
+12 error       3 |
+12 error       4 | describe('Pipe success', () => {
+12 error
+12 error       at Resolver.resolveModule (node_modules/jest-resolve/build/index.js:259:17)
+12 error       at Object.<anonymous> (packages/core/test/plugins/context.spec.js:1:1)
+12 error
+12 error FAIL test/index.spec.js
+12 error   ● Test suite failed to run
+12 error
+12 error     Cannot find module '../' from 'index.spec.js'
+12 error
+12 error     > 1 | import rxloop from '../';
+12 error         | ^
+12 error       2 |
+12 error       3 | test('export plugins', () => {
+12 error       4 |   expect(rxloop).not.toBeUndefined();
+12 error
+12 error       at Resolver.resolveModule (node_modules/jest-resolve/build/index.js:259:17)
+12 error       at Object.<anonymous> (packages/core/test/index.spec.js:1:1)
+12 error
+12 error PASS test/typescript.spec.js (15.776s)
+12 error   TypeScript definitions
+12 error     ✓ should compile against index.d.ts (12841ms)
+12 error
+12 error Test Suites: 6 failed, 1 passed, 7 total
+12 error Tests:       1 passed, 1 total
+12 error Snapshots:   0 total
+12 error Time:        17.795s
+12 error Ran all test suites.
+12 error error Command failed with exit code 1.
+12 error $ jest --config ../../jest.config.js
+12 error info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+12 error
+12 error     at Promise.all.then.arr (/Users/wxnet/Projects/talkingdata/rxloop/rxloop/node_modules/lerna/node_modules/execa/index.js:236:11)

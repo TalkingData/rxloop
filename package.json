@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node ./scripts/build.js core loading immer devtools",
     "lint": "echo 'lint'",
+    "pretest": "yarn run build",
     "test": "lerna run test",
     "test:cov": "npm test -- --coverage",
     "test:types": "echo 'test types'",

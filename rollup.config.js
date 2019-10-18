@@ -40,7 +40,9 @@ export default [
         // main: true
       }),
       
-      babel(),
+      babel({
+        runtimeHelpers: true
+      }),
       commonjs(), // immer
     ]
   },
@@ -59,7 +61,9 @@ export default [
         // jsnext: true,
         // main: true
       }),
-      babel(),
+      babel({
+        runtimeHelpers: true
+      }),
       commonjs(), // immer
     ]
   },
@@ -74,7 +78,9 @@ export default [
         // jsnext: true,
         // main: true
       }),
-      babel(),
+      babel({
+        runtimeHelpers: true
+      }),
       commonjs(),
       replace({
         'process.env.NODE_ENV': JSON.stringify('production')
@@ -108,6 +114,7 @@ export default [
       }),
       babel({
         exclude: 'node_modules/**',
+        runtimeHelpers: true
       }),
       commonjs(),
       replace({
@@ -133,7 +140,8 @@ export default [
         // main: true
       }),
       babel({
-        exclude: 'node_modules/**'
+        exclude: 'node_modules/**',
+        runtimeHelpers: true
       }),
       commonjs(),
       replace({
