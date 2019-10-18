@@ -1,4 +1,4 @@
-import rxloop, { call } from '../src/';
+import rxloop, { call } from '../';
 import { Subject } from 'rxjs';
 
 const delay = (ms) => new Promise((r) => setTimeout(() => r(), ms));

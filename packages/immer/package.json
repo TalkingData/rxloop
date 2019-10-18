@@ -2,6 +2,9 @@
   "name": "@rxloop/immer",
   "version": "1.0.0-alpha.4",
   "description": "@rxloop/immer",
+  "scripts": {
+    "test": "jest --config ../../jest.config.js"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:TalkingData/rxloop.git"
@@ -22,8 +25,8 @@
     "lodash": "^4.17.11"
   },
   "peerDependencies": {
-    "@rxloop/core": ">= 1.0.0-alpha.4",
-    "rxjs": "^6.0.0-0"
+    "rxjs": "^6.0.0-0",
+    "@rxloop/core": "^1.0.0-alpha.4"
   },
   "main": "lib/immer.js",
   "module": "es/immer.js",
@@ -35,5 +38,9 @@
     "es",
     "src",
     "index.d.ts"
-  ]
+  ],
+  "devDependencies": {
+    "rxjs": "^6.5.3",
+    "@rxloop/core": "^1.0.0-alpha.4"
+  }
 }

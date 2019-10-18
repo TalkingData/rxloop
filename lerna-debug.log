@@ -1,0 +1,38 @@
+0 silly input [ 'test' ]
+1 silly flags { _: [ 'run' ],
+1 silly flags   'reject-cycles': false,
+1 silly flags   rejectCycles: false,
+1 silly flags   script: 'test',
+1 silly flags   args: [] }
+2 verbose rootPath /Users/wxnet/Projects/talkingdata/rxloop/rxloop
+3 info version 2.11.0
+4 silly existsSync /Users/wxnet/Projects/talkingdata/rxloop/rxloop/VERSION
+5 silly initialize attempt
+6 silly initialize success
+7 silly execute attempt
+8 silly runScriptInDir test [] core
+9 silly getExecOpts { cwd:
+9 silly getExecOpts    '/Users/wxnet/Projects/talkingdata/rxloop/rxloop/packages/core' }
+10 silly runScriptInDir test [] devtools
+11 silly getExecOpts { cwd:
+11 silly getExecOpts    '/Users/wxnet/Projects/talkingdata/rxloop/rxloop/packages/devtools' }
+12 silly runScriptInDir test [] immer
+13 silly getExecOpts { cwd:
+13 silly getExecOpts    '/Users/wxnet/Projects/talkingdata/rxloop/rxloop/packages/immer' }
+14 error test Errored while running script in '@rxloop/devtools'
+15 error execute callback with error
+16 error Error: Command failed: yarn run test
+16 error error Command failed with exit code 1.
+16 error yarn run v1.19.1
+16 error $ jest --config ../../jest.config.js
+16 error No tests found, exiting with code 1
+16 error Run with `--passWithNoTests` to exit with code 0
+16 error In /Users/wxnet/Projects/talkingdata/rxloop/rxloop
+16 error   69 files checked.
+16 error   testMatch: /Users/wxnet/Projects/talkingdata/rxloop/rxloop/packages/devtools/test/**/*spec.[jt]s?(x) - 0 matches
+16 error   testPathIgnorePatterns: /node_modules/ - 69 matches
+16 error   testRegex:  - 0 matches
+16 error Pattern:  - 0 matches
+16 error info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+16 error
+16 error     at Promise.all.then.arr (/usr/local/lib/node_modules/lerna/node_modules/execa/index.js:236:11)

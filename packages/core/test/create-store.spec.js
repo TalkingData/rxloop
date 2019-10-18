@@ -1,4 +1,4 @@
-import rxloop from '../src/';
+import rxloop from '..';
 import { addTodo } from './helpers/actionCreators'
 import * as reducers from './helpers/reducers'
 

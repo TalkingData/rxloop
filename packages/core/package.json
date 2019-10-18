@@ -4,7 +4,7 @@
   "description": "@rxloop/core",
   "scripts": {
     "clean": "rimraf lib dist es",
-    "test": "cross-env BABEL_ENV=test jest"
+    "test": "jest --config ../../jest.config.js"
   },
   "repository": {
     "type": "git",
@@ -26,9 +26,9 @@
     "is-plain-object": "^2.0.4"
   },
   "peerDependencies": {},
-  "main": "lib/rxloop.js",
-  "module": "es/rxloop.js",
-  "unpkg": "dist/rxloop.js",
+  "main": "lib/core.js",
+  "module": "es/core.js",
+  "unpkg": "dist/core.js",
   "typings": "./index.d.ts",
   "files": [
     "dist",

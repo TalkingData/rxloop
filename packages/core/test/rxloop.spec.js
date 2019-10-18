@@ -1,4 +1,4 @@
-import rxloop from '../src/';
+import rxloop from '../';
 import { of } from 'rxjs';
 import { map, mapTo } from "rxjs/operators";
 
