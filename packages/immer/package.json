@@ -17,6 +17,23 @@
     "url": "https://github.com/TalkingData/rxloop/issues"
   },
   "homepage": "https://talkingdata.github.io/rxloop",
-  "dependencies": {},
-  "peerDependencies": {}
+  "dependencies": {
+    "immer": "^1.6.0",
+    "lodash": "^4.17.11"
+  },
+  "peerDependencies": {
+    "@rxloop/core": ">= 1.0.0-alpha.4",
+    "rxjs": "^6.0.0-0"
+  },
+  "main": "lib/immer.js",
+  "module": "es/immer.js",
+  "unpkg": "dist/immer.js",
+  "typings": "./index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src",
+    "index.d.ts"
+  ]
 }

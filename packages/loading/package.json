@@ -18,5 +18,19 @@
   },
   "homepage": "https://talkingdata.github.io/rxloop",
   "dependencies": {},
-  "peerDependencies": {}
+  "peerDependencies": {
+    "rxjs": "^6.0.0-0",
+    "@rxloop/core": "^1.0.0-alpha.4-0"
+  },
+  "main": "lib/loading.js",
+  "module": "es/loading.js",
+  "unpkg": "dist/loading.js",
+  "typings": "./index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src",
+    "index.d.ts"
+  ]
 }

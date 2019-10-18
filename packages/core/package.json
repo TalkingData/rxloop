@@ -2,6 +2,10 @@
   "name": "@rxloop/core",
   "version": "1.0.0-alpha.4",
   "description": "@rxloop/core",
+  "scripts": {
+    "clean": "rimraf lib dist es",
+    "test": "cross-env BABEL_ENV=test jest"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:TalkingData/rxloop.git"
@@ -9,6 +13,7 @@
   "keywords": [
     "rxjs",
     "model",
+    "react",
     "vue"
   ],
   "author": "wxnet <wxnet2013@gmail.com> (https://github.com/wxnet2013)",
@@ -16,9 +21,20 @@
   "bugs": {
     "url": "https://github.com/TalkingData/rxloop/issues"
   },
-  "homepage": "https://talkingdata.github.io/rxloop",
-  "dependencies": {},
-  "peerDependencies": {
-    "rxjs": "^6.0.0-0"
-  }
+  "dependencies": {
+    "invariant": "^2.2.4",
+    "is-plain-object": "^2.0.4"
+  },
+  "peerDependencies": {},
+  "main": "lib/rxloop.js",
+  "module": "es/rxloop.js",
+  "unpkg": "dist/rxloop.js",
+  "typings": "./index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src",
+    "index.d.ts"
+  ]
 }
