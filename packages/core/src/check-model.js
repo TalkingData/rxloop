@@ -6,6 +6,7 @@ export default function checkModel(model, rootState) {
     name,
     reducers,
     pipes,
+    subscriptions,
   } = model;
 
   // name should be defined
@@ -47,6 +48,17 @@ export default function checkModel(model, rootState) {
     invariant(
       isAllFunction(pipes),
       `[app.model] all pipe should be function`,
+    );
+  }
+
+  if (subscriptions) {
+    invariant(
+      isPlainObject(subscriptions),
+      `[app.model] subscriptions should be plain object, but got ${typeof subscriptions}`,
+    );
+    invariant(
+      isAllFunction(subscriptions),
+      `[app.model] all subscriptions should be function`,
     );
   }
 }

@@ -100,6 +100,89 @@ app.model({
   }
 });
 
+app.model({
+  name: 'test_subscriptions_a',
+  state: {
+    info: 0,
+  },
+  reducers: {
+    update(state, action) {
+      console.log(1, action);
+      return {
+        ...state,
+        info: action.data,
+      };
+    }
+  },
+  pipes: {
+    getData(action$, { map }) {
+      return action$.pipe(
+        map(() => {
+          return {
+            type: 'update',
+            data: 22,
+          };
+        }),
+      );
+    },
+  },
+});
+
+app.model({
+  name: 'test_subscriptions_b',
+  state: {
+    info: 0,
+  },
+  reducers: {
+    update(state, action) {
+      return {
+        ...state,
+        info: action.data,
+      };
+    }
+  },
+  subscriptions: {
+    model(source, { dispatch }) {
+      source('test_subscriptions_a/update').subscribe(() => {
+        dispatch({
+          type: 'test_subscriptions_b/update',
+          data: 1,
+        });
+      });
+      source('test_subscriptions_a/getData/end').subscribe(() => {
+        dispatch({
+          type: 'test_subscriptions_b/update',
+          data: 3,
+        });
+      });
+    },
+  },
+});
+
+app.model({
+  name: 'test_subscriptions_c',
+  state: {
+    info: {},
+  },
+  reducers: {
+    update(state) {
+      return {
+        ...state,
+        info: 2,
+      };
+    }
+  },
+  subscriptions: {
+    model(source, { dispatch }) {
+      source('test_subscriptions_a/update').subscribe(() => {
+        dispatch({
+          type: 'test_subscriptions_c/update',
+        });
+      });
+    },
+  },
+});
+
 describe('Basic api', () => {
   test('exposes the public API', () => {
     const apis = Object.keys(app);
@@ -187,6 +270,23 @@ describe('Error check', () => {
     .toThrow('[app.model] all pipe should be function');
   });
 
+  test('throws if subscriptions is not a plain object', () => {
+    expect(() => app.model({ name: 'c', state: 1, subscriptions: 'object' }))
+    .toThrow('[app.model] subscriptions should be plain object, but got string');
+  });
+
+  test('throws if all subscription should not be function', () => {
+    expect(() => app.model({
+      name: 'e',
+      state: 1,
+      subscriptions: {
+        a() {},
+        b: 'b',
+      },
+    }))
+    .toThrow('[app.model] all subscriptions should be function');
+  });
+  
   test('throws if is not pass an undifined model', () => {
     expect(() => app.stream('undifined')).toThrow();
   });
@@ -256,6 +356,28 @@ describe('Cross model usage', () => {
       txt: 'updated from a',
     });
   });
+
+  test('subscribe reducer', () => {
+    app.dispatch({
+      type: 'test_subscriptions_a/update',
+      data: 1,
+    });
+    expect(app.getState('test_subscriptions_b')).toEqual({
+      info: 1,
+    });
+    expect(app.getState('test_subscriptions_c')).toEqual({
+      info: 2,
+    });
+  });
+
+    test('subscribe pipe', () => {
+      app.dispatch({
+        type: 'test_subscriptions_a/getData',
+      });
+      expect(app.getState('test_subscriptions_b')).toEqual({
+        info: 3,
+      });
+    });
 });
 
 describe('check config', () => {

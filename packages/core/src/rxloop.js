@@ -26,10 +26,10 @@ export function rxloop( config = {} ) {
 
     Object.keys(reducers).forEach(type => {
       // 为每一个 reducer 创建一个数据流,
-      stream[`reducer_${type}$`] = createStream(`${name}/${type}`);
+      stream[`${name}/${type}$`] = createStream(`${name}/${type}`);
       
       // 将数据流导入到 reducer 之中，进行同步状态数据计算
-      stream[`reducer_${type}$`].pipe(
+      stream[`${name}/${type}$`].pipe(
         map(action => {
           const rtn = this.createReducer(action, reducers[type]);
           action.__source__ = { reducer: type };
@@ -49,18 +49,18 @@ export function rxloop( config = {} ) {
     Object.keys(pipes).forEach(type => {
       // pipes 中函数名称不能跟 reducers 里的函数同名
       invariant(
-        !stream[`reducer_${type}$`],
+        !stream[`${name}/${type}$`],
         `[pipes] duplicated type ${type} in pipes and reducers`,
       );
 
       // 为每一个 pipe 创建一个数据流,
-      stream[`pipe_${type}$`] = createStream(`${name}/${type}`);
-      stream[`pipe_${type}_cancel$`] = createStream(`${name}/${type}/cancel`);
-      stream[`pipe_${type}_error$`] = createStream(`${name}/${type}/error`);
+      stream[`${name}/${type}$`] = createStream(`${name}/${type}`);
+      stream[`${name}/${type}/cancel$`] = createStream(`${name}/${type}/cancel`);
+      stream[`${name}/${type}/error$`] = createStream(`${name}/${type}/error`);
       
-      errors.push(stream[`pipe_${type}_error$`]);
+      errors.push(stream[`${name}/${type}/error$`]);
 
-      stream[`pipe_${type}$`].subscribe(data => {
+      stream[`${name}/${type}$`].subscribe(data => {
         data.__cancel__ = stream[`pipe_${type}_cancel$`];
         data.__bus__ = bus$;
 
@@ -73,7 +73,7 @@ export function rxloop( config = {} ) {
         });
       });
 
-      stream[`pipe_${type}_cancel$`].subscribe(() => {
+      stream[`${name}/${type}/cancel$`].subscribe(() => {
         this.dispatch({
           type: 'plugin',
           action: 'onPipeCancel',
@@ -82,7 +82,7 @@ export function rxloop( config = {} ) {
         });
       });
 
-      stream[`pipe_${type}_error$`].subscribe(({ model, pipe, error }) => {
+      stream[`${name}/${type}/error$`].subscribe(({ model, pipe, error }) => {
         option.onError({ model, pipe, error });
         this.dispatch({
           model,
@@ -94,9 +94,9 @@ export function rxloop( config = {} ) {
       });
       
       // 将数据流导入到 pipe 之中，进行异步操作
-      pipes[type].call(this,
-        stream[`pipe_${type}$`],
-        { call, map, dispatch, put: dispatch, cancel$: stream[`pipe_${type}_cancel$`] }
+      stream[`${name}/${type}/end$`] = pipes[type].call(this,
+        stream[`${name}/${type}$`],
+        { call, map, dispatch, put: dispatch, cancel$: stream[`${name}/${type}/cancel$`] }
       ).pipe(
         map(action => {
           const { type: reducer } = action;
@@ -136,9 +136,10 @@ export function rxloop( config = {} ) {
           });
           return throwError(error);
         }),
-      )
+      );
+
       // 将异步计算结果推送出去
-      .subscribe(out$$);
+      stream[`${name}/${type}/end$`].subscribe(out$$);
     });
   }
 
@@ -168,8 +169,38 @@ export function rxloop( config = {} ) {
     );
   }
 
-  function model({ name, state = {}, reducers = {}, pipes = {} }) {
-    checkModel({ name, state, reducers, pipes }, this._state);
+
+  /*
+  https://github.com/TalkingData/rxloop/issues/2
+  {
+  name: 'table',
+  subscriptions: {
+    model(source, { dispatch }) {
+      source('filter/change').subscribe((action)) => {
+        dispatch({ type: 'table/add' });
+      });
+      source('filter/change/end').subscribe((action) => {
+        dispatch({ type: 'table/add' });
+      });
+    },
+  }
+  }
+  */
+  function createSubscriptions(subscriptions) {
+      
+    function source(key) {
+      const [,name] = key.match(/(\w+)\/(\w+)(?:\/(\w+))?/);
+      return this._stream[name][`${key}$`];
+    }
+
+    // sub = (model|key|mouse|socket|router)
+    Object.keys(subscriptions).forEach(sub => {
+      subscriptions[sub](source.bind(this), { call, map, dispatch, put: dispatch });
+    });
+  }
+
+  function model({ name, state = {}, reducers = {}, pipes = {}, subscriptions = {} }) {
+    checkModel({ name, state, reducers, pipes, subscriptions }, this._state);
     
     this.dispatch({
       type: 'plugin',
@@ -180,6 +211,7 @@ export function rxloop( config = {} ) {
     this._state[name] = state;
     this._reducers[name] = reducers;
     this._pipes[name] = pipes;
+    this._subscriptions[name] = subscriptions;
     this._stream[name] = {};
     this._errors[name] = [];
 
@@ -193,6 +225,8 @@ export function rxloop( config = {} ) {
 
     // 创建数据流出口
     createModelStream.call(this, name, state, out$$);
+
+    createSubscriptions.call(this, subscriptions);
 
     this.dispatch({
       type: 'plugin',
@@ -281,6 +315,7 @@ export function rxloop( config = {} ) {
     _errors: {},
     _reducers: {},
     _pipes: {},
+    _subscriptions: {},
     getSingleStore,
     model,
     subscribe,
