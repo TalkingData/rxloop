@@ -1,4 +1,4 @@
-import rxloop from '../../../src';
+import rxloop from '@rxloop/core';
 import immer from '@rxloop/immer';
 
 const counter = {

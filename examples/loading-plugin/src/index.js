@@ -1,5 +1,5 @@
+import rxloop from '@rxloop/core';
 import loading from '@rxloop/loading';
-import rxloop from '../../../src';
 
 const apiSlow = async () => {
   const data = await new Promise((resolve) => {
