@@ -21,12 +21,12 @@
   },
   "homepage": "https://talkingdata.github.io/rxloop",
   "dependencies": {
-    "immer": "^1.6.0",
+    "immer": "^4.0.2",
     "lodash": "^4.17.11"
   },
   "peerDependencies": {
-    "rxjs": "^6.0.0-0",
-    "@rxloop/core": "^1.0.0-alpha.4"
+    "@rxloop/core": "^1.0.0-alpha.4",
+    "rxjs": "^6.0.0-0"
   },
   "main": "lib/immer.js",
   "module": "es/immer.js",
@@ -40,7 +40,7 @@
     "index.d.ts"
   ],
   "devDependencies": {
-    "rxjs": "^6.5.3",
-    "@rxloop/core": "^1.0.0-alpha.4"
+    "@rxloop/core": "^1.0.0-alpha.4",
+    "rxjs": "^6.5.3"
   }
 }
