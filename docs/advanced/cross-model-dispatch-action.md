@@ -4,7 +4,7 @@ rxloop 支持两种跨 model 通信方式，在 pipe 中主动发送消息和在
 
 一、在 subscriptions 中订阅消息
 
-在 subscriptions 中用 model 函数设置 model 之间的订阅关系，然后通过函数的第一个参数获取任意 model 发送的 pipe 或者 reducer 数据源，对于 pipe 类型数据源，可设置不同的key 监听异步执行前后的消息。
+在 subscriptions 中用 model 函数设置 model 之间的订阅关系，然后通过函数的第一个参数获取任意 model 发送的 pipe 或者 reducer 数据源，对于 pipe 类型数据源，可设置不同的key 监听异步执行前后的消息。
 
 ```js
 const filter = {
