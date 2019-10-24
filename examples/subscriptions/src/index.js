@@ -55,7 +55,7 @@ const table = {
     model(source, { dispatch }) {
       source('filter/selectCity').subscribe((action) => {
         dispatch({
-          type: 'chart/setList',
+          type: 'table/setList',
           list: [4,5,6],
         });
       });
