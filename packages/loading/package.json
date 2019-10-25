@@ -1,6 +1,6 @@
 {
   "name": "@rxloop/loading",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "@rxloop/loading",
   "scripts": {
     "test": "jest --config ../../jest.config.js"
@@ -20,7 +20,6 @@
     "url": "https://github.com/TalkingData/rxloop/issues"
   },
   "homepage": "https://talkingdata.github.io/rxloop",
-  "dependencies": {},
   "peerDependencies": {
     "@rxloop/core": "^1.0.0-alpha.4",
     "rxjs": "^6.0.0-0"
@@ -37,7 +36,7 @@
     "index.d.ts"
   ],
   "devDependencies": {
-    "@rxloop/core": "^1.0.0-alpha.4",
+    "@rxloop/core": "^1.0.0-alpha.5",
     "rxjs": "^6.5.3"
   },
   "publishConfig": {

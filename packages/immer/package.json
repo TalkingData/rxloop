@@ -1,6 +1,6 @@
 {
   "name": "@rxloop/immer",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "@rxloop/immer",
   "scripts": {
     "test": "jest --config ../../jest.config.js"
@@ -40,7 +40,7 @@
     "index.d.ts"
   ],
   "devDependencies": {
-    "@rxloop/core": "^1.0.0-alpha.4",
+    "@rxloop/core": "^1.0.0-alpha.5",
     "rxjs": "^6.5.3"
   },
   "publishConfig": {

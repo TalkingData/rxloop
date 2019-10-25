@@ -1,6 +1,6 @@
 {
   "name": "@rxloop/devtools",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "@rxloop/devtools",
   "repository": {
     "type": "git",
@@ -17,13 +17,12 @@
     "url": "https://github.com/TalkingData/rxloop/issues"
   },
   "homepage": "https://talkingdata.github.io/rxloop",
-  "dependencies": {},
   "peerDependencies": {
     "@rxloop/core": ">=1.0.0-alpha.4",
     "rxjs": "^6.0.0-0"
   },
   "devDependencies": {
-    "@rxloop/core": "^1.0.0-alpha.4",
+    "@rxloop/core": "^1.0.0-alpha.5",
     "rxjs": "^6.5.3"
   },
   "main": "lib/devtools.js",
