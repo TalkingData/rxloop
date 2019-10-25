@@ -42,5 +42,8 @@
   "devDependencies": {
     "@rxloop/core": "^1.0.0-alpha.4",
     "rxjs": "^6.5.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -36,5 +36,8 @@
     "es",
     "src",
     "index.d.ts"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

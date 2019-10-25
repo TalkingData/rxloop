@@ -11,9 +11,7 @@
     "test": "lerna run test",
     "test:cov": "npm test -- --coverage",
     "test:types": "echo 'test types'",
-    "format": "prettier --write \"{src,test}/**/*.js\"",
-    "prepublishOnly": "conventional-changelog -p angular -r 2 -i CHANGELOG.md -s",
-    "release": "/bin/bash scripts/release.sh"
+    "format": "prettier --write \"{src,test}/**/*.js\""
   },
   "keywords": [
     "rxjs",

@@ -25,7 +25,12 @@
     "invariant": "^2.2.4",
     "is-plain-object": "^2.0.4"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "rxjs": "^6.0.0-0"
+  },
+  "devDependencies": {
+    "rxjs": "^6.5.3"
+  },
   "main": "lib/core.js",
   "module": "es/core.js",
   "unpkg": "dist/core.js",
@@ -36,5 +41,8 @@
     "es",
     "src",
     "index.d.ts"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
